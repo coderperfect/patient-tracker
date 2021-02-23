@@ -19,7 +19,7 @@ public class Medicine {
 	
 	@Override
 	public String toString() {
-		return "Medicine [medicineId=" + medicineId + ", medicineName=" + medicineName + ", medicineCost="
-				+ String.format("%.2f",medicineCost) + "]";
+		return "Medicine(medicineId=" + medicineId + ", medicineName=" + medicineName + ", medicineCost="
+				+ String.format("%.2f",medicineCost) + ")";
 	}
 }
