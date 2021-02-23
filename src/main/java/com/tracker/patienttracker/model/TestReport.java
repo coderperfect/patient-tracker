@@ -11,21 +11,23 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+
 @ToString
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
 @Getter
 @Setter
-@Table(name="billing")
-public class Billing {
+@Table(name="test_report")
+public class TestReport {
 
-@Id
-@GeneratedValue(strategy = GenerationType.IDENTITY)
-private int billingId;
-private int patientId;
-private String testResult;
-private int doctorId;
-private boolean requested;
-private boolean paid;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int testResultId;
+	private int testId;
+	private int patientId;
+	private String testResult;
+	private int doctorId;
+	private boolean requested;
+	private boolean paid;
 }
