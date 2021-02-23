@@ -57,4 +57,11 @@ public class TestReportTest {
 		testReport.setPaid(true);
 		assertEquals(testReport.isPaid(),true);
 	}
+	@Test
+	void constructorTest()
+	{
+		TestReport testReport1=new TestReport(1, 0, 0, "Done", 0, true, false);
+		TestReport testReport2=new TestReport(1, 0, 0, "Done", 0, true, false);
+		assertEquals(testReport1.toString(),testReport2.toString());
+	}
 }

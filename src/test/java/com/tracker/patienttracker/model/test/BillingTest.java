@@ -1,6 +1,7 @@
 package com.tracker.patienttracker.model.test;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertSame;
 
 import org.junit.jupiter.api.Test;
 
@@ -49,5 +50,14 @@ public class BillingTest {
 		Billing billing=new Billing();
 		billing.setPaid(true);
 		assertEquals(billing.isPaid(),true);
+	}
+	@Test
+	void constructorTest()
+	{
+		Billing billing1=new Billing(1, 0, "Done", 0, true, false);
+		Billing billing2=new Billing(1, 0, "Done", 0, true, false);
+		assertEquals(billing1.toString(),billing2.toString());
+		
+		
 	}
 }
