@@ -14,23 +14,20 @@ import lombok.Setter;
 
 @Entity
 @Repository
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 @Getter
 @Setter
-public class Prescription {
+public class Medicine {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int prescriptionId;
 	private int medicineId;
-	private int quantity;
-	private double prescriptionCost;
-	private boolean paid;
-	private boolean billed;
+	private String medicineName;
+	private double medicineCost;
 	
 	@Override
 	public String toString() {
-		return "Prescription(prescriptionId=" + prescriptionId + ", medicineId=" + medicineId + ", quantity="
-				+ quantity + ", prescriptionCost=" + String.format("%.2f", prescriptionCost) + ", paid=" + paid + ", billed=" + billed + ")";
+		return "Medicine(medicineId=" + medicineId + ", medicineName=" + medicineName + ", medicineCost="
+				+ String.format("%.2f",medicineCost) + ")";
 	}
 }
