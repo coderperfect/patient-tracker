@@ -1,11 +1,10 @@
 package com.tracker.patienttracker.model;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertSame;
-
+import java.time.LocalDateTime;
+import java.time.Month;
 import org.junit.jupiter.api.Test;
 
-import com.tracker.patienttracker.model.Billing;
 
 public class BillingTest {
 
@@ -24,25 +23,41 @@ public class BillingTest {
 		assertEquals(billing.getPatientId(),1);
 	}
 	@Test
-	void getTestResultTest()
+	void getPrescriptionIdTest()
 	{
 		Billing billing=new Billing();
-		billing.setTestResult("Pass");
-		assertEquals(billing.getTestResult(),"Pass");
+		billing.setPrescriptionId(1);
+		assertEquals(billing.getPrescriptionId(),1);
 	}
 	@Test
-	void getDoctorIdTest()
-	{
+	void getAmountTest()
+	{	double d=100.00;
 		Billing billing=new Billing();
-		billing.setDoctorId(1);
-		assertEquals(billing.getDoctorId(),1);
+		billing.setAmount(d);
+		assertEquals(billing.getAmount(),d,0);
 	}
 	@Test
-	void getRequestedTest()
+	void getTimeStampTest()
+	{	
+	    LocalDateTime date = LocalDateTime.of(2014, Month.DECEMBER, 12, 1,2);
+		Billing billing=new Billing();
+		billing.setTimestamp(date);
+		assertEquals(billing.getTimestamp(),date);
+	}
+	@Test
+	void getDueDateTest()
+	{	
+	    LocalDateTime date = LocalDateTime.of(2014, Month.DECEMBER, 12, 1,2);
+		Billing billing=new Billing();
+		billing.setDueDate(date);
+		assertEquals(billing.getDueDate(),date);
+	}
+	@Test
+	void getUserIdTest()
 	{
 		Billing billing=new Billing();
-		billing.setRequested(false);
-		assertEquals(billing.isRequested(),false);
+		billing.setUserId(1);
+		assertEquals(billing.getUserId(),1);
 	}
 	@Test
 	void getPaidTest()
@@ -53,9 +68,9 @@ public class BillingTest {
 	}
 	@Test
 	void constructorTest()
-	{
-		Billing billing1=new Billing(1, 0, "Done", 0, true, false);
-		Billing billing2=new Billing(1, 0, "Done", 0, true, false);
+	{	 LocalDateTime date = LocalDateTime.of(2014, Month.DECEMBER, 12, 1,2);
+		Billing billing1=new Billing(1, 0, 0, 0, date, date, false, 0);
+		Billing billing2=new Billing(1, 0, 0, 0, date, date, false, 0);
 		assertEquals(billing1.toString(),billing2.toString());
 		
 		
