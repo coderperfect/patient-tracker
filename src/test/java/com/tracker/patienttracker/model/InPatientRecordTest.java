@@ -51,24 +51,6 @@ public class InPatientRecordTest {
 	}
 	
 	@Test
-	public void setRoomChargesTest() throws NoSuchFieldException, IllegalAccessException {
-		final InPatientRecord inPatientRecord = new InPatientRecord();
-		inPatientRecord.setRoomCharges(100);
-		final Field field = inPatientRecord.getClass().getDeclaredField("roomCharges");
-		field.setAccessible(true);
-		assertEquals("Setter Pass Test", field.get(inPatientRecord), 100.0);
-	}
-	
-	@Test
-	public void getRoomChargesTest() throws NoSuchFieldException, IllegalAccessException {
-		final InPatientRecord inPatientRecord = new InPatientRecord();
-		final Field field = inPatientRecord.getClass().getDeclaredField("roomCharges");
-        field.setAccessible(true);
-        field.set(inPatientRecord, 100);
-        assertEquals("Getter Pass Test",inPatientRecord.getRoomCharges(), 100.0, 0.001);
-	}
-	
-	@Test
 	public void setAdmissionDateTest() throws NoSuchFieldException, IllegalAccessException, ParseException {
 		final InPatientRecord inPatientRecord = new InPatientRecord();
 		Date date1 = new SimpleDateFormat("dd-MM-yyyy").parse("01-01-2000");
