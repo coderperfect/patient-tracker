@@ -38,6 +38,7 @@ public class InPatientRecordTest {
 		final Field field = inPatientRecord.getClass().getDeclaredField("patientId");
 		field.setAccessible(true);
 		assertEquals("Setter Pass Test", field.get(inPatientRecord), 1);
+		//assertEquals("Setter Fail Test", field.get(inPatientRecord), 2);
 	}
 	
 	@Test
@@ -71,6 +72,7 @@ public class InPatientRecordTest {
 	public void setAdmissionDateTest() throws NoSuchFieldException, IllegalAccessException, ParseException {
 		final InPatientRecord inPatientRecord = new InPatientRecord();
 		Date date1 = new SimpleDateFormat("dd-MM-yyyy").parse("01-01-2000");
+		Date date2 = new SimpleDateFormat("dd-MM-yyyy").parse("02-01-2000");
 		inPatientRecord.setAdmissionDate(date1);
 		final Field field = inPatientRecord.getClass().getDeclaredField("admissionDate");
 		field.setAccessible(true);
