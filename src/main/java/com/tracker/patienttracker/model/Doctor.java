@@ -17,8 +17,11 @@ import lombok.NoArgsConstructor;
 @Entity
 @Data
 @NoArgsConstructor
-public class Doctor extends User{
+public class Doctor{
+	@Id
 	private int doctorId;
 	private String qualification;
 	private String specialization;
+	
+	private int userId;
 }
