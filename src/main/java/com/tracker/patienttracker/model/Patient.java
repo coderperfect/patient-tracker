@@ -1,6 +1,7 @@
 package com.tracker.patienttracker.model;
 
 import javax.persistence.Entity;
+import javax.persistence.Id;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -10,8 +11,10 @@ import lombok.NoArgsConstructor;
 @Entity
 @Data
 @NoArgsConstructor
-public class Patient extends User{
-
+public class Patient{
+	@Id
 	int patientId;
 	String bloodGroup;
+	
+	private int userId;
 }
