@@ -21,6 +21,7 @@ public class UserTests {
 	public void testSetUserId() throws NoSuchFieldException, IllegalAccessException  {
 		
         final User user = new User();
+
         user.setUserId(777);
         final Field field = user.getClass().getDeclaredField("userId");
         field.setAccessible(true);
