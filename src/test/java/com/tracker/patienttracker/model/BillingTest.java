@@ -1,4 +1,4 @@
-package com.tracker.patienttracker.model.test;
+package com.tracker.patienttracker.model;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;

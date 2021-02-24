@@ -20,10 +20,10 @@ public class UserTests {
 	public void testSetUserId() throws NoSuchFieldException, IllegalAccessException  {
 		
         final User user = new User();
-        user.setUserId("msd777");
+        user.setUserId(1);
         final Field field = user.getClass().getDeclaredField("userId");
         field.setAccessible(true);
-        assertEquals("Setter passed", field.get(user), "msd777");
+        assertEquals("Setter passed", field.get(user), 1);
         //assertEquals("Setter failed", field.get(user), "mss777");
 	}
 	
@@ -33,8 +33,8 @@ public class UserTests {
         final User user = new User();
         final Field field = user.getClass().getDeclaredField("userId");
         field.setAccessible(true);
-        field.set(user, "msd777");
-        assertEquals("Getter passed",user.getUserId(), "msd777");
+        field.set(user, 1);
+        assertEquals("Getter passed",user.getUserId(), 1);
         //assertEquals("Getter failed",user.getUserId(), "mss777");
 	}
 
