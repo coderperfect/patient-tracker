@@ -114,7 +114,16 @@ public class PrescriptionTest {
 	@Test
 	@Order(13)
 	public void testToString(){
-		String expectedString = "Prescription(prescriptionId=1, medicineId=1, quantity=1, prescriptionCost=1.0, paid=true, billed=true)";
+		String expectedString = "Prescription(prescriptionId=1, medicineId=1, quantity=1, prescriptionCost=1.00, paid=true, billed=true)";
+		assertEquals(expectedString, prescription.toString());
+	}
+	
+	@Test
+	@Order(14)
+	public void testAllArgsConstructor(){
+		Prescription prescription = new Prescription(1, 1, 1, 100.00, true, true);
+		
+		String expectedString = "Prescription(prescriptionId=1, medicineId=1, quantity=1, prescriptionCost=100.00, paid=true, billed=true)";
 		assertEquals(expectedString, prescription.toString());
 	}
 }
