@@ -1,5 +1,6 @@
 package com.tracker.patienttracker.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
@@ -13,8 +14,8 @@ import lombok.NoArgsConstructor;
 @Entity
 @Data
 @NoArgsConstructor
-public class Admin extends User{
-
+public class Admin {
+	@Id
 	int adminId;
-	
+	int userId;
 }
