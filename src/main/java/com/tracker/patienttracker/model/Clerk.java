@@ -12,5 +12,5 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class Clerk extends User{
 
-	String clerkId;
+	int clerkId;
 }

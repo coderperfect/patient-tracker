@@ -12,6 +12,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class Patient extends User{
 
-	String patientId;
+	int patientId;
 	String bloodGroup;
 }

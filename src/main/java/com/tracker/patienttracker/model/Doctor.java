@@ -18,7 +18,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 public class Doctor extends User{
-	private String doctorId;
+	private int doctorId;
 	private String qualification;
 	private String specialization;
 }

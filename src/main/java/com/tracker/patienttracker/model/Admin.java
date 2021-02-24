@@ -14,6 +14,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class Admin extends User{
 
-	String adminId;
+	int adminId;
 	
 }
