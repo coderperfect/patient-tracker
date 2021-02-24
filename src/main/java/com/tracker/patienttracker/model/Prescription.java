@@ -5,6 +5,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.validation.constraints.Digits;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
 import org.springframework.stereotype.Repository;
@@ -24,8 +25,10 @@ public class Prescription {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@NotNull(message = "Prescription Id is required")
+	@Min(value = 1, message = "Prescription Id has to be greater than or equal to 1")
 	private int prescriptionId;
 	@NotNull(message = "Medicine Id is required")
+	@Min(value = 1, message = "Medicine Id has to be greater than or equal to 1")
 	private int medicineId;
 	@NotNull(message = "Quantity is required")
 	private int quantity;

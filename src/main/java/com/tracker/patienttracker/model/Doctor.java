@@ -3,6 +3,7 @@ package com.tracker.patienttracker.model;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.validation.constraints.Digits;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
 import lombok.Data;
@@ -18,6 +19,7 @@ import lombok.NoArgsConstructor;
 public class Doctor{
 	@Id
 	@NotNull(message = "Doctor Id is required")
+	@Min(value = 1, message = "Doctor Id has to be greater than or equal to 1")
 	private int doctorId;
 	@NotNull(message = "Qualification is required")
 	private String qualification;
@@ -27,5 +29,6 @@ public class Doctor{
 	@Digits(integer = 32, fraction = 2, message = "Please Enter a valid fee")
 	private double consultationFee;
 	@NotNull(message = "User Id is required")
+	@Min(value = 1, message = "User Id has to be greater than or equal to 1")
 	private int userId;
 }
