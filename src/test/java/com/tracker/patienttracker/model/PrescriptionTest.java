@@ -2,6 +2,8 @@ package com.tracker.patienttracker.model;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.lang.reflect.Field;
+
 import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
@@ -17,50 +19,74 @@ public class PrescriptionTest {
 	
 	@Test
 	@Order(1)
-	public void testGetPrescriptionId(){
-		prescription.setPrescriptionId(1);
+	public void testGetPrescriptionId() throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException{
+		final Prescription prescription = new Prescription();
+		final Field field = prescription.getClass().getDeclaredField("prescriptionId");
+		field.setAccessible(true);
+		field.set(prescription, 1);
 		
 		assertEquals(1, prescription.getPrescriptionId());
 	}
 	
 	@Test
 	@Order(2)
-	public void testSetPrescriptionId(){
+	public void testSetPrescriptionId() throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException{
+		final Prescription prescription = new Prescription();
+		
 		prescription.setPrescriptionId(1);
 		
-		assertEquals(1, prescription.getPrescriptionId());
+		final Field field = prescription.getClass().getDeclaredField("prescriptionId");
+		field.setAccessible(true);
+		
+		assertEquals(1, field.get(prescription));
 	}
 	
 	@Test
 	@Order(3)
-	public void testGetMedicinenId(){
-		prescription.setMedicineId(1);
+	public void testGetMedicinenId() throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException{
+		final Prescription prescription = new Prescription();
+		final Field field = prescription.getClass().getDeclaredField("medicineId");
+		field.setAccessible(true);
+		field.set(prescription, 1);
 		
 		assertEquals(1, prescription.getMedicineId());
 	}
 	
 	@Test
 	@Order(4)
-	public void testSetMedicineId(){
+	public void testSetMedicineId() throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException{
+		final Prescription prescription = new Prescription();
+		
 		prescription.setMedicineId(1);
 		
-		assertEquals(1, prescription.getMedicineId());
+		final Field field = prescription.getClass().getDeclaredField("medicineId");
+		field.setAccessible(true);
+		
+		assertEquals(1, field.get(prescription));
 	}
 	
 	@Test
 	@Order(5)
-	public void testGetQuantity(){
-		prescription.setQuantity(1);
+	public void testGetQuantity() throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException{
+		final Prescription prescription = new Prescription();
+		final Field field = prescription.getClass().getDeclaredField("quantity");
+		field.setAccessible(true);
+		field.set(prescription, 1);
 		
 		assertEquals(1, prescription.getQuantity());
 	}
 	
 	@Test
 	@Order(6)
-	public void testSetQuantity(){
+	public void testSetQuantity() throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException{
+		final Prescription prescription = new Prescription();
+		
 		prescription.setQuantity(1);
 		
-		assertEquals(1, prescription.getQuantity());
+		final Field field = prescription.getClass().getDeclaredField("quantity");
+		field.setAccessible(true);
+		
+		assertEquals(1, field.get(prescription));
 	}
 	
 	@Test
@@ -114,7 +140,7 @@ public class PrescriptionTest {
 	@Test
 	@Order(13)
 	public void testToString(){
-		String expectedString = "Prescription(prescriptionId=1, medicineId=1, quantity=1, prescriptionCost=1.00, paid=true, billed=true)";
+		String expectedString = "Prescription(prescriptionId=0, medicineId=0, quantity=0, prescriptionCost=1.00, paid=true, billed=true)";
 		assertEquals(expectedString, prescription.toString());
 	}
 	
