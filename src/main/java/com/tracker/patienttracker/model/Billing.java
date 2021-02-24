@@ -1,5 +1,8 @@
 package com.tracker.patienttracker.model;
 
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -24,8 +27,10 @@ public class Billing {
 @GeneratedValue(strategy = GenerationType.IDENTITY)
 private int billingId;
 private int patientId;
-private String testResult;
-private int doctorId;
-private boolean requested;
+private int prescriptionId;
+private double amount;
+private LocalDateTime timestamp;
+private LocalDateTime dueDate;
 private boolean paid;
+private int userId;
 }

@@ -17,11 +17,11 @@ public class DoctorTests {
 	public void testSetDoctorId() throws NoSuchFieldException, IllegalAccessException  {
 		
         final Doctor doctor = new Doctor();
-        doctor.setDoctorId("AlexanderFleming");
+        doctor.setDoctorId(100);
         final Field field = doctor.getClass().getDeclaredField("doctorId");
         field.setAccessible(true);
-        assertEquals("Setter passed", field.get(doctor), "AlexanderFleming");
-        //assertEquals("Setter failed", field.get(doctor), "Alexanderfleming");
+        assertEquals("Setter passed", field.get(doctor), 100);
+        //assertEquals("Setter failed", field.get(doctor), 100);
 	}
 	
 	@Test
@@ -30,10 +30,12 @@ public class DoctorTests {
         final Doctor doctor = new Doctor();
         final Field field = doctor.getClass().getDeclaredField("doctorId");
         field.setAccessible(true);
-        field.set(doctor, "AlexanderFleming");
-        assertEquals("Getter passed",doctor.getDoctorId(), "AlexanderFleming");
-        //assertEquals("Getter failed",doctor.getDoctorId(), "Alexanderfleming");
+        field.set(doctor, 100);
+        assertEquals("Getter passed",doctor.getDoctorId(), 100);
+        //assertEquals("Getter failed",doctor.getDoctorId(), 100);
 	}
+	
+	
 	@Test
 	public void testSetQualification() throws NoSuchFieldException, IllegalAccessException  {
 		

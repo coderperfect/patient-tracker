@@ -1,6 +1,7 @@
 package com.tracker.patienttracker.model;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 
 import java.lang.reflect.Field;
 import java.util.Date;
@@ -20,11 +21,12 @@ public class UserTests {
 	public void testSetUserId() throws NoSuchFieldException, IllegalAccessException  {
 		
         final User user = new User();
-        user.setUserId("msd777");
+
+        user.setUserId(777);
         final Field field = user.getClass().getDeclaredField("userId");
         field.setAccessible(true);
-        assertEquals("Setter passed", field.get(user), "msd777");
-        //assertEquals("Setter failed", field.get(user), "mss777");
+        assertEquals("Setter passed", field.get(user), 777);
+        assertNotEquals("Setter failed", field.get(user), 771);
 	}
 	
 	@Test
@@ -33,9 +35,9 @@ public class UserTests {
         final User user = new User();
         final Field field = user.getClass().getDeclaredField("userId");
         field.setAccessible(true);
-        field.set(user, "msd777");
-        assertEquals("Getter passed",user.getUserId(), "msd777");
-        //assertEquals("Getter failed",user.getUserId(), "mss777");
+        field.set(user, 777);
+        assertEquals("Getter passed",user.getUserId(), 777);
+        assertNotEquals("Getter failed",user.getUserId(), 111);
 	}
 
 	@Test
@@ -46,7 +48,7 @@ public class UserTests {
         final Field field = user.getClass().getDeclaredField("firstName");
         field.setAccessible(true);
         assertEquals("Setter passed", field.get(user), "John");
-        //assertEquals("Setter failed", field.get(user), "JOhn");
+        assertNotEquals("Setter failed", field.get(user), "JOhn");
 	}
 	
 	@Test
@@ -57,7 +59,7 @@ public class UserTests {
         field.setAccessible(true);
         field.set(user, "John");
         assertEquals("Getter passed",user.getFirstName(), "John");
-        //assertEquals("Getter failed",user.getFirstName(), "JOhn");
+        assertNotEquals("Getter failed",user.getFirstName(), "JOhn");
 	}
 	
 	@Test
@@ -68,7 +70,7 @@ public class UserTests {
         final Field field = user.getClass().getDeclaredField("lastName");
         field.setAccessible(true);
         assertEquals("Setter passed", field.get(user), "Cena");
-        //assertEquals("Setter failed", field.get(user), "cena");
+        assertNotEquals("Setter failed", field.get(user), "cena");
 	}
 	
 	@Test
@@ -79,7 +81,7 @@ public class UserTests {
         field.setAccessible(true);
         field.set(user, "Cena");
         assertEquals("Getter passed",user.getLastName(), "Cena");
-        //assertEquals("Getter failed",user.getLastName(), "cena");
+        assertNotEquals("Getter failed",user.getLastName(), "cena");
 	}
 	
 	@Test
@@ -90,7 +92,7 @@ public class UserTests {
         final Field field = user.getClass().getDeclaredField("gender");
         field.setAccessible(true);
         assertEquals("Setter passed", field.get(user), "male");
-        //assertEquals("Setter failed", field.get(user), "female");
+        assertNotEquals("Setter failed", field.get(user), "female");
 	}
 	
 	@Test
@@ -101,7 +103,7 @@ public class UserTests {
         field.setAccessible(true);
         field.set(user, "male");
         assertEquals("Getter passed",user.getGender(), "male");
-        //assertEquals("Getter failed",user.getGender(), "other");
+        assertNotEquals("Getter failed",user.getGender(), "other");
 	}
 	
 	@Test
@@ -114,7 +116,7 @@ public class UserTests {
         final Field field = user.getClass().getDeclaredField("dateOfBirth");
         field.setAccessible(true);
         assertEquals("Setter passed", field.get(user), date1);
-        //assertEquals("Setter failed", field.get(user), date2);
+        assertNotEquals("Setter failed", field.get(user), date2);
 	}
 	
 	@Test
@@ -127,7 +129,7 @@ public class UserTests {
         field.setAccessible(true);
         field.set(user, date1);
         assertEquals("Getter passed",user.getDateOfBirth(), date1);
-        //assertEquals("Getter failed",user.getDateOfBirth(), date2);
+        assertNotEquals("Getter failed",user.getDateOfBirth(), date2);
 	}
 	
 	@Test
@@ -138,7 +140,7 @@ public class UserTests {
         final Field field = user.getClass().getDeclaredField("contactNo");
         field.setAccessible(true);
         assertEquals("Setter passed", field.get(user), "919381812345");
-        //assertEquals("Setter failed", field.get(user), "929381812345");
+        assertNotEquals("Setter failed", field.get(user), "929381812345");
 	}
 	
 	@Test
@@ -149,7 +151,7 @@ public class UserTests {
         field.setAccessible(true);
         field.set(user, "919381812345");
         assertEquals("Getter passed",user.getContactNo(), "919381812345");
-        //assertEquals("Getter failed",user.getContactNo(), "91938181234");
+        assertNotEquals("Getter failed",user.getContactNo(), "91938181234");
 	}
 	
 	@Test
@@ -160,7 +162,7 @@ public class UserTests {
         final Field field = user.getClass().getDeclaredField("password");
         field.setAccessible(true);
         assertEquals("Setter passed", field.get(user), "qazwsxedc");
-        //assertEquals("Setter failed", field.get(user), "feqazwsxedc");
+        assertNotEquals("Setter failed", field.get(user), "feqazwsxedc");
 	}
 	
 	@Test
@@ -171,7 +173,7 @@ public class UserTests {
         field.setAccessible(true);
         field.set(user, "qazwsxedc");
         assertEquals("Getter passed",user.getPassword(), "qazwsxedc");
-        //assertEquals("Getter failed",user.getPassword(), "qzawsxedc");
+        assertNotEquals("Getter failed",user.getPassword(), "qzawsxedc");
 	}
 	
 	@Test
@@ -182,7 +184,7 @@ public class UserTests {
         final Field field = user.getClass().getDeclaredField("address");
         field.setAccessible(true);
         assertEquals("Setter passed", field.get(user), "flat no 201, 4 th street, Victoria Colony, East London");
-        //assertEquals("Setter failed", field.get(user), "flat no 201, 4 th street, Victoria Colony, West London");
+        assertNotEquals("Setter failed", field.get(user), "flat no 201, 4 th street, Victoria Colony, West London");
 	}
 	
 	@Test
@@ -193,7 +195,7 @@ public class UserTests {
         field.setAccessible(true);
         field.set(user, "flat no 201, 4 th street, Victoria Colony, East London");
         assertEquals("Getter passed",user.getAddress(), "flat no 201, 4 th street, Victoria Colony, East London");
-        //assertEquals("Getter failed",user.getAddress(), "flat no 202, 4 th street, Victoria Colony, East London");
+        assertNotEquals("Getter failed",user.getAddress(), "flat no 202, 4 th street, Victoria Colony, East London");
 	}
 	
 	@Test
@@ -204,7 +206,7 @@ public class UserTests {
         final Field field = user.getClass().getDeclaredField("role");
         field.setAccessible(true);
         assertEquals("Setter passed", field.get(user), "ROLE_ADMIN");
-        //assertEquals("Setter failed", field.get(user), "ROLE_PATIENT");
+        assertNotEquals("Setter failed", field.get(user), "ROLE_PATIENT");
 	}
 	
 	@Test
@@ -215,6 +217,6 @@ public class UserTests {
         field.setAccessible(true);
         field.set(user, "ROLE_ADMIN");
         assertEquals("Getter passed",user.getRole(), "ROLE_ADMIN");
-        //assertEquals("Getter failed",user.getRole(), "ROLE_DOCTOR");
+        assertNotEquals("Getter failed",user.getRole(), "ROLE_DOCTOR");
 	}
 }
