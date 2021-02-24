@@ -28,6 +28,7 @@ public class Prescription {
 	private boolean paid;
 	private boolean billed;
 	
+	
 	@Override
 	public String toString() {
 		return "Prescription(prescriptionId=" + prescriptionId + ", medicineId=" + medicineId + ", quantity="

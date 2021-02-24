@@ -10,18 +10,18 @@ import javax.persistence.Id;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-/*
- * @author: Burre Chandu (883619)
- */
-
 @Entity
 @Data
 @NoArgsConstructor
-public class Doctor{
+public class Consultation {
+
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int consultationId;
 	private int doctorId;
-	private String qualification;
-	private String specialization;
-	private double consultationFee;
-	private int userId;
+	private int patientId;
+	private Date date;
+	private boolean billed;
+	private boolean paid;
+	
 }
