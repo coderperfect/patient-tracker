@@ -17,11 +17,11 @@ public class AdminTests {
 	public void testSetAdminId() throws NoSuchFieldException, IllegalAccessException  {
 		
         final Admin admin = new Admin();
-        admin.setAdminId("ADMIN");
+        admin.setAdminId(1);
         final Field field = admin.getClass().getDeclaredField("adminId");
         field.setAccessible(true);
-        assertEquals("Setter passed", field.get(admin), "ADMIN");
-        //assertEquals("Setter failed", field.get(admin), "admin");
+        assertEquals("Setter passed", field.get(admin), 1);
+        //assertEquals("Setter failed", field.get(admin), 01);
 	}
 	
 	@Test
@@ -30,8 +30,8 @@ public class AdminTests {
         final Admin admin = new Admin();
         final Field field = admin.getClass().getDeclaredField("adminId");
         field.setAccessible(true);
-        field.set(admin, "ADMIN");
-        assertEquals("Getter passed",admin.getAdminId(), "ADMIN");
-        //assertEquals("Getter failed",admin.getAdminId(), "admin");
+        field.set(admin, 1);
+        assertEquals("Getter passed",admin.getAdminId(), 1);
+        //assertEquals("Getter failed",admin.getAdminId(), 01);
 	}
 }

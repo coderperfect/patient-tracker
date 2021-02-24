@@ -17,11 +17,11 @@ public class ClerkTests {
 	public void testSetClerkId() throws NoSuchFieldException, IllegalAccessException  {
 		
         final Clerk clerk = new Clerk();
-        clerk.setClerkId("ramu123");
+        clerk.setClerkId(123);
         final Field field = clerk.getClass().getDeclaredField("clerkId");
         field.setAccessible(true);
-        assertEquals("Setter passed", field.get(clerk), "ramu123");
-        //assertEquals("Setter failed", field.get(clerk), "ramu124");
+        assertEquals("Setter passed", field.get(clerk), 123);
+        //assertEquals("Setter failed", field.get(clerk), 124);
 	}
 	
 	@Test
@@ -30,8 +30,8 @@ public class ClerkTests {
         final Clerk clerk = new Clerk();
         final Field field = clerk.getClass().getDeclaredField("clerkId");
         field.setAccessible(true);
-        field.set(clerk, "ramu123");
-        assertEquals("Getter passed",clerk.getClerkId(), "ramu123");
-        //assertEquals("Getter failed",clerk.getClerkId(), "ramu124");
+        field.set(clerk, 123);
+        assertEquals("Getter passed",clerk.getClerkId(), 123);
+        //assertEquals("Getter failed",clerk.getClerkId(), 124);
 	}
 }

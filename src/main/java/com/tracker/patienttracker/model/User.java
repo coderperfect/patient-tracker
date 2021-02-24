@@ -22,9 +22,8 @@ import lombok.NoArgsConstructor;
 public class User {
 
 	@Id
-	@GeneratedValue(generator = "uuid")
-	@GenericGenerator(name = "uuid", strategy = "uuid2")
-	private String userId;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int userId;
 	private String firstName;
 	private String lastName;
 	private String gender;
