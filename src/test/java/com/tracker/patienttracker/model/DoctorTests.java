@@ -6,7 +6,10 @@ import java.lang.reflect.Field;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
-
+/*
+ * @author: Burre Chandu (883619)
+ * 
+ */
 @SpringBootTest
 public class DoctorTests {
 	

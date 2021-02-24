@@ -9,7 +9,10 @@ import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import com.tracker.patienttracker.util.DateUtil;
-
+/*
+ * @author: Burre Chandu (883619)
+ * 
+ */
 @SpringBootTest
 public class UserTests {
 	
@@ -33,27 +36,6 @@ public class UserTests {
         field.set(user, "msd777");
         assertEquals("Getter passed",user.getUserId(), "msd777");
         //assertEquals("Getter failed",user.getUserId(), "mss777");
-	}
-	@Test
-	public void testSetId() throws NoSuchFieldException, IllegalAccessException  {
-		
-        final User user = new User();
-        user.setId(1);
-        final Field field = user.getClass().getDeclaredField("id");
-        field.setAccessible(true);
-        assertEquals("Setter passed", field.get(user), 1);
-        //assertEquals("Setter failed", field.get(user), "2");
-	}
-	
-	@Test
-	public void testGetId() throws NoSuchFieldException, IllegalAccessException  {
-		
-        final User user = new User();
-        final Field field = user.getClass().getDeclaredField("id");
-        field.setAccessible(true);
-        field.set(user, 1);
-        assertEquals("Getter passed",user.getId(), 1);
-        //assertEquals("Getter failed",user.getId(), 2);
 	}
 
 	@Test
