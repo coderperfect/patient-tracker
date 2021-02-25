@@ -4,6 +4,8 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Pattern;
 
 import lombok.Data;
@@ -18,7 +20,9 @@ public class Patient{
 	@Id
 	int patientId;
 	
-	@Pattern(regexp="^(O|A|B|AB)(+ve|-ve)$")
+	@NotEmpty(message = "The firstname cannot be empty")
+	@NotBlank(message = "The firstname cannot be blank or whitespace")
+	@Pattern(regexp="^(O|A|B|AB)(\\+ve|-ve)$")
 	String bloodGroup;
 	
 	@OneToOne
