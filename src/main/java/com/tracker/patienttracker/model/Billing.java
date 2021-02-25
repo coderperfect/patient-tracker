@@ -2,11 +2,13 @@ package com.tracker.patienttracker.model;
 
 
 import java.time.LocalDateTime;
+import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
@@ -55,5 +57,7 @@ private boolean paid;
 @NotNull(message="UserId can not be null")
 @Min(value = 1, message = "The value must be positive")
 private int userId;
-private Consultation consultation;
+
+@OneToMany
+private Set<Consultation> consultations;
 }
