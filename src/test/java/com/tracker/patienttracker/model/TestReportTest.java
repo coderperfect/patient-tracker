@@ -1,6 +1,16 @@
 package com.tracker.patienttracker.model;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+
+import java.util.Set;
+
+import javax.validation.ConstraintViolation;
+import javax.validation.Validation;
+import javax.validation.Validator;
+import javax.validation.ValidatorFactory;
+
+import org.junit.Before;
 import org.junit.jupiter.api.Test;
 import com.tracker.patienttracker.model.TestReport;
 
@@ -64,4 +74,45 @@ public class TestReportTest {
 		TestReport testReport2=new TestReport(1, 0, 0, "Done", 0, true, false);
 		assertEquals(testReport1.toString(),testReport2.toString());
 	}
+	
+	// Validation Tests
+	private static Validator validator;
+		static {
+        ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+        validator = factory.getValidator();
+    }
+    @Test
+    void testIdValidatioTest() {
+    	TestReport testReport=new TestReport();
+    	testReport.setTestId(-1);
+    	Set<ConstraintViolation<TestReport>> violations = validator.validate(testReport);
+    	assertFalse(violations.isEmpty());
+
+    }
+    @Test
+    void patientIdValidatioTest() {
+    	TestReport testReport=new TestReport();
+    	testReport.setPatientId(-1);
+    	Set<ConstraintViolation<TestReport>> violations = validator.validate(testReport);
+    	assertFalse(violations.isEmpty());
+
+    }
+    @Test
+    void testResultValidatioTest() {
+    	TestReport testReport=new TestReport();
+    	testReport.setTestResult("");
+    	Set<ConstraintViolation<TestReport>> violations = validator.validate(testReport);
+    	assertFalse(violations.isEmpty());
+
+    }
+    
+    @Test
+    void doctorIdValidatioTest() {
+    	TestReport testReport=new TestReport();
+    	testReport.setDoctorId(-1);
+    	Set<ConstraintViolation<TestReport>> violations = validator.validate(testReport);
+    	assertFalse(violations.isEmpty());
+
+    }
+    	
 }
