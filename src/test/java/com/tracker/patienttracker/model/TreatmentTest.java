@@ -1,76 +1,81 @@
 package com.tracker.patienttracker.model;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
-import java.lang.reflect.Field;
+import java.util.Set;
+
+import javax.validation.ConstraintViolation;
+import javax.validation.Validation;
+import javax.validation.Validator;
+import javax.validation.ValidatorFactory;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
 class TreatmentTest {
+	static Validator validator;
 
+	static {
+		ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+		validator = factory.getValidator();
+		}
+	
 	private Treatment obj=new Treatment();
 	
 	@Test
-	public void testSettreatmentId() throws NoSuchFieldException, IllegalAccessException{
+	public void testSettreatmentId(){
 		obj.setTreatmentId(1);
-		final Field field =obj.getClass().getDeclaredField("treatmentId");
-		field.setAccessible(true);
-		assertEquals("Setter Method for treatmentId Passed", field.get(obj),1);
+		assertEquals(obj.getTreatmentId(),1);
 	}
 	@Test
-	public void testGettreatmentId() throws NoSuchFieldException, IllegalAccessException{
-		final Field field =obj.getClass().getDeclaredField("treatmentId");
-		field.setAccessible(true);
-		field.set(obj, 1);
-		assertEquals("Getter Method for treatmentId Passed", obj.getTreatmentId(),1);
+	public void testGettreatmentId(){
+		obj.setTreatmentId(1);
+		assertEquals(obj.getTreatmentId(),1);
 	}
 	
 	@Test
 	public void testSettreatmentDescription() throws NoSuchFieldException, IllegalAccessException{
 		obj.setTreatmentDescription("Malaria Test");
-		final Field field =obj.getClass().getDeclaredField("treatmentDescription");
-		field.setAccessible(true);
-		assertEquals("Setter Method for treatmentDescription Passed", field.get(obj),"Malaria Test");
+		assertEquals(obj.getTreatmentDescription(),"Malaria Test");
 	}
 	@Test
-	public void testGettreatmentDescription() throws NoSuchFieldException, IllegalAccessException{
-		final Field field =obj.getClass().getDeclaredField("treatmentDescription");
-		field.setAccessible(true);
-		field.set(obj, "Malaria Test");
-		assertEquals("Getter Method for treatmentDescription Passed", obj.getTreatmentDescription(),"Malaria Test");
+	public void testGettreatmentDescription(){
+		obj.setTreatmentDescription("Malaria Test");
+		assertEquals(obj.getTreatmentDescription(),"Malaria Test");
 	}
 	
 	@Test
-	public void testSettreatmentCost() throws NoSuchFieldException, IllegalAccessException{
+	public void testSettreatmentCost(){
 		obj.setTreatmentCost(2000.50);
-		final Field field =obj.getClass().getDeclaredField("treatmentCost");
-		field.setAccessible(true);
-		assertEquals("Setter Method for treatmentCost Passed", field.get(obj),2000.50);
+		assertEquals(obj.getTreatmentCost(),2000.50,0.0);
 	}
 	@Test
-	public void testGettreatmentCost() throws NoSuchFieldException, IllegalAccessException{
-		final Field field =obj.getClass().getDeclaredField("treatmentCost");
-		field.setAccessible(true);
-		field.set(obj, 2000.50);
-		assertEquals("Getter Method for treatmentCost Passed", obj.getTreatmentCost(),2000.50,0.0);
+	public void testGettreatmentCost() {
+		obj.setTreatmentCost(2000.50);
+		assertEquals(obj.getTreatmentCost(),2000.50,0.0);
 	}
 	
 	@Test
-	public void testSetdietExcerciseDescription() throws NoSuchFieldException, IllegalAccessException{
+	public void testSetdietExcerciseDescription(){
 		obj.setDietExcerciseDescription("Drink Water");
-		final Field field =obj.getClass().getDeclaredField("dietExcerciseDescription");
-		field.setAccessible(true);
-		assertEquals("Setter Method for treatmentDescription Passed", field.get(obj),"Drink Water");
+		assertEquals(obj.getDietExcerciseDescription(),"Drink Water");
 	}
 	@Test
-	public void testGetdietExcerciseDescription() throws NoSuchFieldException, IllegalAccessException{
-		final Field field =obj.getClass().getDeclaredField("dietExcerciseDescription");
-		field.setAccessible(true);
-		field.set(obj, "Drink Water");
-		assertEquals("Getter Method for dietExcerciseDescription Passed", obj.getDietExcerciseDescription(),
-				"Drink Water");
+	public void testGetdietExcerciseDescription(){
+		obj.setDietExcerciseDescription("Drink Water");
+		assertEquals(obj.getDietExcerciseDescription(),"Drink Water");
 	}
 
+	@Test
+	public void testValidationSucess() {
+		obj.setTreatmentId(1);
+		obj.setTreatmentDescription("Malaria Test");
+		obj.setTreatmentCost(2000.50);
+		//obj.setDietExcerciseDescription("Drink Water");
+		Set<ConstraintViolation<Treatment>> violations = validator.validate(obj);
+	    assertTrue(violations.isEmpty());
+	}
 }
