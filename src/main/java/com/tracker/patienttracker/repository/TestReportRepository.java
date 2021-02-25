@@ -12,7 +12,4 @@ public interface TestReportRepository extends JpaRepository<TestReport, Integer>
 	//Select * From test_report where testResult = null;
 	@Query(value = "Select t From TestReport t where t.testResult = null")
 	public TestReport getPendingUpdateTestReports(); // Test pending
-	
-	// List of In Patients
-	//Select 
 }
