@@ -38,8 +38,10 @@ public class Medicine {
 	@Digits(integer = 32, fraction = 2, message = "Please Enter a valid Cost")
 	private double medicineCost;
 	
+	/*
 	@ManyToMany(mappedBy = "medicines")
 	private Set<Prescription> prescriptions;
+	*/
 	
 	@Override
 	public String toString() {
