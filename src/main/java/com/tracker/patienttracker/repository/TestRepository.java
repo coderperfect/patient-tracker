@@ -3,9 +3,9 @@ package com.tracker.patienttracker.repository;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.tracker.patienttracker.model.Medicine;
+import com.tracker.patienttracker.model.Test;
 
 @Repository
-public interface MedicineRepository extends JpaRepository<Medicine, Integer>{
-	
+public interface TestRepository extends JpaRepository<Test, Integer> {
+
 }

@@ -10,8 +10,10 @@ import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
 
+import org.junit.Before;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 /*
@@ -21,13 +23,14 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
 public class PatientValidationTest {
-	
-	private static Validator validator;
+	@Autowired
+	private Validator validator;
 
-	static {
-		ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
-			validator = factory.getValidator();
-		}
+	@Before
+	public void setUp() {
+		ValidatorFactory validatorFactory = Validation.buildDefaultValidatorFactory();
+		validator = validatorFactory.getValidator();
+	}
 	
 	@ParameterizedTest
 	@ValueSource(strings = {"O positive","O+","OA+ve","AB+",""," "})
