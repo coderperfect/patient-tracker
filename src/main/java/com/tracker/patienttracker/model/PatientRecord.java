@@ -11,6 +11,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.PastOrPresent;
@@ -30,11 +31,9 @@ public class PatientRecord {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)	
 	private int recordId;
 	
-	@ManyToMany
+	@ManyToOne
 	@JoinColumn(name= "doctorId")
-//	@JoinTable(name="patientrecord_doctor",joinColumns = @JoinColumn(name = "record_doctorId"),
-//	inverseJoinColumns = @JoinColumn(name = "doctor_recordId"))
-	private Set<Doctor> doctors;
+	private Doctor doctor;
 	
 	@OneToMany(targetEntity = Treatment.class)	
 	@JoinColumn(name = "treatmentId")
@@ -45,7 +44,7 @@ public class PatientRecord {
 	private Set<TestReport> testreports;
 	
 	@NotNull
-	@ManyToOne
+	@OneToOne
 	@JoinColumn(name = "patientId")
 	private Patient patient;
 	
