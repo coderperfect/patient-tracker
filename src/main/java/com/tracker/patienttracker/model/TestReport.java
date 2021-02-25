@@ -4,6 +4,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
@@ -28,19 +31,30 @@ public class TestReport {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int testResultId;
-	@NotNull(message="Please provide Test Id")
-	@Min(value = 1, message = "The value must be positive")
-	private int testId;
+	
+	@OneToOne
+	@NotNull
+	private Test test;
+	
 	@NotNull(message="Please provide Patient Id")
 	@Min(value = 1, message = "The value must be positive")
-	private int patientId;
-	@NotEmpty
+	@OneToOne
+	private Patient patient;
+	
 	private String testResult;
-	@NotNull(message="Please provide Doctor Id")
-	@Min(value = 1, message = "The value must be positive")
-	private int doctorId;
-	//@NotNull(message="Requested Column can not be null")
+	
+	@NotNull
+	@OneToOne
+	private Doctor doctor ;
+	
 	private boolean requested;
-	//@NotNull(message="Paid Column can not be null")
+
 	private boolean paid;
+
+	
+	private boolean billed;
+	
+	@ManyToOne
+	@JoinColumn(name="recordId")
+	private PatientRecord patientRecord;
 }

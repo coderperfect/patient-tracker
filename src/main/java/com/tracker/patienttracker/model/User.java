@@ -9,6 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.validation.Valid;
+import javax.validation.constraints.AssertFalse;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
@@ -20,6 +21,7 @@ import org.hibernate.validator.constraints.Length;
 
 import com.tracker.patienttracker.validator.ValidPassword;
 
+import lombok.Builder.Default;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 /*
@@ -72,5 +74,8 @@ public class User {
 	@NotEmpty(message = "role cannot be empty")
 	@NotBlank(message = "role cannot be blank or whitespace")
 	private String role;
+	
+	
+	private boolean approved;
 }
 
