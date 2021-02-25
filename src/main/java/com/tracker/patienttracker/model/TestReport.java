@@ -43,4 +43,5 @@ public class TestReport {
 	private boolean requested;
 	//@NotNull(message="Paid Column can not be null")
 	private boolean paid;
+	private boolean billed;    //Added this not merged
 }

@@ -70,8 +70,8 @@ public class TestReportTest {
 	@Test
 	void constructorTest()
 	{
-		TestReport testReport1=new TestReport(1, 0, 0, "Done", 0, true, false);
-		TestReport testReport2=new TestReport(1, 0, 0, "Done", 0, true, false);
+		TestReport testReport1=new TestReport(1, 0, 0, "Done", 0, true, false, false);  //Not merged added
+		TestReport testReport2=new TestReport(1, 0, 0, "Done", 0, true, false, false);	//Not merged added
 		assertEquals(testReport1.toString(),testReport2.toString());
 	}
 	
