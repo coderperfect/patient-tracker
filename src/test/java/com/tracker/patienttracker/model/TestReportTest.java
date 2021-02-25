@@ -23,20 +23,7 @@ public class TestReportTest {
 		testReport.setTestResultId(1);
 		assertEquals(testReport.getTestResultId(),1);
 	}
-	@Test
-	void getTestIdTest()
-	{
-		TestReport testReport=new TestReport();
-		testReport.setTestId(1);
-		assertEquals(testReport.getTestId(),1);
-	}
-	@Test
-	void getPatientIdTest()
-	{
-		TestReport testReport=new TestReport();
-		testReport.setPatientId(1);
-		assertEquals(testReport.getPatientId(),1);
-	}
+	
 	
 	@Test
 	void getTestResultTest()
@@ -46,6 +33,7 @@ public class TestReportTest {
 		assertEquals(testReport.getTestResult(),"Done");
 	}
 
+<<<<<<< HEAD
 	@Test
 	void getDoctorIdTest()
 	{
@@ -53,6 +41,9 @@ public class TestReportTest {
 		//testReport.setDoctorId(1);
 		//assertEquals(testReport.getDoctorId(),1);
 	}
+=======
+	
+>>>>>>> 140b3d5bd8b1c1f9f9f766e2c135db59d5a310bf
 	@Test
 	void getRequestedTest()
 	{
@@ -67,6 +58,7 @@ public class TestReportTest {
 		testReport.setPaid(true);
 		assertEquals(testReport.isPaid(),true);
 	}
+<<<<<<< HEAD
 	@Test
 	void constructorTest()
 	{
@@ -74,6 +66,9 @@ public class TestReportTest {
 		//TestReport testReport2=new TestReport(1, 0, 0, "Done", 0, true, false);
 		//assertEquals(testReport1.toString(),testReport2.toString());
 	}
+=======
+	
+>>>>>>> 140b3d5bd8b1c1f9f9f766e2c135db59d5a310bf
 	
 	// Validation Tests
 	private static Validator validator;
@@ -81,22 +76,8 @@ public class TestReportTest {
         ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
         validator = factory.getValidator();
     }
-    @Test
-    void testIdValidatioTest() {
-    	TestReport testReport=new TestReport();
-    	testReport.setTestId(-1);
-    	Set<ConstraintViolation<TestReport>> violations = validator.validate(testReport);
-    	assertFalse(violations.isEmpty());
-
-    }
-    @Test
-    void patientIdValidatioTest() {
-    	TestReport testReport=new TestReport();
-    	testReport.setPatientId(-1);
-    	Set<ConstraintViolation<TestReport>> violations = validator.validate(testReport);
-    	assertFalse(violations.isEmpty());
-
-    }
+    
+  
     @Test
     void testResultValidatioTest() {
     	TestReport testReport=new TestReport();
@@ -105,6 +86,7 @@ public class TestReportTest {
     	assertFalse(violations.isEmpty());
 
     }
+<<<<<<< HEAD
     
     @Test
     void doctorIdValidatioTest() {
@@ -114,6 +96,8 @@ public class TestReportTest {
     	assertFalse(violations.isEmpty());
 
     }
+=======
+>>>>>>> 140b3d5bd8b1c1f9f9f766e2c135db59d5a310bf
     	
 }
 */

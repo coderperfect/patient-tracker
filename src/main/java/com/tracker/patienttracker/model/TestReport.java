@@ -32,26 +32,28 @@ public class TestReport {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int testResultId;
-	
-	@NotNull(message="Please provide Test Id")
 	@OneToOne
-	@JoinColumn(name="testId")
+	@NotNull
 	private Test test;
 	
 	@NotNull(message="Please provide Patient Id")
+	@Min(value = 1, message = "The value must be positive")
 	@OneToOne
-	@JoinColumn(name="patientId")
 	private Patient patient;
 	
-	@NotEmpty
 	private String testResult;
 	
-	@NotNull(message="Please provide Doctor Id")
-	@ManyToOne
-	@JoinColumn(name = "doctorId")
-	private Doctor doctor;
+	@NotNull
+	@OneToOne
+	private Doctor doctor ;
 	
 	private boolean requested;
-	
+
 	private boolean paid;
+	
+	private boolean billed;
+	
+	@ManyToOne
+	@JoinColumn(name="recordId")
+	private PatientRecord patientRecord;
 }

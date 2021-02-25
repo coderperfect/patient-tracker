@@ -1,4 +1,4 @@
-/*package com.tracker.patienttracker.model;
+package com.tracker.patienttracker.model;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -25,20 +25,6 @@ public class BillingTest {
 		assertEquals(billing.getBillingId(),1);
 	}
 	@Test
-	void getPatientIdTest()
-	{
-		Billing billing=new Billing();
-		billing.setPatientId(1);
-		assertEquals(billing.getPatientId(),1);
-	}
-	@Test
-	void getPrescriptionIdTest()
-	{
-		Billing billing=new Billing();
-		billing.setPrescriptionId(1);
-		assertEquals(billing.getPrescriptionId(),1);
-	}
-	@Test
 	void getAmountTest()
 	{	double d=100.00;
 		Billing billing=new Billing();
@@ -61,13 +47,7 @@ public class BillingTest {
 		billing.setDueDate(date);
 		assertEquals(billing.getDueDate(),date);
 	}
-	@Test
-	void getUserIdTest()
-	{
-		Billing billing=new Billing();
-		billing.setUserId(1);
-		assertEquals(billing.getUserId(),1);
-	}
+
 	@Test
 	void getPaidTest()
 	{
@@ -75,16 +55,7 @@ public class BillingTest {
 		billing.setPaid(true);
 		assertEquals(billing.isPaid(),true);
 	}
-	
-	@Test
-	void constructorTest()
-	{	 LocalDateTime date = LocalDateTime.of(2014, Month.DECEMBER, 12, 1,2);
-		Billing billing1=new Billing(1, 1, 1, 1, date, date, false, 0, null);
-		Billing billing2=new Billing(1, 1, 1, 1, date, date, false, 0, null);
-		assertEquals(billing1.toString(),billing2.toString());
-	}
-	
-	
+
 	// Validation Tests
 	
 	private static Validator validator;
@@ -92,22 +63,7 @@ public class BillingTest {
     ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
     validator = factory.getValidator();
      }
-	@Test
-	void testIdValidatioTest() {
-		Billing billing=new Billing();
-		billing.setPatientId(-1);
-	Set<ConstraintViolation<Billing>> violations = validator.validate(billing);
-	assertFalse(violations.isEmpty());
-
-}
-	@Test
-	void prescriptionIdValidatioTest() {
-		Billing billing=new Billing();
-		billing.setPrescriptionId(-1);
-	Set<ConstraintViolation<Billing>> violations = validator.validate(billing);
-	assertFalse(violations.isEmpty());
-
-}
+	
 	@Test
 	void amountValidatioTest() {
 		Billing billing=new Billing();
@@ -132,15 +88,7 @@ public class BillingTest {
 	assertFalse(violations.isEmpty());
 
 }
-	@Test
-	void userIdValidatioTest() {
-		Billing billing=new Billing();
-		billing.setUserId(-1);
-	Set<ConstraintViolation<Billing>> violations = validator.validate(billing);
-	assertFalse(violations.isEmpty());
 
 }
-	
-	
-	
-}*/
+
+

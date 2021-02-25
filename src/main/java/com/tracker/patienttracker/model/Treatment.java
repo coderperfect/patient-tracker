@@ -4,6 +4,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.NotBlank;
@@ -30,6 +32,10 @@ public class Treatment {
 	@NotNull(message = "Treatment Cost is mandatory")
 	@DecimalMin(value="0.0")
 	private double treatmentCost;
+	
+	@ManyToOne
+	@JoinColumn(name="recordId")
+	private PatientRecord patientRecord;
 	
 	private String dietExcerciseDescription;
 }
