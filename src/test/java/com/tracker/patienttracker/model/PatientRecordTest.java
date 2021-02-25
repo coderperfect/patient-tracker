@@ -2,8 +2,6 @@ package com.tracker.patienttracker.model;
 
 import static org.junit.Assert.assertEquals;
 
-import java.lang.reflect.Field;
-
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -15,19 +13,15 @@ class PatientRecordTest {
 	@Test
 	public void testSetrecordId() throws NoSuchFieldException, IllegalAccessException{
 		obj.setRecordId(1);
-		final Field field =obj.getClass().getDeclaredField("recordId");
-		field.setAccessible(true);
-		assertEquals("Setter Method for recordId Passed", field.get(obj),1);
+		assertEquals(obj.getRecordId(),1);
 	}
 	@Test
 	public void testGetrecordId() throws NoSuchFieldException, IllegalAccessException{
-		final Field field =obj.getClass().getDeclaredField("recordId");
-		field.setAccessible(true);
-		field.set(obj, 1);
+		obj.setRecordId(1);
 		assertEquals(obj.getRecordId(),1);
 	}
 	
-	@Test
+	/*@Test
 	public void testSetdoctorId() throws NoSuchFieldException, IllegalAccessException{
 		obj.setDoctorId(1);
 		final Field field =obj.getClass().getDeclaredField("doctorId");
@@ -101,6 +95,6 @@ class PatientRecordTest {
 		field.set(obj, 1);
 		assertEquals("Getter Method for prescriptionId Passed", obj.getPrescriptionId(),1);
 	}
-	
+	*/
 
 }
