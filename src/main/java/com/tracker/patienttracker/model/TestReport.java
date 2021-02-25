@@ -1,12 +1,16 @@
 package com.tracker.patienttracker.model;
 
+import java.util.Set;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.Min;
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
@@ -28,19 +32,26 @@ public class TestReport {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int testResultId;
+	
 	@NotNull(message="Please provide Test Id")
-	@Min(value = 1, message = "The value must be positive")
-	private int testId;
+	@OneToOne
+	@JoinColumn(name="testId")
+	private Test test;
+	
 	@NotNull(message="Please provide Patient Id")
-	@Min(value = 1, message = "The value must be positive")
-	private int patientId;
+	@OneToOne
+	@JoinColumn(name="patientId")
+	private Patient patient;
+	
 	@NotEmpty
 	private String testResult;
+	
 	@NotNull(message="Please provide Doctor Id")
-	@Min(value = 1, message = "The value must be positive")
-	private int doctorId;
-	//@NotNull(message="Requested Column can not be null")
+	@ManyToOne
+	@JoinColumn(name = "doctorId")
+	private Doctor doctor;
+	
 	private boolean requested;
-	//@NotNull(message="Paid Column can not be null")
+	
 	private boolean paid;
 }

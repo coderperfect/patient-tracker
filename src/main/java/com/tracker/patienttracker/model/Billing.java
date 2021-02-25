@@ -8,7 +8,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
@@ -34,11 +37,15 @@ private int billingId;
 
 @NotNull(message="Please provide Patient Id")
 @Min(value = 1, message = "The value must be positive")
-private int patientId;
+@ManyToOne
+@JoinColumn(name="patientId")
+private Patient patient;
 
 @NotNull(message="Please provide Prescription Id")
 @Min(value = 1, message = "The value must be positive")
-private int prescriptionId;
+@OneToOne
+@JoinColumn(name="prescriptionId")
+private Prescription prescription;
 
 @Min(value = 0, message = "The value must not be negative")
 private double amount;
@@ -51,7 +58,7 @@ private LocalDateTime timestamp;
 @NotNull(message="Please provide Due Date")
 private LocalDateTime dueDate;
 
-//@NotNull(message="Paid Column can not be null")
+
 private boolean paid;
 
 @NotNull(message="UserId can not be null")
@@ -59,5 +66,6 @@ private boolean paid;
 private int userId;
 
 @OneToMany
+@JoinColumn(name="consultationId")
 private Set<Consultation> consultations;
 }
