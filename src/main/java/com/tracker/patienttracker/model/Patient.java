@@ -18,7 +18,7 @@ public class Patient{
 	@Id
 	int patientId;
 	
-	@Pattern(regexp="^(O|A|B|AB)(+ve|-ve)$")
+	@Pattern(regexp="^(O|A|B|AB)(\\+ve|-ve)$")
 	String bloodGroup;
 	
 	@OneToOne
