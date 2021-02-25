@@ -2,6 +2,7 @@ package com.tracker.patienttracker.model;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import java.util.Set;
 
@@ -75,6 +76,6 @@ class TreatmentTest {
 		obj.setTreatmentCost(2000.50);
 		//obj.setDietExcerciseDescription("Drink Water");
 		Set<ConstraintViolation<Treatment>> violations = validator.validate(obj);
-	    assertFalse(violations.isEmpty());
+	    assertTrue(violations.isEmpty());
 	}
 }

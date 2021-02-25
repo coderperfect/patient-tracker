@@ -75,14 +75,6 @@ public class BillingTest {
 		billing.setPaid(true);
 		assertEquals(billing.isPaid(),true);
 	}
-	@Test
-	void getConsultationTest()
-	{
-		Billing billing=new Billing();
-		Consultation c=new Consultation();
-		billing.setConsultation(c);
-		assertEquals(billing.getConsultation(),c);
-	}
 	
 	@Test
 	void constructorTest()
