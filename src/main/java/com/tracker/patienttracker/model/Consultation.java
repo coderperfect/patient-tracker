@@ -19,7 +19,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Table(name = "consultation")
 public class Consultation {
-
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int consultationId;
@@ -38,5 +37,4 @@ public class Consultation {
 	
 	private boolean billed;
 	private boolean paid;
-	
 }
