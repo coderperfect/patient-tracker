@@ -1,5 +1,7 @@
 package com.tracker.patienttracker.model;
 
+import java.util.Set;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.validation.constraints.Digits;
@@ -7,6 +9,7 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
 import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 import lombok.Data;
@@ -34,4 +37,7 @@ public class Doctor{
 	@NotNull(message = "User Id is required")
 	@Min(value = 1, message = "User Id has to be greater than or equal to 1")
 	private int userId;
+	
+	@OneToMany
+	private Set<PatientRecord> patientRecords;
 }

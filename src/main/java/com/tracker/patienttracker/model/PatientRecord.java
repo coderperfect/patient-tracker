@@ -35,12 +35,10 @@ public class PatientRecord {
 	@JoinColumn(name= "doctorId")
 	private Doctor doctor;
 	
-	@OneToMany(targetEntity = Treatment.class)	
-	@JoinColumn(name = "treatmentId")
+	@OneToMany(mappedBy = "patientRecord", targetEntity = Treatment.class)	
 	private Set<Treatment> treatments;
 	
-	@OneToMany(targetEntity = TestReport.class)
-	@JoinColumn(name = "testResultId")
+	@OneToMany(mappedBy = "patientRecord", targetEntity = TestReport.class)
 	private Set<TestReport> testreports;
 	
 	@NotNull
@@ -49,9 +47,8 @@ public class PatientRecord {
 	private Patient patient;
 	
 	@NotNull
-	@OneToMany(targetEntity = Prescription.class)
-	@JoinColumn(name = "prescriptionId")
-	private Set<Prescription> prescriptionId;
+	@OneToMany(mappedBy = "patientRecord", targetEntity = Prescription.class)
+	private Set<Prescription> prescriptions;
 	
 	@PastOrPresent
 	@NotNull

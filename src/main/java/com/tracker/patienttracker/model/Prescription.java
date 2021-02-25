@@ -1,9 +1,16 @@
 package com.tracker.patienttracker.model;
 
+import java.util.Set;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
@@ -28,8 +35,9 @@ public class Prescription {
 	@Min(value = 1, message = "Prescription Id has to be greater than or equal to 1")
 	private int prescriptionId;
 	@NotNull(message = "Medicine Id is required")
-	@Min(value = 1, message = "Medicine Id has to be greater than or equal to 1")
-	private int medicineId;
+	@ManyToMany
+	@JoinTable(name = "prescription_medicine", joinColumns = @JoinColumn(name = "medicineId"), inverseJoinColumns = @JoinColumn(name = "prescriptionId"))
+	private Set<Medicine> medicines;
 	@NotNull(message = "Quantity is required")
 	private int quantity;
 	@NotNull(message = "Prescription Cost is required")
@@ -40,10 +48,8 @@ public class Prescription {
 	@NotNull(message = "Billed is required")
 	private boolean billed;
 	
+	@ManyToOne
+	@JoinColumn(name = "recordId")
+	private PatientRecord patientRecord;
 	
-	@Override
-	public String toString() {
-		return "Prescription(prescriptionId=" + prescriptionId + ", medicineId=" + medicineId + ", quantity="
-				+ quantity + ", prescriptionCost=" + String.format("%.2f", prescriptionCost) + ", paid=" + paid + ", billed=" + billed + ")";
-	}
 }

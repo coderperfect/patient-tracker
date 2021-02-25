@@ -42,30 +42,6 @@ public class PrescriptionTest {
 	}
 	
 	@Test
-	@Order(3)
-	public void testGetMedicinenId() throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException{
-		final Prescription prescription = new Prescription();
-		final Field field = prescription.getClass().getDeclaredField("medicineId");
-		field.setAccessible(true);
-		field.set(prescription, 1);
-		
-		assertEquals(1, prescription.getMedicineId());
-	}
-	
-	@Test
-	@Order(4)
-	public void testSetMedicineId() throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException{
-		final Prescription prescription = new Prescription();
-		
-		prescription.setMedicineId(1);
-		
-		final Field field = prescription.getClass().getDeclaredField("medicineId");
-		field.setAccessible(true);
-		
-		assertEquals(1, field.get(prescription));
-	}
-	
-	@Test
 	@Order(5)
 	public void testGetQuantity() throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException{
 		final Prescription prescription = new Prescription();
@@ -141,15 +117,6 @@ public class PrescriptionTest {
 	@Order(13)
 	public void testToString(){
 		String expectedString = "Prescription(prescriptionId=0, medicineId=0, quantity=0, prescriptionCost=1.00, paid=true, billed=true)";
-		assertEquals(expectedString, prescription.toString());
-	}
-	
-	@Test
-	@Order(14)
-	public void testAllArgsConstructor(){
-		Prescription prescription = new Prescription(1, 1, 1, 100.00, true, true);
-		
-		String expectedString = "Prescription(prescriptionId=1, medicineId=1, quantity=1, prescriptionCost=100.00, paid=true, billed=true)";
 		assertEquals(expectedString, prescription.toString());
 	}
 }
