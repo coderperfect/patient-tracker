@@ -7,5 +7,7 @@ import com.tracker.patienttracker.model.User;
 
 @Repository
 public interface UserRepository extends JpaRepository<User, Integer> {
+	
+	
 
 }

@@ -72,5 +72,7 @@ public class User {
 	@NotEmpty(message = "role cannot be empty")
 	@NotBlank(message = "role cannot be blank or whitespace")
 	private String role;
+	
+	private boolean approved=false;
 }
 
