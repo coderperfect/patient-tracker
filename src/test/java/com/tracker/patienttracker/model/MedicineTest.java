@@ -71,14 +71,4 @@ public class MedicineTest {
 		
 		assertEquals(expectedString, medicine.toString());
 	}
-	
-	@Test
-	@Order(8)
-	public void testAllArgsConstructor(){
-		Medicine medicine = new Medicine(1, "Paracetamol", 100.00);
-		
-		String expectedString = "Medicine(medicineId=1, medicineName=Paracetamol, medicineCost=100.00)";
-		
-		assertEquals(expectedString, medicine.toString());
-	}
 }

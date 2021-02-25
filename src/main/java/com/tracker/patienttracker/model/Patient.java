@@ -20,8 +20,6 @@ public class Patient{
 	@Id
 	int patientId;
 	
-	@NotEmpty(message = "The blood group cannot be empty")
-	@NotBlank(message = "The blood group  cannot be blank or whitespace")
 	@Pattern(regexp="^(O|A|B|AB)(\\+ve|-ve)$")
 	String bloodGroup;
 	
