@@ -1,7 +1,5 @@
 package com.tracker.patienttracker.model;
 
-import java.util.Date;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -16,19 +14,14 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "inpatientrecord")
-public class InPatientRecord {
-	
+@Table(name = "room")
+public class Room {
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int inPatientRecordId;
-	private int patientId;
-	private Date admissionDate;
-	private Date dischargeDate;
 	private int roomNo;
-	private boolean nursingChargesBilled;
-	private boolean nursingChargesPaid;
-	private boolean roomChargespaid;
-	private boolean	roomChargesbilled;
-
+	private String roomType;
+	private double roomCharges;
+	private double nursingCharges;
+	private double tariff;
 }
