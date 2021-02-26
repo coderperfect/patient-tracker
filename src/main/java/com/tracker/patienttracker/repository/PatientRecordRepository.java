@@ -7,5 +7,5 @@ import com.tracker.patienttracker.model.PatientRecord;
 
 @Repository
 public interface PatientRecordRepository extends JpaRepository<PatientRecord, Integer> {
-
+	public PatientRecord findByPatientId(int patientId);
 }
