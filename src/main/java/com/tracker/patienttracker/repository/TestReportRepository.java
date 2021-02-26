@@ -16,9 +16,9 @@ import com.tracker.patienttracker.model.TestReport;
 public interface TestReportRepository extends JpaRepository<TestReport, Integer> {
 
 	
-	@Modifying
-	@Query(value="update TestReport m set m.doctor=:doctor,m.patient=:patient,m.patientRecord=:patientRecord,m.test=:test,m.testResult=:testResult where m.testReportId=:testReportId")
-	public TestReport modifyTestReport(@Param(value = "doctor") Doctor doctor,@Param(value = "patient") Patient patient,@Param(value = "patientRecord") PatientRecord patientRecord,@Param(value = "test") Test test,
-			@Param(value = "testResult") String testResult,@Param(value = "testReportId")	int testReportId);
+//	@Modifying
+//	@Query(value="update TestReport t set t.doctor=:doctor,t.patient=:patient,m.patientRecord=:patientRecord,m.test=:test,m.testResult=:testResult where m.testReportId=:testReportId")
+//	public TestReport modifyTestReport(@Param(value = "doctor") Doctor doctor,@Param(value = "patient") Patient patient,@Param(value = "patientRecord") PatientRecord patientRecord,@Param(value = "test") Test test,
+//			@Param(value = "testResult") String testResult,@Param(value = "testReportId")	int testReportId);
 
 }
