@@ -33,8 +33,9 @@ public class Doctor{
 	@NotNull(message = "Consultation Fee is required")
 	@Digits(integer = 32, fraction = 2, message = "Please Enter a valid fee")
 	private double consultationFee;
-		
+
+	@NotNull(message = "User Id is required")
 	@OneToOne
-	@JoinColumn(name="userId")
+	@JoinColumn(name = "userId")
 	private User user;
 }
