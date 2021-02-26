@@ -76,6 +76,6 @@ public class User {
 	private String role;
 	
 	
-	private boolean approved;
+	private int approved;  //Changed to int for deny case, not merged
 }
 
