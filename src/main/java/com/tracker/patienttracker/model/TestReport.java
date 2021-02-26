@@ -26,7 +26,7 @@ import lombok.ToString;
 @Entity
 @Getter
 @Setter
-@Table(name="test_report")
+@Table(name="testreport")
 public class TestReport {
 
 	@Id
@@ -37,7 +37,6 @@ public class TestReport {
 	private Test test;
 	
 	@NotNull(message="Please provide Patient Id")
-	@Min(value = 1, message = "The value must be positive")
 	@OneToOne
 	private Patient patient;
 	

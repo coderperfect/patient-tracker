@@ -8,4 +8,5 @@ import com.tracker.patienttracker.model.Prescription;
 @Repository
 public interface PrescriptionRepository extends JpaRepository<Prescription, Integer> {
 
+	
 }
