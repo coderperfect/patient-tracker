@@ -27,7 +27,7 @@ public class PatientRecordService {
 		Patient patient = patientRepository.findById(patientId).get();
 		//getpatientRecord
 		Optional<PatientRecord> optional = patientRecordRepository.findByPatient(patient);
-		if(optional.isEmpty()) {
+		if(!optional.isPresent()) {
 			throw new PatientNotFoundException();
 		}
 		PatientRecord patientRecord=optional.get();
