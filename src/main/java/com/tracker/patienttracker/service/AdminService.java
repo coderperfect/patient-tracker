@@ -25,7 +25,7 @@ public class AdminService {
 	public String loginCheckAdmin(int userId,String password) {
 		Optional<Admin> result=adminRepository.findById(userId);
 		Optional<User> result1=userRepository.findById(userId);
-		if(result.isEmpty()|| result1.isEmpty()|| !result1.get().getPassword().equals(password))
+		if(result.isEmpty()|| result1.isEmpty()|| !(result1.get().getPassword().equals(password)))
 			return "Wrong credentials";
 		else return "Login Successfull";
 	}
