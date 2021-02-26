@@ -12,6 +12,6 @@ import com.tracker.patienttracker.model.TestReport;
 public interface TestReportRepository extends JpaRepository<TestReport, Integer> {
 	// Update Test Results Home Page
 	//Select * From test_report where testResult = null;
-	@Query(value = "Select * From TestReport t where t.testResult = null")
+	@Query(value = "Select t From TestReport t where t.testResult = null")
 	public List<TestReport> getPendingUpdateTestReports(); // Test pending
 }

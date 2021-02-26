@@ -44,7 +44,7 @@ public class TestReport {
 	
 	@NotNull
 	@OneToOne
-	private Doctor doctor ;
+	private Doctor doctor;
 	
 	private boolean requested;
 
