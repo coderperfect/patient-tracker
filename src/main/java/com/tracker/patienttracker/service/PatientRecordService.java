@@ -9,8 +9,10 @@ import javax.persistence.PersistenceContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.tracker.patienttracker.dto.PatientRecordDTO;
 import com.tracker.patienttracker.exception.PatientNotFoundException;
 import com.tracker.patienttracker.model.Doctor;
+import com.tracker.patienttracker.model.MedicineQuantity;
 import com.tracker.patienttracker.model.Patient;
 import com.tracker.patienttracker.model.PatientRecord;
 import com.tracker.patienttracker.model.Prescription;
@@ -69,6 +71,51 @@ public class PatientRecordService {
 		
 		PatientRecord patientRecord=optional.get();
 		return patientRecord.getTreatments();
+	}
+	
+	public String addPrescription(PatientRecordDTO dto) {
+		int patientRecordId = dto.getRecordId();
+		int doctorId = dto.getDoctorId();
+		Doctor doctor =  doctorService.getDoctor(doctorId);
+		
+		Optional<PatientRecord> optional = patientRecordRepository.findByrecordIdAndDoctor(patientRecordId, doctor);
+		if(!optional.isPresent()) {
+			throw new PatientNotFoundException();
+		}
+		
+		Prescription prescription = dto.getPrescription();
+		double prescriptionCost = 0;
+		for(MedicineQuantity mq : prescription.getMedicineQuantities()) {
+			prescriptionCost = prescriptionCost + mq.getQuantity()*mq.getMedicine().getMedicineCost();
+		}
+		
+		PatientRecord patientRecord=optional.get();
+		prescription.setPrescriptionCost(prescriptionCost);
+		patientRecord.getPrescriptions().add(prescription);
+		PatientRecord record = patientRecordRepository.save(patientRecord);
+		
+		return "Added Successfully";
+		
+	}
+
+	public String addTreatment(PatientRecordDTO dto) {
+		int patientRecordId = dto.getRecordId();
+		int doctorId = dto.getDoctorId();
+		Doctor doctor =  doctorService.getDoctor(doctorId);
+		
+		Optional<PatientRecord> optional = patientRecordRepository.findByrecordIdAndDoctor(patientRecordId, doctor);
+		if(!optional.isPresent()) {
+			throw new PatientNotFoundException();
+		}
+		
+		Treatment treatment = dto.getTreatment();
+		PatientRecord patientRecord=optional.get();
+		treatment.setPatientRecord(patientRecord);
+		patientRecord.getTreatments().add(treatment);
+		
+		PatientRecord record = patientRecordRepository.save(patientRecord);
+		
+		return "Added Successfully";
 	}
 	
 	
