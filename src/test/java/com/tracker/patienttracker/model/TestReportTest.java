@@ -1,4 +1,4 @@
-/* package com.tracker.patienttracker.model;
+ package com.tracker.patienttracker.model;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -33,17 +33,6 @@ public class TestReportTest {
 		assertEquals(testReport.getTestResult(),"Done");
 	}
 
-<<<<<<< HEAD
-	@Test
-	void getDoctorIdTest()
-	{
-		TestReport testReport=new TestReport();
-		//testReport.setDoctorId(1);
-		//assertEquals(testReport.getDoctorId(),1);
-	}
-=======
-	
->>>>>>> 140b3d5bd8b1c1f9f9f766e2c135db59d5a310bf
 	@Test
 	void getRequestedTest()
 	{
@@ -58,18 +47,6 @@ public class TestReportTest {
 		testReport.setPaid(true);
 		assertEquals(testReport.isPaid(),true);
 	}
-<<<<<<< HEAD
-	@Test
-	void constructorTest()
-	{
-		//TestReport testReport1=new TestReport(1, 0, 0, "Done", 0, true, false);
-		//TestReport testReport2=new TestReport(1, 0, 0, "Done", 0, true, false);
-		//assertEquals(testReport1.toString(),testReport2.toString());
-	}
-=======
-	
->>>>>>> 140b3d5bd8b1c1f9f9f766e2c135db59d5a310bf
-	
 	// Validation Tests
 	private static Validator validator;
 		static {
@@ -86,18 +63,6 @@ public class TestReportTest {
     	assertFalse(violations.isEmpty());
 
     }
-<<<<<<< HEAD
-    
-    @Test
-    void doctorIdValidatioTest() {
-    	TestReport testReport=new TestReport();
-    	//testReport.setDoctorId(-1);
-    	Set<ConstraintViolation<TestReport>> violations = validator.validate(testReport);
-    	assertFalse(violations.isEmpty());
+
 
     }
-=======
->>>>>>> 140b3d5bd8b1c1f9f9f766e2c135db59d5a310bf
-    	
-}
-*/
