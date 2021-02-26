@@ -32,9 +32,9 @@ public class Doctor{
 	@Digits(integer = 32, fraction = 2, message = "Please Enter a valid fee")
 	private double consultationFee;
 	
-	@OneToOne
-	@JoinColumn(name="userId")
+
 	@NotNull(message = "User Id is required")
-	@Min(value = 1, message = "User Id has to be greater than or equal to 1")
-	private User user;  // Changed not merged with main
+	@OneToOne
+	@JoinColumn(name = "userId")
+	private User user;
 }
