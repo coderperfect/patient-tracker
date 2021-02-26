@@ -29,7 +29,7 @@ import com.tracker.patienttracker.model.Treatment;
 @RunWith(SpringRunner.class)
 @AutoConfigureTestDatabase(replace =Replace.NONE)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-public class PatientRepositoryTest {
+public class PatientRecordRepositoryTest {
 	
 	@Autowired
 	private PrescriptionRepository prescriptionRepository;
@@ -46,7 +46,7 @@ public class PatientRepositoryTest {
 	@Autowired
 	private TreatmentRepository treatmentRepository;
 	
-	@Test
+	//@Test
 	@Order(1)
     @Rollback(false)
 	public void testaddPrescriptionToPatientRecord() {
@@ -100,7 +100,7 @@ public class PatientRepositoryTest {
 		assertEquals(patientRecord, saved);
 	}
 	
-	@Test
+	//@Test
 	@Order(2)
     @Rollback(false)
 	public void testaddTestToPatientRecord() {
@@ -110,7 +110,7 @@ public class PatientRepositoryTest {
 		PatientRecord patientRecord=optional2.get();
 		
 		//getTest
-		Optional<com.tracker.patienttracker.model.Test> opTest = testRepository.findById(1);
+		Optional<com.tracker.patienttracker.model.Test> opTest = testRepository.findById(21);
 		com.tracker.patienttracker.model.Test test = opTest.get();
 		
 		//create testreport
@@ -137,7 +137,7 @@ public class PatientRepositoryTest {
 		
 	}
 	
-	@Test
+	//@Test
 	@Order(3)
     @Rollback(false)
 	public void testaddTreatmentToPatientRecord() {
@@ -169,20 +169,4 @@ public class PatientRepositoryTest {
 		
 	}
 	
-	@Test
-	@Order(4)
-    @Rollback(false)
-	public void testFetchPrescriptions() {
-		//get patient record
-		Optional<PatientRecord> optional2 = patientRecordRepository.findById(1);
-		PatientRecord patientRecord=optional2.get();
-		
-		//fetch prescriptions
-		Set<Prescription> prescriptions = patientRecord.getPrescriptions();
-	}
-	
-	
-	
-
-
 }
