@@ -40,6 +40,7 @@ public class PrescriptionTest {
 		
 		assertEquals(1, field.get(prescription));
 	}
+
 	
 	@Test
 	@Order(5)
@@ -119,4 +120,5 @@ public class PrescriptionTest {
 		String expectedString = "Prescription(prescriptionId=0, medicineId=0, quantity=0, prescriptionCost=1.00, paid=true, billed=true)";
 		assertEquals(expectedString, prescription.toString());
 	}
+	
 }

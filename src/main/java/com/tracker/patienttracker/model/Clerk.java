@@ -1,8 +1,10 @@
 package com.tracker.patienttracker.model;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.OneToOne;
 
 import lombok.Data;
@@ -16,7 +18,6 @@ import lombok.NoArgsConstructor;
 public class Clerk {
 	@Id
 	int clerkId;
-	
 
 	@OneToOne
 	@JoinColumn(name="userId")

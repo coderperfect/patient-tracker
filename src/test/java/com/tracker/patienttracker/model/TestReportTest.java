@@ -53,7 +53,7 @@ public class TestReportTest {
         ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
         validator = factory.getValidator();
     }
- 
+
     @Test
     void testResultValidatioTest() {
     	TestReport testReport=new TestReport();
@@ -62,6 +62,5 @@ public class TestReportTest {
     	assertFalse(violations.isEmpty());
 
     }
-    
     	
 }

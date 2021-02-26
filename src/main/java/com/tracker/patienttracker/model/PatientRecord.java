@@ -3,6 +3,7 @@ package com.tracker.patienttracker.model;
 import java.util.Date;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -32,13 +33,13 @@ public class PatientRecord {
 	private int recordId;
 	
 	@ManyToOne
-	@JoinColumn(name= "doctorId")
+	@JoinColumn(name = "doctorId")
 	private Doctor doctor;
 	
-	@OneToMany(mappedBy = "patientRecord", targetEntity = Treatment.class)	
+	@OneToMany(targetEntity = Treatment.class, cascade = CascadeType.ALL)	
 	private Set<Treatment> treatments;
 	
-	@OneToMany(mappedBy = "patientRecord", targetEntity = TestReport.class)
+	@OneToMany(targetEntity = TestReport.class, cascade = CascadeType.ALL)
 	private Set<TestReport> testreports;
 	
 	@NotNull
@@ -46,8 +47,7 @@ public class PatientRecord {
 	@JoinColumn(name = "patientId")
 	private Patient patient;
 	
-	@NotNull
-	@OneToMany(mappedBy = "patientRecord", targetEntity = Prescription.class)
+	@OneToMany(targetEntity = Prescription.class, cascade = CascadeType.ALL)
 	private Set<Prescription> prescriptions;
 	
 	@PastOrPresent

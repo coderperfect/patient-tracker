@@ -2,6 +2,7 @@ package com.tracker.patienttracker.model;
 
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -10,7 +11,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
@@ -34,22 +34,27 @@ public class Prescription {
 	@NotNull(message = "Prescription Id is required")
 	@Min(value = 1, message = "Prescription Id has to be greater than or equal to 1")
 	private int prescriptionId;
+	
 	@NotNull(message = "Medicine Id is required")
-	@ManyToMany
-	@JoinTable(name = "prescription_medicine", joinColumns = @JoinColumn(name = "medicineId"), inverseJoinColumns = @JoinColumn(name = "prescriptionId"))
+	@ManyToMany(cascade = CascadeType.ALL)
+	@JoinTable(name="prescription_medicines", joinColumns = @JoinColumn(name ="medicineId"),inverseJoinColumns = @JoinColumn(name="prescriptionId") )
 	private Set<Medicine> medicines;
+	
 	@NotNull(message = "Quantity is required")
 	private int quantity;
+	
 	@NotNull(message = "Prescription Cost is required")
 	@Digits(integer = 32, fraction = 2, message = "Please Enter a valid cost")
 	private double prescriptionCost;
+	
 	@NotNull(message = "Paid is required")
 	private boolean paid;
+	
 	@NotNull(message = "Billed is required")
 	private boolean billed;
 	
 	@ManyToOne
-	@JoinColumn(name = "recordId")
+	@JoinColumn(name="recordId")
 	private PatientRecord patientRecord;
 	
 }

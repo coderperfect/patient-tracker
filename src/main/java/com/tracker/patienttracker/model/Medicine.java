@@ -1,13 +1,15 @@
 package com.tracker.patienttracker.model;
 
+import java.lang.annotation.Target;
+
 import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
@@ -37,7 +39,7 @@ public class Medicine {
 	@Digits(integer = 32, fraction = 2, message = "Please Enter a valid Cost")
 	private double medicineCost;
 	
-	@ManyToMany(mappedBy = "medicines", targetEntity = Prescription.class)
+	@ManyToMany(mappedBy = "medicines")
 	private Set<Prescription> prescriptions;
 	
 	@Override
