@@ -61,6 +61,7 @@ public class Billing {
 
 	@NotNull(message="UserId can not be null")
 	@ManyToOne
+	@JoinColumn(name = "userId")
 	private User user;
 
 	@OneToMany(cascade = CascadeType.ALL)

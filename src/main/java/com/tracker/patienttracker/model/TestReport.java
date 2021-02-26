@@ -38,7 +38,6 @@ public class TestReport {
 	private Test test;
 	
 	@NotNull(message="Please provide Patient Id")
-	@Min(value = 1, message = "The value must be positive")
 	@OneToOne
 	private Patient patient;
 	

@@ -43,30 +43,6 @@ public class PrescriptionTest {
 
 	
 	@Test
-	@Order(5)
-	public void testGetQuantity() throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException{
-		final Prescription prescription = new Prescription();
-		final Field field = prescription.getClass().getDeclaredField("quantity");
-		field.setAccessible(true);
-		field.set(prescription, 1);
-		
-		assertEquals(1, prescription.getQuantity());
-	}
-	
-	@Test
-	@Order(6)
-	public void testSetQuantity() throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException{
-		final Prescription prescription = new Prescription();
-		
-		prescription.setQuantity(1);
-		
-		final Field field = prescription.getClass().getDeclaredField("quantity");
-		field.setAccessible(true);
-		
-		assertEquals(1, field.get(prescription));
-	}
-	
-	@Test
 	@Order(7)
 	public void testGetPrescriptionCost(){
 		prescription.setPrescriptionCost(1);

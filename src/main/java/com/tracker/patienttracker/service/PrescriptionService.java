@@ -28,9 +28,8 @@ public class PrescriptionService {
 //		AuthResponse response = userService.getValidity(token);
 //		if(!response.isValid)
 //			throw new InvalidTokenException("Token is not valid");
-		
-		PatientRecord patientRecord = patientRecordService.getPatientRecordByPatientId(patientId, token);
-		Set<Prescription> prescriptions = prescriptionRepository.findByRecordIdAndBilledFalse(patientRecord.getRecordId());
+		 
+		Set<Prescription> prescriptions = patientRecordService.prescriptions(patientId);
 		return prescriptions;
 	}
 	
