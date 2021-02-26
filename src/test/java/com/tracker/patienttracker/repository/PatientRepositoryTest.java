@@ -23,6 +23,7 @@ import com.tracker.patienttracker.model.MedicineQuantity;
 import com.tracker.patienttracker.model.PatientRecord;
 import com.tracker.patienttracker.model.Prescription;
 import com.tracker.patienttracker.model.TestReport;
+import com.tracker.patienttracker.model.Treatment;
 
 @DataJpaTest
 @RunWith(SpringRunner.class)
@@ -42,6 +43,9 @@ public class PatientRepositoryTest {
 	@Autowired
 	private TestRepository testRepository;
 	
+	@Autowired
+	private TreatmentRepository treatmentRepository;
+	
 	@Test
 	@Order(1)
     @Rollback(false)
@@ -57,6 +61,7 @@ public class PatientRepositoryTest {
 		Medicine medicine = optional.get();
 		medicineQuantity.setMedicine(medicine);
 		medicineQuantity.setQuantity(10);
+		medicineQuantity.setNoOfDays(10);
 		medicineQuantities.add(medicineQuantity);
 		//second medicine
 		MedicineQuantity medicineQuantity2 = new MedicineQuantity();
@@ -64,6 +69,7 @@ public class PatientRepositoryTest {
 		medicine = optional.get();
 		medicineQuantity2.setMedicine(medicine);
 		medicineQuantity2.setQuantity(20);
+		medicineQuantity2.setNoOfDays(40);
 		medicineQuantities.add(medicineQuantity2);
 		//set of prescriptions
 		Set<Prescription> prescriptions = new HashSet<>();
@@ -129,6 +135,50 @@ public class PatientRepositoryTest {
 		
 		assertEquals(patientRecord, saved);
 		
+	}
+	
+	@Test
+	@Order(3)
+    @Rollback(false)
+	public void testaddTreatmentToPatientRecord() {
+		
+		//get patient
+		Optional<PatientRecord> optional2 = patientRecordRepository.findById(1);
+		PatientRecord patientRecord=optional2.get();
+		
+		//create treatment
+		Treatment treatment1 = new Treatment();
+		Treatment treatment2 = new Treatment();
+		
+		treatment1.setTreatmentDescription("Apply HPSCO Ointment twice a day \n Use moisturiser after bath");
+		treatment2.setTreatmentDescription("Dialysis 2 times a week");
+		treatment2.setDietExcerciseDescription("Avoid junk food \n Eat more fruits");
+		treatment2.setTreatmentCost(100000);
+		treatment1.setTreatmentCost(500);
+		
+		// set of treatments
+		Set<Treatment> treatments = new HashSet<>();
+		treatments.add(treatment1);
+		treatments.add(treatment2);
+		//add test to record
+		patientRecord.setTreatments(treatments);
+		
+		PatientRecord saved = patientRecordRepository.save(patientRecord);
+		
+		assertEquals(patientRecord, saved);
+		
+	}
+	
+	@Test
+	@Order(4)
+    @Rollback(false)
+	public void testFetchPrescriptions() {
+		//get patient record
+		Optional<PatientRecord> optional2 = patientRecordRepository.findById(1);
+		PatientRecord patientRecord=optional2.get();
+		
+		//fetch prescriptions
+		Set<Prescription> prescriptions = patientRecord.getPrescriptions();
 	}
 	
 	

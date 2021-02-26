@@ -18,6 +18,8 @@ import javax.validation.constraints.NotNull;
 
 import org.springframework.stereotype.Repository;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -29,6 +31,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
+@JsonIgnoreProperties({"hibernateLazyInitializer","handler","patientRecord"})
 public class Prescription {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

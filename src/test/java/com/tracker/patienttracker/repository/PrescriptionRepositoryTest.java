@@ -76,7 +76,6 @@ public class PrescriptionRepositoryTest {
 		
 		Prescription saved = prescriptionRepository.save(prescription);
 		
-		
 		assertEquals(prescription, saved);
 		
 		assertEquals(1,1);

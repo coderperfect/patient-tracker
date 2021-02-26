@@ -15,6 +15,8 @@ import javax.validation.constraints.NotNull;
 
 import org.springframework.stereotype.Repository;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -26,6 +28,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @Getter
 @Setter
+@JsonIgnoreProperties({"hibernateLazyInitializer","handler","prescriptions"})
 public class MedicineQuantity {
 
 	@Id
@@ -40,6 +43,10 @@ public class MedicineQuantity {
 	@OneToOne
 	private Medicine medicine;
 	
+	@Min(value = 1)
+	private int noOfDays;
+	
 	@NotNull(message = "Quantity is required")
+	@Min(value=1)
 	private int quantity;
 }
