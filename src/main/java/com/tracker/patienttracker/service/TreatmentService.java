@@ -27,4 +27,10 @@ public class TreatmentService {
 		List<Treatment> updatedTreatments = treatmentRepository.saveAll(treatments);
 		
 	}
+
+	public void saveTreatment(Treatment treatment) {
+	
+		treatmentRepository.save(treatment);
+		
+	}
 }

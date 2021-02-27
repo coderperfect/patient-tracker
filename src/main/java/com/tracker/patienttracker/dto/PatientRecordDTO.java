@@ -4,6 +4,7 @@ import java.util.Set;
 
 import com.tracker.patienttracker.model.Doctor;
 import com.tracker.patienttracker.model.Prescription;
+import com.tracker.patienttracker.model.TestReport;
 import com.tracker.patienttracker.model.Treatment;
 
 public class PatientRecordDTO {
@@ -15,6 +16,16 @@ public class PatientRecordDTO {
 	private Prescription prescription;
 	
 	private Treatment treatment;
+	
+	private TestReport testReport;
+
+	public TestReport getTestReport() {
+		return testReport;
+	}
+
+	public void setTestReport(TestReport testReport) {
+		this.testReport = testReport;
+	}
 
 	public int getDoctorId() {
 		return doctorId;

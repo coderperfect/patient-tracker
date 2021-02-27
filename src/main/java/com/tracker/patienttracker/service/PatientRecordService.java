@@ -32,15 +32,17 @@ public class PatientRecordService {
 	
 	@Autowired
 	private DoctorService doctorService;
+	
+	@Autowired
+	private TreatmentService treatmentService;
 
 	@Autowired
 	private PatientRecordRepository patientRecordRepository;
 	
-	public Set<Prescription> prescriptions(int patientId, int doctorId) {
+	public Set<Prescription> prescriptions(int patientRecordId, int doctorId) {
 		Doctor doctor = doctorService.getDoctor(doctorId);
-		Patient patient = patientService.getPatient(patientId);
-		//getpatientRecord
-		Optional<PatientRecord> optional = patientRecordRepository.findByPatientAndDoctor(patient, doctor);
+		//Patient patient = patientService.getPatient(patientId);
+		Optional<PatientRecord> optional = patientRecordRepository.findByrecordIdAndDoctor(patientRecordId, doctor);
 		if(!optional.isPresent()) {
 			throw new PatientNotFoundException();
 		}
@@ -48,11 +50,11 @@ public class PatientRecordService {
 		return patientRecord.getPrescriptions();
 	}
 	
-	public Set<TestReport> testReports(int patientId, int doctorId) {
+	public Set<TestReport> testReports(int patientRecordId, int doctorId) {
 		Doctor doctor = doctorService.getDoctor(doctorId);
-		Patient patient = patientService.getPatient(patientId);
+		
 		//getpatientRecord
-		Optional<PatientRecord> optional = patientRecordRepository.findByPatientAndDoctor(patient, doctor);
+		Optional<PatientRecord> optional = patientRecordRepository.findByrecordIdAndDoctor(patientRecordId, doctor);
 		
 		if(!optional.isPresent()) {
 			throw new PatientNotFoundException();
@@ -110,13 +112,16 @@ public class PatientRecordService {
 		
 		Treatment treatment = dto.getTreatment();
 		PatientRecord patientRecord=optional.get();
-		treatment.setPatientRecord(patientRecord);
-		patientRecord.getTreatments().add(treatment);
 		
+		Set<Treatment> treatments = patientRecord.getTreatments();
+		treatments.add(treatment);
+		patientRecord.setTreatments(treatments);
 		PatientRecord record = patientRecordRepository.save(patientRecord);
 		
 		return "Added Successfully";
 	}
+	
+	
 	
 	
 	
