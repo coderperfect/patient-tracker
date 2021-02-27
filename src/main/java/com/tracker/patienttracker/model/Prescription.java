@@ -34,6 +34,7 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
+@Table(name = "prescription")
 @JsonIgnoreProperties({"hibernateLazyInitializer","handler","patientRecord"})
 @Table(name = "prescription")
 public class Prescription {
