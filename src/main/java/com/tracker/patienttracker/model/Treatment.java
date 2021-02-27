@@ -36,7 +36,7 @@ public class Treatment {
 	
 	private String dietExcerciseDescription;
 	
-	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "recordId")
+  @ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name="recordId")
 	private PatientRecord patientRecord;
 }

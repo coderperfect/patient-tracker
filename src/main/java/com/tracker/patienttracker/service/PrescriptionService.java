@@ -1,5 +1,6 @@
 package com.tracker.patienttracker.service;
 
+import java.util.List;
 import java.util.Set;
 
 import javax.transaction.Transactional;
@@ -7,6 +8,8 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.tracker.patienttracker.model.Treatment;
+import com.tracker.patienttracker.repository.TreatmentRepository;
 import com.tracker.patienttracker.model.PatientRecord;
 import com.tracker.patienttracker.model.Prescription;
 import com.tracker.patienttracker.repository.PrescriptionRepository;
@@ -22,6 +25,13 @@ public class PrescriptionService {
 	
 //	@Autowired
 //	private UserService userService;
+  @Transactional
+	public void updatePrescriptions(Set<Prescription> prescriptions) {
+		
+		List<Prescription> updatedPrescriptions = prescriptionRepository.saveAll(prescriptions);
+		
+	}
+  
 	
 	@Transactional
 	public Set<Prescription> getAllPrescriptionsForPatientForBilling(int patientId) throws Exception{
@@ -51,5 +61,4 @@ public class PrescriptionService {
 		
 		return prescriptionRepository.save(prescription);
 	}
-
 }

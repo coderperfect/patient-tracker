@@ -6,7 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.tracker.patienttracker.exception.DoctorNotFoundException;
+import com.tracker.patienttracker.exception.PatientNotFoundException;
 import com.tracker.patienttracker.model.Doctor;
+import com.tracker.patienttracker.model.Patient;
 import com.tracker.patienttracker.repository.DoctorRepository;
 
 @Service

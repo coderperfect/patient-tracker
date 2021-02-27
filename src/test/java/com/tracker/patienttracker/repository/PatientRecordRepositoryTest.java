@@ -26,6 +26,7 @@ import com.tracker.patienttracker.model.PatientRecord;
 import com.tracker.patienttracker.model.Prescription;
 import com.tracker.patienttracker.model.TestReport;
 import com.tracker.patienttracker.model.Treatment;
+
 import com.tracker.patienttracker.util.DateUtil;
 
 @DataJpaTest
@@ -109,6 +110,7 @@ public class PatientRecordRepositoryTest {
 		assertEquals(patientRecord, saved);
 	}
 	
+
 	@Test
 	@Order(2)
     @Rollback(false)
@@ -119,7 +121,7 @@ public class PatientRecordRepositoryTest {
 		PatientRecord patientRecord=optional2.get();
 		
 		//getTest
-		Optional<com.tracker.patienttracker.model.Test> opTest = testRepository.findById(1);
+		Optional<com.tracker.patienttracker.model.Test> opTest = testRepository.findById(21);
 		com.tracker.patienttracker.model.Test test = opTest.get();
 		
 		//create testreport
@@ -225,7 +227,4 @@ public class PatientRecordRepositoryTest {
 //		Set<Integer> patientIds2 = patientRecordRepository.getAllPatientsForDoctor(32);
 //		assertEquals(patientIds1.size(), patientIds2.size());
 //	}
-	
-
-
 }

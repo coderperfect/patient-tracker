@@ -37,7 +37,7 @@ public class PatientRecord {
 	@JoinColumn(name = "doctorId")
 	private Doctor doctor;
 	
-	@OneToMany(targetEntity = Treatment.class, cascade = CascadeType.ALL)	
+	@OneToMany(targetEntity = Treatment.class, cascade = CascadeType.ALL, mappedBy="patientRecord")	
 	private Set<Treatment> treatments;
 	
 	@OneToMany(targetEntity = TestReport.class, cascade = CascadeType.ALL)
