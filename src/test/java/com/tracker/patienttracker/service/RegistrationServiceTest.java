@@ -16,6 +16,7 @@ import com.tracker.patienttracker.repository.ClerkRepository;
 import com.tracker.patienttracker.repository.DoctorRepository;
 import com.tracker.patienttracker.repository.PatientRepository;
 import com.tracker.patienttracker.repository.UserRepository;
+import com.tracker.patienttracker.util.DateUtil;
 import com.tracker.patienttracker.validator.ConstraintValidation;
 
 @Service
@@ -39,7 +40,8 @@ public class RegistrationServiceTest {
 		String firstName=registrationData.getFirstName();
 		String lastName=registrationData.getLastName();
 		String gender=registrationData.getGender();
-		Date dateOfBirth=registrationData.getDateOfBirth();
+		String dob=registrationData.getDateOfBirth();
+		Date dateOfBirth=new DateUtil().convertToDate1(dob);
 		String contactNo=registrationData.getContactNo();
 		String password=registrationData.getPassword();
 		String address=registrationData.getAddress();

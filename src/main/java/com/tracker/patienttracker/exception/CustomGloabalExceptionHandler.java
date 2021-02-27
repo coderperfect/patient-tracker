@@ -61,10 +61,14 @@ public class CustomGloabalExceptionHandler extends ResponseEntityExceptionHandle
 		response.sendError(HttpStatus.BAD_REQUEST.value(), "User Not Found"); 
 	}
 	
-	
 	@ExceptionHandler(DoctorNotFoundException.class)
 	public void doctorNotFound(HttpServletResponse response) throws IOException{
 		response.sendError(HttpStatus.BAD_REQUEST.value(), "Doctor Not Found"); 
+	}
+	
+	@ExceptionHandler(RegistrationFailedException.class)
+	public void RegistraionFailed(HttpServletResponse response) throws IOException{
+		response.sendError(HttpStatus.BAD_REQUEST.value(), "Registration Failed"); 
 	}
 	
 }

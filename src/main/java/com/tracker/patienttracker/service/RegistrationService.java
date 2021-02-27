@@ -18,6 +18,7 @@ import com.tracker.patienttracker.repository.ClerkRepository;
 import com.tracker.patienttracker.repository.DoctorRepository;
 import com.tracker.patienttracker.repository.PatientRepository;
 import com.tracker.patienttracker.repository.UserRepository;
+import com.tracker.patienttracker.util.DateUtil;
 import com.tracker.patienttracker.validator.ConstraintValidation;
 
 @Service
@@ -43,7 +44,9 @@ public class RegistrationService {
 		String firstName=registrationData.getFirstName();
 		String lastName=registrationData.getLastName();
 		String gender=registrationData.getGender();
-		Date dateOfBirth=registrationData.getDateOfBirth();
+		String dob=registrationData.getDateOfBirth();
+		Date dateOfBirth=new DateUtil().convertToDate1(dob);
+		//Date dateOfBirth=registrationData.getDateOfBirth();
 		String contactNo=registrationData.getContactNo();
 		String password=registrationData.getPassword();
 		String address=registrationData.getAddress();
@@ -62,32 +65,40 @@ public class RegistrationService {
 		if(!errors.equals(""))
 			return errors; 
 		
+		if(role.equals("ROLE_ADMIN"))
+			obj.setApproved(1);
+		
+		int userId=0;
 		User userObj=userRepository.save(obj);
-		if(role.equals("ROLE_DOCTOR")) {			
-			Doctor obj1=new Doctor(userObj.getUserId(),registrationData.getQualification(),
+		if(role.equals("ROLE_DOCTOR")) {		
+			userId=userObj.getUserId();
+			Doctor obj1=new Doctor(userId,registrationData.getQualification(),
 				registrationData.getSpecialization(),registrationData.getConsultationFee(),userObj);
 			errors=constraintValidation.validationCheck(obj1);
 			if(!errors.equals(""))
 				return errors; 
-			doctorRepository.save(obj1);
+//			doctorRepository.save(obj1);
 			}
 		else if(role.equals("ROLE_PATIENT")) {
-			Patient obj1=new Patient(userObj.getUserId(),registrationData.getBloodGroup(),userObj);
+			userId=userObj.getUserId();
+			Patient obj1=new Patient(userId,registrationData.getBloodGroup(),userObj);
 			errors=constraintValidation.validationCheck(obj1);
 			if(!errors.equals(""))
 				return errors; 
-			patientRepository.save(obj1);
+//			patientRepository.save(obj1);
 		}
 		else if(role.equals("ROLE_CLERK")){
-			Clerk obj1=new Clerk(userObj.getUserId(),userObj);
-			clerkRepository.save(obj1);			
+			userId=userObj.getUserId();
+			Clerk obj1=new Clerk(userId,userObj);
+//			clerkRepository.save(obj1);			
 		}
 		else if(role.equals("ROLE_ADMIN")){
-			Admin obj1=new Admin(userObj.getUserId(),userObj);
+			userId=userObj.getUserId();
+			Admin obj1=new Admin(userId,userObj);
 			adminRepository.save(obj1);
-			return "Thanks For Registiring";
+			return "Thanks For Registiring Your UserID is "+userId;
 		}
-		return "Thanks For Registiring Please wait for the Approval";
+		return "Thanks For Registiring Please wait for the Approval Your UserId is "+userId;
 	}
 	
 }

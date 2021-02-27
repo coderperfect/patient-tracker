@@ -5,10 +5,12 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+
 import com.tracker.patienttracker.dto.IdPasswordRole;
 import com.tracker.patienttracker.dto.RegistrationData;
+import com.tracker.patienttracker.exception.RegistrationFailedException;
 import com.tracker.patienttracker.exception.UserNotFoundException;
-import com.tracker.patienttracker.service.AdminService;
+import com.tracker.patienttracker.service.LoginService;
 import com.tracker.patienttracker.service.RegistrationService;
 
 @RestController
@@ -19,25 +21,25 @@ public class RegistrationController {
 	@Autowired
 	private RegistrationService registrationService;
 	@Autowired
-	AdminService adminService;
+	LoginService loginService;
 
 	@PostMapping("/registration")
-	public String registration(@RequestBody RegistrationData registrationData) {		
-		return registrationService.registration(registrationData);
+	public String registration(@RequestBody RegistrationData registrationData) {
+		String temp=registrationService.registration(registrationData);
+		System.out.println(temp);
+		if(!temp.contains("Thanks For Registiring"))
+			throw new RegistrationFailedException();
+		return temp;
 	}
 	
 	@PostMapping("/login")
 	public String loginCheck(@RequestBody IdPasswordRole obj) {
 		int userId=obj.getUserId();
 		String password=obj.getPassword();
-		String role=obj.getRole();
-		if(role.equals("ROLE_ADMIN")) {
-			String messg=adminService.loginCheckAdmin(userId, password);
-			if(!messg.equals("null")) {
-				return "Valid Credintials";
-			}		
-		else throw new UserNotFoundException();
-		}
-		else return "Check other roles";
+		String role=obj.getRole();		
+		String messg=loginService.loginCheck(userId, password,role);
+		if(!messg.equals("null")) 
+			return "You have Logged In Successfully";
+		else throw new UserNotFoundException();		
 	}
 }
