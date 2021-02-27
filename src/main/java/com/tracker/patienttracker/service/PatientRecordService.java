@@ -43,7 +43,9 @@ public class PatientRecordService {
 		
 		Patient patient = patientService.getPatient(patientId);
 		//getpatientRecord
+
 		Optional<PatientRecord> optional = patientRecordRepository.findByPatientAndDoctor(patient, doctor);
+
 		if(!optional.isPresent()) {
 			throw new PatientNotFoundException();
 		}

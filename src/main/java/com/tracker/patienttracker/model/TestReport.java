@@ -45,11 +45,12 @@ public class TestReport {
 	
 	@NotNull
 	@OneToOne
-	private Doctor doctor ;
+	private Doctor doctor;
 	
 	private boolean requested;
 
 	private boolean paid;
+
 	
 	private boolean billed;
 	
