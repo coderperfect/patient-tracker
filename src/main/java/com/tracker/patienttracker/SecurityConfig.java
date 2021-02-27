@@ -27,9 +27,6 @@ public class SecurityConfig  extends WebSecurityConfigurerAdapter {
 	@Autowired
 	private Environment env;
 
-//	@Autowired
-//	private JwtRequestFilter jwtRequestFilter;
-
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 		// TODO Auto-generated method stub

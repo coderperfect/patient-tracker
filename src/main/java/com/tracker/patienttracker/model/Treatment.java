@@ -1,5 +1,6 @@
 package com.tracker.patienttracker.model;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -33,7 +34,7 @@ public class Treatment {
 	@DecimalMin(value="0.0")
 	private double treatmentCost;
 	
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name="recordId")
 	private PatientRecord patientRecord;
 	
