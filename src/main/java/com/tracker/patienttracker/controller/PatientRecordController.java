@@ -59,6 +59,7 @@ public class PatientRecordController {
 		
 		String response= patientRecordService.addTreatment(dto);
 		return ResponseEntity.ok(response);
+	}
 
 	@GetMapping(value = "/patientids/{doctorId}")
 	public ResponseEntity<Set<Patient>> getAllPatientsForDoctor(@PathVariable(value = "doctorId") int doctorId){

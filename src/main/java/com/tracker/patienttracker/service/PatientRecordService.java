@@ -40,16 +40,9 @@ public class PatientRecordService {
 	@Autowired
 	private PatientRecordRepository patientRecordRepository;
 	
+	@Transactional
 	public Set<Prescription> prescriptions(int patientId, int doctorId) {
 		Doctor doctor = doctorService.getDoctor(doctorId);
-
-	private PatientService patientService;
-	
-	@Autowired
-	private DoctorService doctorService;
-	
-	@Transactional
-	public Set<Prescription> prescriptions(int patientId) {
 		
 		Patient patient = patientService.getPatient(patientId);
 		//getpatientRecord
@@ -147,7 +140,7 @@ public class PatientRecordService {
 	public PatientRecord getPatientRecordForPatientId(int patientId) {
 		Patient patient = patientService.getPatient(patientId);
 		Optional<PatientRecord> optionalPatientRecord = patientRecordRepository.findByPatient(patient);
-		if(optionalPatientRecord.isEmpty()) {
+		if(!optionalPatientRecord.isPresent()) {
 			throw new PatientNotFoundException();
 		}
 		PatientRecord patientRecord = optionalPatientRecord.get();
