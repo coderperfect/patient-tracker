@@ -62,4 +62,9 @@ public class CustomGloabalExceptionHandler extends ResponseEntityExceptionHandle
 	}
 	
 	
+	@ExceptionHandler(DoctorNotFoundException.class)
+	public void doctorNotFound(HttpServletResponse response) throws IOException{
+		response.sendError(HttpStatus.BAD_REQUEST.value(), "Doctor Not Found"); 
+	}
+	
 }

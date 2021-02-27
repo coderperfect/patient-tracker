@@ -1,6 +1,7 @@
 package com.tracker.patienttracker.model;
 
 import javax.persistence.Entity;
+
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -25,7 +26,7 @@ import lombok.ToString;
 @Entity
 @Getter
 @Setter
-@Table(name="test_report")
+@Table(name="testreport")
 public class TestReport {
 
 	@Id

@@ -18,12 +18,16 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import com.tracker.patienttracker.model.Doctor;
 import com.tracker.patienttracker.model.Medicine;
 import com.tracker.patienttracker.model.MedicineQuantity;
+import com.tracker.patienttracker.model.Patient;
 import com.tracker.patienttracker.model.PatientRecord;
 import com.tracker.patienttracker.model.Prescription;
 import com.tracker.patienttracker.model.TestReport;
 import com.tracker.patienttracker.model.Treatment;
+
+import com.tracker.patienttracker.util.DateUtil;
 
 @DataJpaTest
 @RunWith(SpringRunner.class)
@@ -45,6 +49,12 @@ public class PatientRecordRepositoryTest {
 	
 	@Autowired
 	private TreatmentRepository treatmentRepository;
+	
+	@Autowired
+	private DoctorRepository doctorRepository;
+	
+	@Autowired
+	private PatientRepository patientRepository;
 	
 	@Test
 	@Order(1)
@@ -100,6 +110,7 @@ public class PatientRecordRepositoryTest {
 		assertEquals(patientRecord, saved);
 	}
 	
+
 	@Test
 	@Order(2)
     @Rollback(false)
@@ -110,7 +121,7 @@ public class PatientRecordRepositoryTest {
 		PatientRecord patientRecord=optional2.get();
 		
 		//getTest
-		Optional<com.tracker.patienttracker.model.Test> opTest = testRepository.findById(1);
+		Optional<com.tracker.patienttracker.model.Test> opTest = testRepository.findById(21);
 		com.tracker.patienttracker.model.Test test = opTest.get();
 		
 		//create testreport
@@ -181,8 +192,39 @@ public class PatientRecordRepositoryTest {
 		Set<Prescription> prescriptions = patientRecord.getPrescriptions();
 	}
 	
+	@Test
+	@Rollback(false)
+	public void savePatientRecord() {
+		PatientRecord patientRecord = new PatientRecord();
+		patientRecord.setDate(DateUtil.convertToDate("01/01/2000"));
+		Doctor doctor = doctorRepository.findById(32).get();
+		Patient patient = patientRepository.findById(31).get();
+		patientRecord.setDoctor(doctor);
+		patientRecord.setPatient(patient);
+		PatientRecord savedPatientRecord = patientRecordRepository.save(patientRecord);
+		assertEquals(savedPatientRecord, patientRecord);
+	}
 	
+	@Test
+	@Rollback(false)
+	public void testFetchPatientRecordByPatient() {
+		PatientRecord patientRecord1 = new PatientRecord();
+		patientRecord1.setRecordId(31);
+		patientRecord1.setDate(DateUtil.convertToDate("01/01/2000"));
+		Patient patient = patientRepository.findById(31).get();
+		Doctor doctor = doctorRepository.findById(32).get();
+		patientRecord1.setPatient(patient);
+		patientRecord1.setDoctor(doctor);
+		PatientRecord patientRecord2 = patientRecordRepository.findByPatient(patient).get();
+		assertEquals(patientRecord1.getRecordId(), patientRecord2.getRecordId());
+	}
 	
-
-
+//	@Test
+//	@Rollback(false)
+//	public void testGetAllPatientsForDoctor() {
+//		Set<Integer> patientIds1 = new HashSet<Integer>();
+//		patientIds1.add(1);
+//		Set<Integer> patientIds2 = patientRecordRepository.getAllPatientsForDoctor(32);
+//		assertEquals(patientIds1.size(), patientIds2.size());
+//	}
 }
