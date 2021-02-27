@@ -8,4 +8,5 @@ import com.tracker.patienttracker.model.Admin;
 @Repository
 public interface AdminRepository extends JpaRepository<Admin, Integer> {
 
+	
 }

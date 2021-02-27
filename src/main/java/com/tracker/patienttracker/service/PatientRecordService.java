@@ -4,10 +4,8 @@ import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
 
-
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.annotation.PostConstruct;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +21,6 @@ import com.tracker.patienttracker.model.Prescription;
 import com.tracker.patienttracker.model.TestReport;
 import com.tracker.patienttracker.model.Treatment;
 import com.tracker.patienttracker.repository.PatientRecordRepository;
-import com.tracker.patienttracker.repository.PatientRepository;
 
 @Service
 public class PatientRecordService {
