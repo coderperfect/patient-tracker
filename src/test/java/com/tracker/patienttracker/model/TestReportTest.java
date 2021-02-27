@@ -1,4 +1,4 @@
-package com.tracker.patienttracker.model;
+ package com.tracker.patienttracker.model;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -24,7 +24,6 @@ public class TestReportTest {
 		assertEquals(testReport.getTestResultId(),1);
 	}
 	
-	
 	@Test
 	void getTestResultTest()
 	{
@@ -33,7 +32,6 @@ public class TestReportTest {
 		assertEquals(testReport.getTestResult(),"Done");
 	}
 
-	
 	@Test
 	void getRequestedTest()
 	{
@@ -49,15 +47,13 @@ public class TestReportTest {
 		assertEquals(testReport.isPaid(),true);
 	}
 	
-	
 	// Validation Tests
 	private static Validator validator;
 		static {
         ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
         validator = factory.getValidator();
     }
-    
-  
+
     @Test
     void testResultValidatioTest() {
     	TestReport testReport=new TestReport();
@@ -66,5 +62,6 @@ public class TestReportTest {
     	assertFalse(violations.isEmpty());
 
     }
-    	
-}
+
+
+    }

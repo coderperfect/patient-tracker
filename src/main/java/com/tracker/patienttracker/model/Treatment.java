@@ -34,9 +34,9 @@ public class Treatment {
 	@DecimalMin(value="0.0")
 	private double treatmentCost;
 	
+	private String dietExcerciseDescription;
+
 	@ManyToOne
 	@JoinColumn(name="recordId",insertable = true , updatable = true)
 	private PatientRecord patientRecord;
-	
-	private String dietExcerciseDescription;
 }
