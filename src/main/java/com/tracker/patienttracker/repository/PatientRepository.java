@@ -8,5 +8,4 @@ import com.tracker.patienttracker.model.Patient;
 @Repository
 public interface PatientRepository extends JpaRepository<Patient, Integer> {
 
-	
 }

@@ -1,5 +1,7 @@
 package com.tracker.patienttracker.model;
 
+import java.util.Set;
+
 import javax.persistence.Entity;
 
 import javax.persistence.GeneratedValue;
@@ -10,7 +12,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.Min;
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
@@ -32,7 +33,6 @@ public class TestReport {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int testResultId;
-	
 	@OneToOne
 	@NotNull
 	private Test test;

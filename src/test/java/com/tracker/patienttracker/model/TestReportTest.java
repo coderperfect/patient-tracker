@@ -1,4 +1,4 @@
-package com.tracker.patienttracker.model;
+ package com.tracker.patienttracker.model;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -62,5 +62,6 @@ public class TestReportTest {
     	assertFalse(violations.isEmpty());
 
     }
-    	
-}
+
+
+    }

@@ -39,7 +39,6 @@ public class Billing {
 	@ManyToOne
 	@JoinColumn(name="patientId")
 	private Patient patient;
-
 	@NotNull(message="Please provide Prescription Id")
 	@OneToOne
 	@JoinColumn(name="prescriptionId")
@@ -48,6 +47,7 @@ public class Billing {
 	@Min(value = 0, message = "The value must not be negative")
 	private double amount;
 
+
 	@PastOrPresent
 	@NotNull(message="Please provide TimeStamp")
 	private LocalDateTime timestamp;
@@ -55,7 +55,6 @@ public class Billing {
 	@PastOrPresent
 	@NotNull(message="Please provide Due Date")
 	private LocalDateTime dueDate;
-
 
 	private boolean paid;
 
