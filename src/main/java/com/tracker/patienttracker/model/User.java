@@ -11,6 +11,8 @@ import javax.persistence.InheritanceType;
 import javax.persistence.Table;
 import javax.validation.Valid;
 import javax.validation.constraints.AssertFalse;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
@@ -77,7 +79,9 @@ public class User {
 	@NotBlank(message = "role cannot be blank or whitespace")
 	private String role;
 	
-	
-	private boolean approved;
+	@NotNull
+	@Min(value=-1)
+	@Max(value=1)
+	private int approved;
 }
 

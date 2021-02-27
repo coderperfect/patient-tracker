@@ -1,5 +1,6 @@
 package com.tracker.patienttracker.model;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -25,7 +26,7 @@ public class Patient{
 	@Pattern(regexp="^(O|A|B|AB)(\\+ve|-ve)$")
 	String bloodGroup;
 	
-	@OneToOne
+	@OneToOne(cascade = {CascadeType.ALL})
 	@JoinColumn(name="userId")
 	private User user;
 }

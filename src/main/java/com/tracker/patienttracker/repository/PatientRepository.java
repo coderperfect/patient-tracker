@@ -9,4 +9,6 @@ import com.tracker.patienttracker.model.Patient;
 public interface PatientRepository extends JpaRepository<Patient, Integer> {
 
 	
+
+	
 }

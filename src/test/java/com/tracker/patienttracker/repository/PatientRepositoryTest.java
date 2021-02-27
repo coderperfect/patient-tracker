@@ -182,6 +182,13 @@ public class PatientRepositoryTest {
 	}
 	
 	
+	@Test
+	@Order(5)
+    @Rollback(false)
+	public void testRegistrationApproval()
+	{
+		
+	}
 	
 
 
