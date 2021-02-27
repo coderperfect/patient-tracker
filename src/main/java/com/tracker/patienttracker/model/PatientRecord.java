@@ -17,6 +17,8 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.PastOrPresent;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -36,7 +38,8 @@ public class PatientRecord {
 	@JoinColumn(name = "doctorId")
 	private Doctor doctor;
 	
-	@OneToMany(cascade = CascadeType.ALL)	
+	@JsonIgnore
+	@OneToMany(cascade = CascadeType.ALL)
 	private Set<Treatment> treatments;
 	
 	@OneToMany(targetEntity = TestReport.class, cascade = CascadeType.ALL)

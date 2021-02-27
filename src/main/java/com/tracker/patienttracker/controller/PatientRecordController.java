@@ -59,9 +59,9 @@ public class PatientRecordController {
 	}
 	
 	@PostMapping("/addtestreport")
-	public ResponseEntity<String> add(@RequestBody PatientRecordDTO dto) {
+	public ResponseEntity<String> addTestReports(@RequestBody PatientRecordDTO dto) {
 		
-		String response= patientRecordService.addTreatment(dto);
+		String response= patientRecordService.addTestReport(dto);
 		return ResponseEntity.ok(response);
 	}
 }

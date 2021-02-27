@@ -1,7 +1,9 @@
 package com.tracker.patienttracker.service;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -11,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import com.tracker.patienttracker.dto.PatientRecordDTO;
 import com.tracker.patienttracker.exception.PatientNotFoundException;
+import com.tracker.patienttracker.exception.TreatmentNotFoundException;
 import com.tracker.patienttracker.model.Doctor;
 import com.tracker.patienttracker.model.MedicineQuantity;
 import com.tracker.patienttracker.model.Patient;
@@ -119,6 +122,52 @@ public class PatientRecordService {
 		PatientRecord record = patientRecordRepository.save(patientRecord);
 		
 		return "Added Successfully";
+	}
+	
+	public String updateTreatment(PatientRecordDTO dto) {
+		int patientRecordId = dto.getRecordId();
+		int doctorId = dto.getDoctorId();
+		Doctor doctor =  doctorService.getDoctor(doctorId);
+		
+		Optional<PatientRecord> optional = patientRecordRepository.findByrecordIdAndDoctor(patientRecordId, doctor);
+		if(!optional.isPresent()) {
+			throw new PatientNotFoundException();
+		}
+		
+		Treatment treatment = dto.getTreatment();
+		PatientRecord patientRecord=optional.get();
+		
+		Set<Treatment> treatments = patientRecord.getTreatments();
+		if(treatments==null || treatments.isEmpty())
+			throw new TreatmentNotFoundException();
+		List<Treatment> filtered = treatments.stream()
+				  .filter(item -> (item.getTreatmentId() == treatment.getTreatmentId()))
+				  .collect(Collectors.toList());
+		if(filtered.isEmpty())
+			throw new TreatmentNotFoundException();
+		else {
+			treatmentService.saveTreatment(treatment);
+		}
+		return "Updated Successfully";
+	}
+
+	public String addTestReport(PatientRecordDTO dto) {
+		int patientRecordId = dto.getRecordId();
+		int doctorId = dto.getDoctorId();
+		Doctor doctor =  doctorService.getDoctor(doctorId);
+		
+		Optional<PatientRecord> optional = patientRecordRepository.findByrecordIdAndDoctor(patientRecordId, doctor);
+		if(!optional.isPresent()) {
+			throw new PatientNotFoundException();
+		}
+		
+		TestReport testReport = dto.getTestReport();
+		PatientRecord patientRecord=optional.get();
+		patientRecord.getTestreports().add(testReport);
+		PatientRecord record = patientRecordRepository.save(patientRecord);
+		
+		return "Added Successfully";
+		
 	}
 	
 	
