@@ -12,7 +12,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+
 import com.tracker.patienttracker.dto.PatientRecordDTO;
+import com.tracker.patienttracker.model.Patient;
+import com.tracker.patienttracker.model.PatientRecord;
 import com.tracker.patienttracker.model.Prescription;
 import com.tracker.patienttracker.model.TestReport;
 import com.tracker.patienttracker.model.Treatment;
@@ -56,5 +59,16 @@ public class PatientRecordController {
 		
 		String response= patientRecordService.addTreatment(dto);
 		return ResponseEntity.ok(response);
+
+	@GetMapping(value = "/patientids/{doctorId}")
+	public ResponseEntity<Set<Patient>> getAllPatientsForDoctor(@PathVariable(value = "doctorId") int doctorId){
+		Set<Patient> patients = patientRecordService.getAllPatientsForDoctor(doctorId);
+		return ResponseEntity.ok(patients);
+	}
+	
+	@GetMapping(value = "/patientrecord/{patientId}")
+	public ResponseEntity<PatientRecord> getPatientRecordForPatientId(@PathVariable(value = "patientId") int patientId){
+		PatientRecord patientRecord = patientRecordService.getPatientRecordForPatientId(patientId);
+		return ResponseEntity.ok(patientRecord);
 	}
 }

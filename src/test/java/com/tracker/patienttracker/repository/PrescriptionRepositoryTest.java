@@ -1,8 +1,12 @@
 package com.tracker.patienttracker.repository;
 
+import static org.junit.Assert.assertArrayEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
@@ -79,5 +83,32 @@ public class PrescriptionRepositoryTest {
 		assertEquals(prescription, saved);
 		
 		assertEquals(1,1);
+	}
+	
+	@Test
+	@Rollback(false)
+	public void testgetAllPrescriptionsForPatientForBilling() {
+		Set<Prescription> prescriptions1 = new HashSet<Prescription>();
+		//Prescription 1
+		Prescription prescription1 = new Prescription();
+		prescription1.setPrescriptionId(31);
+		prescription1.setPrescriptionCost(250.00);
+		prescription1.setBilled(false);
+		prescription1.setPaid(false);
+		prescription1.setPatientRecord(patientRecordRepository.findById(31).get());
+		//Prescription 2
+		Prescription prescription2 = new Prescription();
+		prescription2.setPrescriptionId(33);
+		prescription2.setPrescriptionCost(550.00);
+		prescription2.setBilled(false);
+		prescription2.setPaid(false);
+		prescription2.setPatientRecord(patientRecordRepository.findById(31).get());
+		prescriptions1.add(prescription1);
+		prescriptions1.add(prescription2);
+		
+		Set<Prescription> prescriptions2 = prescriptionRepository.findByPatientRecordAndBilledFalse(patientRecordRepository.findById(31).get());
+				
+		assertNotNull(prescriptions2);
+		
 	}
 }

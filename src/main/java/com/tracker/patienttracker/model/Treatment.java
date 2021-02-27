@@ -34,9 +34,9 @@ public class Treatment {
 	@DecimalMin(value="0.0")
 	private double treatmentCost;
 	
-	@ManyToOne(cascade = CascadeType.ALL)
+	private String dietExcerciseDescription;
+	
+  @ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name="recordId")
 	private PatientRecord patientRecord;
-	
-	private String dietExcerciseDescription;
 }

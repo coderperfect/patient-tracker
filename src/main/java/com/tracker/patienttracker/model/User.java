@@ -79,7 +79,8 @@ public class User {
 	@NotBlank(message = "role cannot be blank or whitespace")
 	private String role;
 	
-	@Size(min=-1, max=1)
+  @Min(value=-1)
+  @Max(value=1)
 	private int approved;
 }
 
