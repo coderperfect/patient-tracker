@@ -56,4 +56,10 @@ public class CustomGloabalExceptionHandler extends ResponseEntityExceptionHandle
 		response.sendError(HttpStatus.BAD_REQUEST.value(), "Patient Not Found"); 
 	}
 	
+	@ExceptionHandler(UserNotFoundException.class)
+	public void userNotFound(HttpServletResponse response) throws IOException{
+		response.sendError(HttpStatus.BAD_REQUEST.value(), "User Not Found"); 
+	}
+	
+	
 }

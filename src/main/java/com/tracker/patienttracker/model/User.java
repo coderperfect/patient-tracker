@@ -6,10 +6,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
-import javax.validation.Valid;
-import javax.validation.constraints.AssertFalse;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
@@ -19,9 +15,9 @@ import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.Length;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.tracker.patienttracker.validator.ValidPassword;
 
-import lombok.Builder.Default;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 /*
@@ -38,19 +34,20 @@ public class User {
 	
 	@NotEmpty(message = "The firstname cannot be empty")
 	@NotBlank(message = "The firstname cannot be blank or whitespace")
-	@Pattern(regexp = "^[\\p{L} .'-]+$")
+	@Pattern(regexp = "^[\\p{L} .'-]+$", message="Enter a Valid first Name ")
 	private String firstName;
 	
 	@NotEmpty(message = "The lastname cannot be empty")
 	@NotBlank(message = "The lastname cannot be blank or whitespace")
-	@Pattern(regexp = "^[\\p{L} .'-]+$")
+	@Pattern(regexp = "^[\\p{L} .'-]+$", message="Enter a Valid last Name ")
 	private String lastName;
 	
 	@NotEmpty(message = "Gender cannot be empty")
 	@NotBlank(message = "Gender cannot be blank or whitespace")
-	@Pattern(regexp = "^(male|female|other)$")
+	@Pattern(regexp = "^(male|female|other)$", message="male|female|other is only allowed ")
 	private String gender;
 	
+	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd/MM/yyyy")
 	@NotNull(message = "The date of birth cannot be null")
 	@PastOrPresent(message = "The date of birth is invalid")
 	private Date dateOfBirth;
@@ -58,7 +55,7 @@ public class User {
 	@Size(min=10,max=10)
 	@NotEmpty(message = "Contact no cannot be empty")
 	@NotBlank(message = "Contact no cannot be blank or whitespace")
-	@Pattern(regexp="^[1-9][0-9]{9}$")
+	@Pattern(regexp="^[1-9][0-9]{9}$", message="Enter a Valid Contact Number ")
 	private String contactNo;
 	
 	@ValidPassword(message="Invalid password")

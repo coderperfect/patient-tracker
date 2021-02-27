@@ -4,6 +4,8 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 import javax.persistence.JoinColumn;
@@ -26,9 +28,12 @@ public class Doctor{
 	@NotNull(message = "Doctor Id is required")
 	@Min(value = 1, message = "Doctor Id has to be greater than or equal to 1")
 	private int doctorId;
-	@NotNull(message = "Qualification is required")
+	
+	@NotEmpty(message = "Qualification cannot be empty")
+	@NotBlank(message = "Qualification cannot be blank or whitespace")
 	private String qualification;
-	@NotNull(message = "Specialisation is required")
+	@NotEmpty(message = "Specialization cannot be empty")
+	@NotBlank(message = "Specialization cannot be blank or whitespace")
 	private String specialization;
 	@NotNull(message = "Consultation Fee is required")
 	@Digits(integer = 32, fraction = 2, message = "Please Enter a valid fee")

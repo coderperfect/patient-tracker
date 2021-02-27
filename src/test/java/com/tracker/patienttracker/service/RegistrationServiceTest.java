@@ -8,12 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.tracker.patienttracker.dto.RegistrationData;
-import com.tracker.patienttracker.model.Admin;
 import com.tracker.patienttracker.model.Clerk;
 import com.tracker.patienttracker.model.Doctor;
 import com.tracker.patienttracker.model.Patient;
 import com.tracker.patienttracker.model.User;
-import com.tracker.patienttracker.repository.AdminRepository;
 import com.tracker.patienttracker.repository.ClerkRepository;
 import com.tracker.patienttracker.repository.DoctorRepository;
 import com.tracker.patienttracker.repository.PatientRepository;
@@ -21,14 +19,12 @@ import com.tracker.patienttracker.repository.UserRepository;
 import com.tracker.patienttracker.validator.ConstraintValidation;
 
 @Service
-public class RegistrationService {
+public class RegistrationServiceTest {
 
 	@Autowired
 	RegistrationData registrationData; 
 	@Autowired
 	UserRepository userRepository;
-	@Autowired
-	AdminRepository adminRepository;
 	@Autowired
 	DoctorRepository doctorRepository;
 	@Autowired
@@ -82,13 +78,11 @@ public class RegistrationService {
 			Clerk obj1=new Clerk(userObj.getUserId(),userObj);
 			clerkRepository.save(obj1);			
 		}
-		else if(role.equals("ROLE_ADMIN")){
-			Admin obj1=new Admin(userObj.getUserId(),userObj);
-			adminRepository.save(obj1);
-			return "Thanks For Registiring";
-		}
 		return "Thanks For Registiring Please wait for the Approval";
 	}
+	
+	
+	
 	
 }
 
