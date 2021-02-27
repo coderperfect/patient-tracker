@@ -25,6 +25,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 @Entity
 @Repository
@@ -32,8 +33,10 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
+@ToString
 @Table(name = "prescription")
 @JsonIgnoreProperties({"hibernateLazyInitializer","handler","patientRecord"})
+@Table(name = "prescription")
 public class Prescription {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -64,5 +67,14 @@ public class Prescription {
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name="recordId")
 	private PatientRecord patientRecord;
+	
+	@Override
+	public boolean equals(Object obj) {
+		Prescription prescription = (Prescription)obj;
+		if(prescriptionId == prescription.getPrescriptionId()) {
+			return true;
+		}
+		return false;
+	}
 	
 }

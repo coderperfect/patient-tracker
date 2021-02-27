@@ -5,6 +5,7 @@ import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -47,7 +48,6 @@ public class PatientRecord {
 	@JoinColumn(name = "patientId")
 	private Patient patient;
 	
-	@NotNull
 	@OneToMany(targetEntity = Prescription.class, cascade = CascadeType.ALL)
 	private Set<Prescription> prescriptions;
 	
