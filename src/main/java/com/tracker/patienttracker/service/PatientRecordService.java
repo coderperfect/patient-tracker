@@ -1,5 +1,6 @@
 package com.tracker.patienttracker.service;
 
+
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
@@ -43,7 +44,9 @@ public class PatientRecordService {
 		
 		Patient patient = patientService.getPatient(patientId);
 		//getpatientRecord
+
 		Optional<PatientRecord> optional = patientRecordRepository.findByPatientAndDoctor(patient, doctor);
+
 		if(!optional.isPresent()) {
 			throw new PatientNotFoundException();
 		}
@@ -137,7 +140,7 @@ public class PatientRecordService {
 	public PatientRecord getPatientRecordForPatientId(int patientId) {
 		Patient patient = patientService.getPatient(patientId);
 		Optional<PatientRecord> optionalPatientRecord = patientRecordRepository.findByPatient(patient);
-		if(optionalPatientRecord.isEmpty()) {
+		if(!optionalPatientRecord.isPresent()) {
 			throw new PatientNotFoundException();
 		}
 		PatientRecord patientRecord = optionalPatientRecord.get();

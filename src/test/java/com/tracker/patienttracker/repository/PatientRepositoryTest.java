@@ -56,5 +56,4 @@ public class PatientRepositoryTest {
 		Patient obj2=patientRepository.save(obj1);
 		assertEquals(patientRepository.findById(userObj.getUserId()).get(),obj2);
 	}
-		
 }

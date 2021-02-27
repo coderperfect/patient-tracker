@@ -7,6 +7,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+
+import javax.validation.Valid;
+import javax.validation.constraints.AssertFalse;
+
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
@@ -75,9 +79,10 @@ public class User {
 	@NotEmpty(message = "role cannot be empty")
 	@NotBlank(message = "role cannot be blank or whitespace")
 	private String role;
-		
+
   @Min(value=-1)
   @Max(value=1)
+
 	private int approved;
 }
 
