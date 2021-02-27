@@ -1,5 +1,6 @@
 package com.tracker.patienttracker.model;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -35,7 +36,7 @@ public class Treatment {
 	
 	private String dietExcerciseDescription;
 	
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "recordId")
 	private PatientRecord patientRecord;
 }
