@@ -24,17 +24,18 @@ public class PrescriptionService {
 //	private UserService userService;
 	
 	@Transactional
-	public Set<Prescription> getAllPrescriptionsForPatientForBilling(int patientId, String token) throws Exception{
+	public Set<Prescription> getAllPrescriptionsForPatientForBilling(int patientId) throws Exception{
 //		AuthResponse response = userService.getValidity(token);
 //		if(!response.isValid)
 //			throw new InvalidTokenException("Token is not valid");
 		 
-		Set<Prescription> prescriptions = patientRecordService.prescriptions(patientId);
+		PatientRecord patientRecord = patientRecordService.getPatientRecordForPatientId(patientId);
+		Set<Prescription> prescriptions = prescriptionRepository.findByPatientRecordAndBilledFalse(patientRecord);
 		return prescriptions;
 	}
 	
 	@Transactional
-	public Prescription addPrescription(Prescription prescription, String token) {
+	public Prescription addPrescription(Prescription prescription) {
 //		AuthResponse response = userService.getValidity(token);
 //		if(!response.isValid)
 //			throw new InvalidTokenException("Token is not valid");
@@ -43,7 +44,7 @@ public class PrescriptionService {
 	}
 	
 	@Transactional
-	public Prescription updatePrescription(Prescription prescription, String token) {
+	public Prescription updatePrescription(Prescription prescription) {
 //		AuthResponse response = userService.getValidity(token);
 //		if(!response.isValid)
 //			throw new InvalidTokenException("Token is not valid");

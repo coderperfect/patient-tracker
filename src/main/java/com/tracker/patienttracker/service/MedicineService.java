@@ -19,7 +19,7 @@ public class MedicineService {
 //	private UserService userService;
 	
 	@Transactional
-	public Medicine getMedicineFromMedicineName(String medicineName, String token) throws Exception {
+	public Medicine getMedicineFromMedicineName(String medicineName) throws Exception {
 //		AuthResponse response = userService.getValidity(token);
 //		if(!response.isValid)
 //			throw new InvalidTokenException("Token is not valid");
