@@ -43,19 +43,11 @@ public class Prescription {
 	@NotNull(message = "Prescription Id is required")
 	private int prescriptionId;
 	
-	/*
-	@NotNull(message = "Medicine Id is required")
-	@ManyToMany(cascade = CascadeType.ALL)
-	@JoinTable(name="prescription_medicines", joinColumns = @JoinColumn(name ="medicineId"),inverseJoinColumns = @JoinColumn(name="prescriptionId") )
-	private Set<Medicine> medicines;
-	*/
-	
 	@ManyToMany(cascade = CascadeType.ALL)
 	@JoinTable(name="prescription_medicines", joinColumns = @JoinColumn(name ="prescriptionId"),inverseJoinColumns = @JoinColumn(name="medicineQuantityId") )
 	private Set<MedicineQuantity> medicineQuantities;
 	
 	@NotNull(message = "Prescription Cost is required")
-	@Digits(integer = 32, fraction = 2, message = "Please Enter a valid cost")
 	private double prescriptionCost;
 	
 	@NotNull(message = "Paid is required")
