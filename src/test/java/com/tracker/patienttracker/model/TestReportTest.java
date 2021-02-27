@@ -24,7 +24,6 @@ public class TestReportTest {
 		assertEquals(testReport.getTestResultId(),1);
 	}
 	
-	
 	@Test
 	void getTestResultTest()
 	{
@@ -33,7 +32,6 @@ public class TestReportTest {
 		assertEquals(testReport.getTestResult(),"Done");
 	}
 
-	
 	@Test
 	void getRequestedTest()
 	{
@@ -55,8 +53,7 @@ public class TestReportTest {
         ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
         validator = factory.getValidator();
     }
-    
-  
+
     @Test
     void testResultValidatioTest() {
     	TestReport testReport=new TestReport();

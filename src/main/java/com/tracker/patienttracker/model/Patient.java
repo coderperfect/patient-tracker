@@ -5,10 +5,9 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Pattern;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 /*
@@ -17,12 +16,13 @@ import lombok.NoArgsConstructor;
 @Entity
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "patient")
 public class Patient{
 	@Id
 	int patientId;
 	
-	@Pattern(regexp="^(O|A|B|AB)(\\+ve|-ve)$")
+	@Pattern(regexp="^(O|A|B|AB)(\\+ve|-ve)$", message="BloodGroup can only be O|A|B|AB +ve|-ve")
 	String bloodGroup;
 	
 	@OneToOne

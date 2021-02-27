@@ -11,17 +11,17 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import com.tracker.patienttracker.model.Patient;
+import com.tracker.patienttracker.model.Doctor;
 import com.tracker.patienttracker.model.User;
 import com.tracker.patienttracker.util.DateUtil;
 
 @DataJpaTest
 @RunWith(SpringRunner.class)
 @AutoConfigureTestDatabase(replace =Replace.NONE)
-public class PatientRepositoryTest {
+public class DoctorRepositoryTest {
 	
 	@Autowired
-	PatientRepository patientRepository; 
+	DoctorRepository doctorRepository; 
 	@Autowired
 	UserRepository userRepository;
 	
@@ -37,24 +37,24 @@ public class PatientRepositoryTest {
 		obj.setRole("ROLE_PATIENT");
 		return obj;
 	}
-	@Test
-    @Rollback(true)
-	public void testaddPatientRecord() {
-		PatientRepositoryTest obj=new PatientRepositoryTest();
-		User userObj=userRepository.save(obj.userMethod());
-		Patient obj1=new Patient(userObj.getUserId(),"O+ve",userObj);
-		Patient obj2=patientRepository.save(obj1);
-		assertEquals(obj2, obj1);		
-	}
 	
 	@Test
     @Rollback(true)
-	public void testfetchPatientRecord() {
-		PatientRepositoryTest obj=new PatientRepositoryTest();
+	public void testaddDoctorRecord() {	
+		DoctorRepositoryTest obj=new DoctorRepositoryTest();
 		User userObj=userRepository.save(obj.userMethod());
-		Patient obj1=new Patient(userObj.getUserId(),"O+ve",userObj);
-		Patient obj2=patientRepository.save(obj1);
-		assertEquals(patientRepository.findById(userObj.getUserId()).get(),obj2);
+		Doctor obj1=new Doctor(userObj.getUserId(),"abcdef","abcdef",1000.0,userObj);
+		Doctor obj2=doctorRepository.save(obj1);
+		assertEquals(obj2, obj1);
 	}
 		
+	@Test
+    @Rollback(true)
+	public void testfetchAdminRecord() {
+		DoctorRepositoryTest obj=new DoctorRepositoryTest();
+		User userObj=userRepository.save(obj.userMethod());
+		Doctor obj1=new Doctor(userObj.getUserId(),"abcdef","abcdef",1000.0,userObj);
+		Doctor obj2=doctorRepository.save(obj1);
+		assertEquals(doctorRepository.findById(userObj.getUserId()).get(),obj2);
+	}
 }
