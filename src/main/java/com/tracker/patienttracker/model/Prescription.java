@@ -32,6 +32,7 @@ import lombok.ToString;
 @Setter
 @ToString
 @JsonIgnoreProperties({"hibernateLazyInitializer","handler","patientRecord"})
+@Table(name = "prescription")
 public class Prescription {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
