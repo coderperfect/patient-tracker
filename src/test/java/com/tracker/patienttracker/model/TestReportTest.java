@@ -24,7 +24,6 @@ public class TestReportTest {
 		assertEquals(testReport.getTestResultId(),1);
 	}
 	
-	
 	@Test
 	void getTestResultTest()
 	{
@@ -47,14 +46,14 @@ public class TestReportTest {
 		testReport.setPaid(true);
 		assertEquals(testReport.isPaid(),true);
 	}
+	
 	// Validation Tests
 	private static Validator validator;
 		static {
         ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
         validator = factory.getValidator();
     }
-    
-  
+
     @Test
     void testResultValidatioTest() {
     	TestReport testReport=new TestReport();

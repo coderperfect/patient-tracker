@@ -8,4 +8,6 @@ import com.tracker.patienttracker.model.Medicine;
 @Repository
 public interface MedicineRepository extends JpaRepository<Medicine, Integer>{
 	
+	public Medicine findByMedicineName(String medicineName);
+	
 }

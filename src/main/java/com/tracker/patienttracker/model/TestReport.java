@@ -3,6 +3,7 @@ package com.tracker.patienttracker.model;
 import java.util.Set;
 
 import javax.persistence.Entity;
+
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -44,11 +45,12 @@ public class TestReport {
 	
 	@NotNull
 	@OneToOne
-	private Doctor doctor ;
+	private Doctor doctor;
 	
 	private boolean requested;
 
 	private boolean paid;
+
 	
 	private boolean billed;
 	
