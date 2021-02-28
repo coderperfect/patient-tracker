@@ -2,6 +2,8 @@ package com.tracker.patienttracker.service;
 
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -50,6 +52,7 @@ public class InPatientRecordService {
 		return inPatientRecord;
 	}
 	
+	@Transactional
 	public InPatientRecord updateInPatientRecord(InPatientRecord inPatientRecord) {
 		InPatientRecord inPatientRecordDB = inPatientRecordRepository.getInPatientRecordByInPatientRecordId(inPatientRecord.getInPatientRecordId());
 		
