@@ -15,8 +15,13 @@ public interface InPatientRecordRepository extends JpaRepository<InPatientRecord
 	@Query(value = "Select i From InPatientRecord i where i.dischargeDate = null")
 	public List<InPatientRecord> getAllInPatientRecords();
 	
-	// List of In Patients
+	// In Patient Record
+	//Select * from inpatientrecord where patientId=patientId
+	@Query(value = "Select i From InPatientRecord i where i.inPatientRecordId=:inPatientRecordId")
+	public InPatientRecord getInPatientRecordByInPatientRecordId(int inPatientRecordId);
+	
+	// In Patient Record
 	//Select * from inpatientrecord where patientId=patientId
 	@Query(value = "Select i From InPatientRecord i left join i.patient p where p.patientId=:patientId")
-	public InPatientRecord getInPatientRecordByPatientId(int patientId);
+	public List<InPatientRecord> getInPatientRecordsByPatientId(int patientId);
 }

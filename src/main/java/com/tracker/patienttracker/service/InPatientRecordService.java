@@ -34,8 +34,8 @@ public class InPatientRecordService {
 		return inPatientRecordRepository.getAllInPatientRecords();
 	}
 	
-	public InPatientRecord getInPatientRecordByPatientId(int patientId) {
-		return inPatientRecordRepository.getInPatientRecordByPatientId(patientId);
+	public InPatientRecord getInPatientRecordByInPatientRecordId(int inPatientRecordId) {
+		return inPatientRecordRepository.getInPatientRecordByInPatientRecordId(inPatientRecordId);
 	}
 	
 	public InPatientRecord addInPatientRecord(int patientId, int roomNo, InPatientRecord inPatientRecord) {
@@ -48,5 +48,17 @@ public class InPatientRecordService {
 		inPatientRecord = inPatientRecordRepository.save(inPatientRecord);
 				
 		return inPatientRecord;
+	}
+	
+	public InPatientRecord updateInPatientRecord(InPatientRecord inPatientRecord) {
+		InPatientRecord inPatientRecordDB = inPatientRecordRepository.getInPatientRecordByInPatientRecordId(inPatientRecord.getInPatientRecordId());
+		
+		inPatientRecordDB.setDischargeDate(inPatientRecord.getDischargeDate());
+		
+		if(inPatientRecord.getAdmissionDate() != null) {
+			inPatientRecordDB.setAdmissionDate(inPatientRecord.getAdmissionDate());
+		}
+		
+		return inPatientRecordRepository.save(inPatientRecordDB);
 	}
 }

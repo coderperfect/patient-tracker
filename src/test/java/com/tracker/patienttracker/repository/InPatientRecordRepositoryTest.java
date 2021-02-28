@@ -32,8 +32,16 @@ class InPatientRecordRepositoryTest {
 	
 	@Test
 	@Order(2)
+	void testGetInPatientRecordsByPatientId() {
+		List<InPatientRecord> inPatientRecords = inPatientRecordRepository.getInPatientRecordsByPatientId(22);
+		
+		assertNotNull(inPatientRecords);
+	}
+	
+	@Test
+	@Order(2)
 	void testGetInPatientRecordByPatientId() {
-		InPatientRecord inPatientRecord = inPatientRecordRepository.getInPatientRecordByPatientId(22);
+		InPatientRecord inPatientRecord = inPatientRecordRepository.getInPatientRecordByInPatientRecordId(21);
 		
 		assertNotNull(inPatientRecord);
 		assertEquals(22, inPatientRecord.getPatient().getPatientId());
