@@ -10,6 +10,8 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -23,6 +25,7 @@ import lombok.ToString;
 @Getter
 @Setter
 @Table(name="testreport")
+@JsonIgnoreProperties({"hibernateLazyInitializer","handler","patientRecord"})
 public class TestReport {
 
 	@Id
@@ -49,7 +52,7 @@ public class TestReport {
 	
 	private boolean billed;
 	
-	@ManyToOne
+	@ManyToOne()
 	@JoinColumn(name="recordId")
 	private PatientRecord patientRecord;
 }

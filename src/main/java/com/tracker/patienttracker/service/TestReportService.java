@@ -23,14 +23,15 @@ public class TestReportService {
 	@Autowired
 	TestReportRepository testReportRepository;
 	
-	public List<TestReport> getPendingUpdateTestReports(){
+	public List<TestReport> getPendingUpdateTestReports() {
 		return testReportRepository.getPendingUpdateTestReports();
 	}
 	
-	public TestReport modifyTestReport(int testReportId, String testResult)
-	{
+	public TestReport modifyTestReport(int testReportId, String testResult) {
 		TestReport testReport=testReportRepository.findById(testReportId).get();
+		
 		testReport.setTestResult(testResult);
+		
 		return testReportRepository.save(testReport);
 	}
 }
