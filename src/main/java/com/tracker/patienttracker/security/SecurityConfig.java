@@ -36,7 +36,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		http.cors();
 		http.csrf().disable().httpBasic().and().authorizeRequests()
 		.antMatchers("/billing/**").hasAnyAuthority("ROLE_ADMIN","ROLE_CLERK")
-		.antMatchers("/inpatientrecord/**").hasAnyAuthority("ROLE_ADMIN","ROLE_CLERK")
+		.antMatchers("/inpatientrecord/**").hasAnyAuthority("ROLE_ADMIN")
 		.antMatchers("/testreport/**").hasAnyAuthority("ROLE_ADMIN")
 		.antMatchers("/patient/**").hasAnyAuthority("ROLE_ADMIN")
 		.antMatchers("/treatment/**").hasAnyAuthority("ROLE_ADMIN")

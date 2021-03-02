@@ -32,7 +32,7 @@ import lombok.ToString;
 @Setter
 @ToString
 @JsonIgnoreProperties({"hibernateLazyInitializer","handler","patientRecord"})
-@Table(name = "prescription")
+@Table(name="prescription")
 public class Prescription {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -52,7 +52,7 @@ public class Prescription {
 	@NotNull(message = "Billed is required")
 	private boolean billed;
 	
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne
 	@JoinColumn(name="recordId")
 	private PatientRecord patientRecord;
 	

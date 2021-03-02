@@ -26,7 +26,6 @@ import lombok.NoArgsConstructor;
 @Entity
 @Table(name = "inpatientrecord")
 public class InPatientRecord {
-	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int inPatientRecordId;
@@ -53,5 +52,4 @@ public class InPatientRecord {
 	private boolean nursingChargesPaid;
 	private boolean roomChargesPaid;
 	private boolean	roomChargesBilled;
-
 }
