@@ -23,8 +23,8 @@ public class PatientRecordDTO {
 		return testReport;
 	}
 
-	public void setTestReport(TestReport testReport) {
-		this.testReport = testReport;
+	public void setTestReport(TestReport testreport) {
+		this.testReport = testreport;
 	}
 
 	public int getDoctorId() {

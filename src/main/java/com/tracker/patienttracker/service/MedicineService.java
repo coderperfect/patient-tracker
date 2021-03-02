@@ -1,11 +1,13 @@
 package com.tracker.patienttracker.service;
 
+import java.util.Set;
+
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.tracker.patienttracker.error.InvalidTokenException;
+import com.tracker.patienttracker.exception.InvalidTokenException;
 import com.tracker.patienttracker.model.Medicine;
 import com.tracker.patienttracker.repository.MedicineRepository;
 
@@ -28,6 +30,12 @@ public class MedicineService {
 		if(medicine == null)
 			throw new Exception("Medicine not found");
 		return medicine;
+	}
+	
+	public Set<Medicine> getMedicinesContainingName(String medicineName) {
+		
+		Set<Medicine> medicines = medicineRepository.findByMedicineNameContaining(medicineName);
+		return medicines;
 	}
 
 }

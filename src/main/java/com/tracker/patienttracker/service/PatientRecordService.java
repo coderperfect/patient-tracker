@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 import javax.persistence.EntityManager;
@@ -39,6 +40,9 @@ public class PatientRecordService {
 	
 	@Autowired
 	private TreatmentService treatmentService;
+	
+	@Autowired
+	private PrescriptionService prescriptionService;
 
 	@Autowired
 	private PatientRecordRepository patientRecordRepository;
@@ -80,6 +84,8 @@ public class PatientRecordService {
 		return patientRecord.getTreatments();
 	}
 	
+	
+	
 	public String addPrescription(PatientRecordDTO dto) {
 		int patientRecordId = dto.getRecordId();
 		int doctorId = dto.getDoctorId();
@@ -102,6 +108,37 @@ public class PatientRecordService {
 		PatientRecord record = patientRecordRepository.save(patientRecord);
 		
 		return "Added Successfully";
+		
+	}
+	
+	public String updatePrescription(PatientRecordDTO dto) {
+		int patientRecordId = dto.getRecordId();
+		int doctorId = dto.getDoctorId();
+		Doctor doctor =  doctorService.getDoctor(doctorId);
+		
+		Optional<PatientRecord> optional = patientRecordRepository.findByrecordIdAndDoctor(patientRecordId, doctor);
+		if(!optional.isPresent()) {
+			throw new PatientNotFoundException();
+		}
+		
+		Prescription prescription = dto.getPrescription();
+		double prescriptionCost = 0;
+		for(MedicineQuantity mq : prescription.getMedicineQuantities()) {
+			prescriptionCost = prescriptionCost + mq.getQuantity()*mq.getMedicine().getMedicineCost();
+		}
+		
+		PatientRecord patientRecord=optional.get();
+		prescription.setPrescriptionCost(prescriptionCost);
+		/*
+		Set<Prescription> prescriptions = patientRecord.getPrescriptions();
+		patientRecord.setPrescriptions((Set<Prescription>) prescriptions.stream()
+					 .filter(object -> object.getPrescriptionId()!=prescription.getPrescriptionId())
+					 .collect(Collectors.toList()));
+		//patientRecord.setPrescriptions(prescriptions);
+		PatientRecord record = patientRecordRepository.save(patientRecord);
+		*/
+		prescriptionService.addPrescription(prescription);
+		return "Updated Successfully";
 		
 	}
 
@@ -163,8 +200,10 @@ public class PatientRecordService {
 			throw new PatientNotFoundException();
 		}
 		
-		TestReport testReport = dto.getTestReport();
 		PatientRecord patientRecord=optional.get();
+		TestReport testReport = dto.getTestReport();
+		testReport.setDoctor(doctor);
+		testReport.setPatient(patientRecord.getPatient());
 		patientRecord.getTestreports().add(testReport);
 		PatientRecord record = patientRecordRepository.save(patientRecord);
 		

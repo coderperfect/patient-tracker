@@ -43,7 +43,7 @@ public class RegistrationService {
 		String firstName=registrationData.getFirstName();
 		String lastName=registrationData.getLastName();
 		String gender=registrationData.getGender();
-		Date dateOfBirth=registrationData.getDateOfBirth();
+		//Date dateOfBirth=registrationData.getDateOfBirth();
 		String contactNo=registrationData.getContactNo();
 		String password=registrationData.getPassword();
 		String address=registrationData.getAddress();
@@ -52,7 +52,7 @@ public class RegistrationService {
 		obj.setFirstName(firstName);
 		obj.setLastName(lastName);
 		obj.setGender(gender);
-		obj.setDateOfBirth(dateOfBirth);
+		//obj.setDateOfBirth(dateOfBirth);
 		obj.setContactNo(contactNo);
 		obj.setPassword(password);
 		obj.setAddress(address);
