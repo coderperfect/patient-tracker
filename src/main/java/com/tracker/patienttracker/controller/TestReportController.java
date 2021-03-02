@@ -41,6 +41,4 @@ public class TestReportController {
 		
 		return ResponseEntity.ok(responseString);
 	}
-	
-	
 }

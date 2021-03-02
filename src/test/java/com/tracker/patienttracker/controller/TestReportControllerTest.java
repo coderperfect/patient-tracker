@@ -23,6 +23,8 @@ import org.springframework.test.web.servlet.ResultActions;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.tracker.patienttracker.dto.TestResultDTO;
 import com.tracker.patienttracker.model.TestReport;
+import com.tracker.patienttracker.security.JwtUtil;
+import com.tracker.patienttracker.service.CustomUserDetailsService;
 import com.tracker.patienttracker.service.TestReportService;
 
 @WebMvcTest(TestReportController.class)
@@ -34,9 +36,14 @@ class TestReportControllerTest {
 	@MockBean
 	TestReportService testReportService;
 	
+	@MockBean
+	CustomUserDetailsService customUserDetailsService;
+	@MockBean
+	JwtUtil jwtUtil;
+	
 	@Test
 	@Order(1)
-	@WithMockUser()
+	@WithMockUser(authorities = "ROLE_ADMIN")
 	void testGetPendingUpdateTestReports() throws Exception {
 		when(testReportService.getPendingUpdateTestReports()).thenReturn(new ArrayList<TestReport>());
 		
@@ -48,7 +55,7 @@ class TestReportControllerTest {
 	
 	@Test
 	@Order(2)
-	@WithMockUser()
+	@WithMockUser(authorities = "ROLE_ADMIN")
 	void testUpdateTestResult() throws Exception {
 		TestReport testReportGenerated = new TestReport();
 		testReportGenerated.setTestResultId(21);

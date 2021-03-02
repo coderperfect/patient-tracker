@@ -38,22 +38,22 @@ public class BillingController {
 	}
 	
 	@GetMapping("/prescription/{patientId}")
-	public ResponseEntity<Set<Prescription>> getAllPrescriptionsForPatientForBilling(int patientId) throws Exception {
+	public ResponseEntity<Set<Prescription>> getAllPrescriptionsForPatientForBilling(@PathVariable("patientId") int patientId) throws Exception {
 		return ResponseEntity.ok(billingService.getAllPrescriptionsForPatientForBilling(patientId));
 	}
 	
 	@GetMapping("/consultation/{patientId}")
-	public ResponseEntity<List<Consultation>> getConsultationsPendingBillingByPatientId(int patientId) {
+	public ResponseEntity<List<Consultation>> getConsultationsPendingBillingByPatientId(@PathVariable("patientId") int patientId) {
 		return ResponseEntity.ok(billingService.getConsultationsPendingBillingByPatientId(patientId));
 	}
 	
 	@GetMapping("/inpatientrecord/{patientId}")
-	public ResponseEntity<List<InPatientRecord>> getInPatientRecordByPatientId(int patientId) {
+	public ResponseEntity<List<InPatientRecord>> getInPatientRecordByPatientId(@PathVariable("patientId") int patientId) {
 		return ResponseEntity.ok(billingService.getInPatientRecordByPatientId(patientId));
 	}
 	
 	@GetMapping("/testreport/{patientId}")
-	public ResponseEntity<List<TestReport>> getPendingBillingTestReportsByPatientId(int patientId) {
+	public ResponseEntity<List<TestReport>> getPendingBillingTestReportsByPatientId(@PathVariable("patientId") int patientId) {
 		return ResponseEntity.ok(billingService.getPendingBillingTestReportsByPatientId(patientId));
 	}
 }
