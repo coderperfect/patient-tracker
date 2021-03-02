@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.tracker.patienttracker.error.InvalidTokenException;
+import com.tracker.patienttracker.exception.MedicineNotFoundException;
 import com.tracker.patienttracker.model.Medicine;
 import com.tracker.patienttracker.repository.MedicineRepository;
 
@@ -26,7 +27,7 @@ public class MedicineService {
 		
 		Medicine medicine = medicineRepository.findByMedicineName(medicineName);
 		if(medicine == null)
-			throw new Exception("Medicine not found");
+			throw new MedicineNotFoundException();
 		return medicine;
 	}
 
