@@ -1,6 +1,5 @@
 package com.tracker.patienttracker.model;
 
-
 import java.time.LocalDateTime;
 import java.util.Set;
 
@@ -39,14 +38,17 @@ public class Billing {
 	@ManyToOne
 	@JoinColumn(name="patientId")
 	private Patient patient;
-	@NotNull(message="Please provide Prescription Id")
-	@OneToOne
+	
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name="inPatientRecordId")
+	private InPatientRecord inPatientRecord;
+	
+	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name="prescriptionId")
 	private Prescription prescription;
 
 	@Min(value = 0, message = "The value must not be negative")
 	private double amount;
-
 
 	@PastOrPresent
 	@NotNull(message="Please provide TimeStamp")
@@ -61,8 +63,11 @@ public class Billing {
 	@NotNull(message="UserId can not be null")
 	@ManyToOne
 	@JoinColumn(name = "userId")
-	private User user;
+	private User user;          //Creator of the bill
 
 	@OneToMany(cascade = CascadeType.ALL)
 	private Set<Consultation> consultations;
+	
+	@OneToMany(cascade = CascadeType.ALL)
+	private Set<TestReport> testReports;
 }

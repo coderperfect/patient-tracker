@@ -80,8 +80,8 @@ public class User {
 	@NotBlank(message = "role cannot be blank or whitespace")
 	private String role;
 
-    @Min(value=-1)
-    @Max(value=1)
+	@Min(value=-1)
+	@Max(value=1)
 	private int approved;
 }
 
