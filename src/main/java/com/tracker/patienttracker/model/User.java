@@ -25,6 +25,7 @@ import org.hibernate.validator.constraints.Length;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.tracker.patienttracker.validator.ValidPassword;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 /*
@@ -34,6 +35,7 @@ import lombok.NoArgsConstructor;
 @Entity
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "user")
 public class User {
 	@Id
@@ -80,8 +82,8 @@ public class User {
 	@NotBlank(message = "role cannot be blank or whitespace")
 	private String role;
 
-    @Min(value=-1)
-    @Max(value=1)
+	@Min(value=-1)
+	@Max(value=1)
 	private int approved;
 }
 

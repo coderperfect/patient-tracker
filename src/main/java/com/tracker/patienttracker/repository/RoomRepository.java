@@ -7,5 +7,5 @@ import com.tracker.patienttracker.model.Room;
 
 @Repository
 public interface RoomRepository extends JpaRepository<Room, Integer> {
-
+	
 }

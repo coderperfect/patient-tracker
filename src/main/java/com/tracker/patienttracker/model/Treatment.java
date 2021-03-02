@@ -1,6 +1,5 @@
 package com.tracker.patienttracker.model;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -22,7 +21,6 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@JsonIgnoreProperties({"hibernateLazyInitializer","handler","patientRecord"})
 @Table(name = "treatment")
 @JsonIgnoreProperties({"hibernateLazyInitializer","handler","patientRecord"})
 public class Treatment {
@@ -39,8 +37,8 @@ public class Treatment {
 	private double treatmentCost;
 	
 	private String dietExcerciseDescription;
-	
-  @ManyToOne
+
+	@ManyToOne
 	@JoinColumn(name="recordId")
 	private PatientRecord patientRecord;
 }
