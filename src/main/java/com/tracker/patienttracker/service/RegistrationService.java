@@ -5,6 +5,7 @@ import java.util.Date;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.tracker.patienttracker.dto.RegistrationData;
@@ -77,20 +78,20 @@ public class RegistrationService {
 			errors=constraintValidation.validationCheck(obj1);
 			if(!errors.equals(""))
 				return errors; 
-//			doctorRepository.save(obj1);
+			doctorRepository.save(obj1);
 			}
 		else if(role.equals("ROLE_PATIENT")) {
 			userId=userObj.getUserId();
-			Patient obj1=new Patient(userId,registrationData.getBloodGroup(),userObj);
+			Patient obj1=new Patient(userId, registrationData.getBloodGroup(),userObj);
 			errors=constraintValidation.validationCheck(obj1);
 			if(!errors.equals(""))
 				return errors; 
-//			patientRepository.save(obj1);
+			patientRepository.save(obj1);
 		}
 		else if(role.equals("ROLE_CLERK")){
 			userId=userObj.getUserId();
 			Clerk obj1=new Clerk(userId,userObj);
-//			clerkRepository.save(obj1);			
+			clerkRepository.save(obj1);			
 		}
 		else if(role.equals("ROLE_ADMIN")){
 			userId=userObj.getUserId();

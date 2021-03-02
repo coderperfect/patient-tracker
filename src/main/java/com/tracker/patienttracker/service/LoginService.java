@@ -18,10 +18,17 @@ public class LoginService {
 	
 	@Transactional
 	public String loginCheck(int userId,String password, String role) {		
-		Optional<User> result=userRepository.findById(userId);
-		if(result.isPresent()&& result.get().getRole().equals(role) 
-				&&result.get().getApproved()==1 &&result.get().getPassword().equals(password))
-			return "Login Successfull";
+		Optional<User> result=userRepository.findByUserIdAndRoleAndPassword(userId, role, password);
+		if(result.isPresent()) {
+			User user=result.get();
+			System.out.println(user);
+				if(user.getApproved()==1)
+					return "Login Successful";
+				else if(user.getApproved()==0)
+					return "Please Wait for the Admin Approval";
+				else
+					return "Your Registration was rejected by Admin";
+		}			
 		else return "null";
 	}
 }
