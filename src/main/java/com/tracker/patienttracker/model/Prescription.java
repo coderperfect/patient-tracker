@@ -52,7 +52,7 @@ public class Prescription {
 	@NotNull(message = "Billed is required")
 	private boolean billed;
 	
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne
 	@JoinColumn(name="recordId")
 	private PatientRecord patientRecord;
 	

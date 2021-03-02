@@ -30,6 +30,7 @@ import lombok.ToString;
 @Entity
 @Getter
 @Setter
+@JsonIgnoreProperties({"hibernateLazyInitializer","handler","patientRecord"})
 @Table(name="testreport")
 @JsonIgnoreProperties({"hibernateLazyInitializer","handler","patientRecord","patient","doctor"})
 public class TestReport {

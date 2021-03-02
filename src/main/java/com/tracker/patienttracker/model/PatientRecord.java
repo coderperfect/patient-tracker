@@ -46,6 +46,7 @@ public class PatientRecord {
 	private Set<Treatment> treatments;
 	
 	@OneToMany(targetEntity = TestReport.class, cascade = CascadeType.ALL)
+  @OrderBy("testReportId DESC")
 	private Set<TestReport> testreports;
 	
 	@NotNull
@@ -54,6 +55,7 @@ public class PatientRecord {
 	private Patient patient;
 	
 	@OneToMany(targetEntity = Prescription.class, cascade = CascadeType.ALL)
+  @OrderBy("prescriptionId DESC")
 	private Set<Prescription> prescriptions;
 	
 	@PastOrPresent
