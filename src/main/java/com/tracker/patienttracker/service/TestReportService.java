@@ -34,4 +34,8 @@ public class TestReportService {
 		
 		return testReportRepository.save(testReport);
 	}
+	
+	public List<TestReport> getPendingBillingTestReportsByPatientId(int patientId) {
+		return testReportRepository.getPendingBillingTestReportsByPatientId(patientId);
+	}
 }

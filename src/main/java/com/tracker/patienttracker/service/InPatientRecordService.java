@@ -64,4 +64,8 @@ public class InPatientRecordService {
 		
 		return inPatientRecordRepository.save(inPatientRecordDB);
 	}
+	
+	public List<InPatientRecord> getInPatientRecordByPatientId(int patientId) {
+		return inPatientRecordRepository.getInPatientRecordsByPatientId(patientId);
+	}
 }
