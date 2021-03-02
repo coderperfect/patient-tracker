@@ -32,16 +32,12 @@ public class TreatmentService {
 		return treatmentRepository.findById(treatmentId).get();
 	}
 	
-  @Autowired
-	PatientRecordRepository  patientRecordRepository ;  //To add method in patientRecordService and use it here instead of repo directly
-  
-	public Set<Treatment> getTreatmentHistory(int patientId) //can be used as diet list also
-	{
-		return patientRecordRepository.findById(patientId).get().getTreatments();
-	}
-	
 	public String getDietDetails(int treatmentId)
 	{
 		return treatmentRepository.getDietDetails(treatmentId);
+	}
+	public Set<Treatment> getTreatmentHistory(int patientId) //can be used as diet list also
+	{
+		return patientRecordService.getPatientRecordForPatientId(patientId).getTreatments();
 	}
 }

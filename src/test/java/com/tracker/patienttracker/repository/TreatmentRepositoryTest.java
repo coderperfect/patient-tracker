@@ -1,6 +1,7 @@
 package com.tracker.patienttracker.repository;
 
 
+import static org.junit.Assert.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.HashSet;
@@ -44,4 +45,24 @@ public class TreatmentRepositoryTest {
 		List<Treatment> savedTreatments = treatmentRepository.saveAll(treatments);
 		assertEquals(savedTreatments.get(0).getTreatmentCost(), treatment.getTreatmentCost());
 	}
+	
+
+	@Test
+	@Order(2)
+    @Rollback(false)
+	public void testTreatmentsDetails() {
+		Optional<Treatment> opTreatment = treatmentRepository.findById(42);
+		Treatment treatment = opTreatment.get();
+		assertNotNull(treatment);
+	}
+
+	@Test
+	@Order(3)
+    @Rollback(false)
+	public void testDietDetails() {
+		Optional<Treatment> opTreatment = treatmentRepository.findById(41);
+		Treatment treatment = opTreatment.get();
+		assertNotNull(treatment.getDietExcerciseDescription());
+	}
+	
 }

@@ -28,6 +28,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @JsonIgnoreProperties({"hibernateLazyInitializer","handler","prescriptions"})
+@Table(name="medicinequantity")
 public class MedicineQuantity {
 
 	@Id
