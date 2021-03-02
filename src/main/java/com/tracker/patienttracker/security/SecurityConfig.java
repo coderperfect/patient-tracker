@@ -4,62 +4,61 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
-import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+
+import com.tracker.patienttracker.service.CustomUserDetailsService;
 
 @EnableWebSecurity
-@EnableGlobalMethodSecurity(securedEnabled = true)
+@Configuration
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(SecurityConfig.class);
 	@Autowired
-	CustomerDetailsService customerDetailsService;
-	
-	@Override
-	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-		super.configure(auth);
-		LOGGER.info("Start of configure(AuthenticationManagerBuilder auth) ");
-		auth.userDetailsService(customerDetailsService);
-		LOGGER.info("End of configure(AuthenticationManagerBuilder auth) ");
-	}
+	CustomUserDetailsService userDetailsService;
 
-	/*
-	 * @Bean public PasswordEncoder passwordEncoder() {
-	 * LOGGER.info("Start and End of PasswordEncoder"); return new
-	 * BCryptPasswordEncoder(); }
-	 */
-//	 @Bean
-//	public PasswordEncoder noOppasswordEncoder() {
-//		return NoOpPasswordEncoder.getInstance();
-//	}
-	
+
+    @Override
+    public void configure(AuthenticationManagerBuilder auth) throws Exception {
+        auth.userDetailsService(userDetailsService);
+    }
 	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		LOGGER.info("Start of Configure method in Security Config class");
-//		http.csrf().disable().authorizeRequests().antMatchers("/**").permitAll().anyRequest().authenticated()
-//		.and().exceptionHandling().and().sessionManagement()
-//		.sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+		
 		http.cors();
-		http.csrf().disable().httpBasic().and().authorizeRequests()			
-		.antMatchers("/login").permitAll()
-		.antMatchers("/registration").permitAll()
-		.antMatchers("/authenticate").hasAnyRole("DOCTOR","PATIENT","CLERK","ADMIN")
-		.antMatchers("/help").hasAuthority("DOCTOR")		
+		http.csrf().disable().httpBasic().and().authorizeRequests()
+		.antMatchers("/billing/**").hasAnyAuthority("ROLE_ADMIN","ROLE_CLERK")
+		.antMatchers("/inpatientrecord/**").hasAnyAuthority("ROLE_ADMIN")
+		.antMatchers("/testreport/**").hasAnyAuthority("ROLE_ADMIN")
+		.antMatchers("/patient/**").hasAnyAuthority("ROLE_ADMIN")
+		.antMatchers("/treatment/**").hasAnyAuthority("ROLE_ADMIN")
+		.antMatchers("/patient/details").hasAnyAuthority("ROLE_PATIENT","ROLE_CLERK")
+		.antMatchers("/patientrecord/**").hasAnyAuthority("ROLE_DOCTOR")
+		.antMatchers("/users/help").hasAnyAuthority("ROLE_ADMIN","ROLE_DOCTOR","ROLE_PATIENT","ROLE_CLERK")
+		.antMatchers("/users/login").permitAll()
+		.antMatchers("/users/registration").permitAll()
+		.antMatchers("/doctors/**").permitAll()
 		.anyRequest().authenticated();
-		LOGGER.info("End of Configure method in Security Config class");
+		
+		 http.addFilterBefore(authenticationTokenFilterBean(), UsernamePasswordAuthenticationFilter.class);
 	}
 	
-//	@Override
-//	@Bean
-//	public AuthenticationManager authenticationManagerBean() throws Exception {
-//		return super.authenticationManagerBean();
-//	}
+	  @Override
+	    @Bean
+	    public AuthenticationManager authenticationManagerBean() throws Exception {
+	        return super.authenticationManagerBean();
+	    }
+
+	    @Bean
+	    public JwtAuthenticationFilter authenticationTokenFilterBean() throws Exception {
+	        return new JwtAuthenticationFilter();
+	    }
 	
 	
 }

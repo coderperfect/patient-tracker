@@ -1,6 +1,5 @@
 package com.tracker.patienttracker.model;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -12,6 +11,8 @@ import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -21,6 +22,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "treatment")
+@JsonIgnoreProperties({"hibernateLazyInitializer","handler","patientRecord"})
 public class Treatment {
 		
 	@Id
@@ -35,8 +37,8 @@ public class Treatment {
 	private double treatmentCost;
 	
 	private String dietExcerciseDescription;
-	
-  @ManyToOne(cascade = CascadeType.ALL)
+
+	@ManyToOne
 	@JoinColumn(name="recordId")
 	private PatientRecord patientRecord;
 }

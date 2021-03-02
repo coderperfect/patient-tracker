@@ -1,9 +1,11 @@
-package com.tracker.patienttracker.security;
+package com.tracker.patienttracker.service;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -13,12 +15,13 @@ import com.tracker.patienttracker.error.UnauthorizedException;
 import com.tracker.patienttracker.model.AuthResponse;
 import com.tracker.patienttracker.model.UserData;
 import com.tracker.patienttracker.repository.UserRepository;
+import com.tracker.patienttracker.security.JwtUtil;
 
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Service
-public class CustomerDetailsServiceImpl implements CustomerDetailsService {
+public class CustomUserDetailsServiceImpl implements CustomUserDetailsService {
 	@Autowired
 	private UserRepository userdao;
 	@Autowired
@@ -32,7 +35,7 @@ public class CustomerDetailsServiceImpl implements CustomerDetailsService {
 			throw new UnauthorizedException("unauthorized");
 		}
 		com.tracker.patienttracker.model.User user = userData.get();
-		ArrayList<SimpleGrantedAuthority> roles = new ArrayList<>();
+		List<GrantedAuthority> roles = new ArrayList<GrantedAuthority>();
 		roles.add(new SimpleGrantedAuthority(user.getRole()));
 		System.out.println(roles);
 		return new User(String.valueOf(user.getUserId()), user.getPassword(),roles);

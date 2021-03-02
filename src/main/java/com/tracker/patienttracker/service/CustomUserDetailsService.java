@@ -1,4 +1,4 @@
-package com.tracker.patienttracker.security;
+package com.tracker.patienttracker.service;
 
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -8,7 +8,7 @@ import com.tracker.patienttracker.model.AuthResponse;
 import com.tracker.patienttracker.model.UserData;
 
 
-public interface CustomerDetailsService extends UserDetailsService {
+public interface CustomUserDetailsService extends UserDetailsService {
 	/**
 	 * Checks login credentials by retrieving the user data from database for the
 	 * given user ID. If the give user ID and password matches the user ID and

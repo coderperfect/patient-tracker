@@ -13,6 +13,7 @@ import com.tracker.patienttracker.model.Admin;
 import com.tracker.patienttracker.model.Clerk;
 import com.tracker.patienttracker.model.Doctor;
 import com.tracker.patienttracker.model.Patient;
+import com.tracker.patienttracker.model.PatientRecord;
 import com.tracker.patienttracker.model.User;
 import com.tracker.patienttracker.repository.AdminRepository;
 import com.tracker.patienttracker.repository.ClerkRepository;
@@ -38,7 +39,12 @@ public class RegistrationService {
 	@Autowired
 	ClerkRepository clerkRepository;
 	@Autowired
-	ConstraintValidation constraintValidation; 
+	ConstraintValidation constraintValidation;
+	@Autowired
+	PatientRecordService prService;
+	
+	@Autowired
+	DoctorService docService;
 	
 	@Transactional
 	public String registration(RegistrationData registrationData) {		
@@ -52,6 +58,7 @@ public class RegistrationService {
 		String password=registrationData.getPassword();
 		String address=registrationData.getAddress();
 		String role=registrationData.getRole();
+		int doctorId = registrationData.getDoctorId();
 		User obj= new User();
 		obj.setFirstName(firstName);
 		obj.setLastName(lastName);
@@ -87,6 +94,13 @@ public class RegistrationService {
 			if(!errors.equals(""))
 				return errors; 
 			patientRepository.save(obj1);
+			PatientRecord patientRecord = new PatientRecord();
+			patientRecord.setPatient(obj1);
+			patientRecord.setRecordId(obj1.getPatientId());
+			patientRecord.setDate(new Date());
+			Doctor doctor = docService.getDoctor(doctorId);
+			patientRecord.setDoctor(doctor);
+			prService.addPatientRecord(patientRecord);
 		}
 		else if(role.equals("ROLE_CLERK")){
 			userId=userObj.getUserId();

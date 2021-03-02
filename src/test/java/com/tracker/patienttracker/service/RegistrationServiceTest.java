@@ -40,8 +40,12 @@ public class RegistrationServiceTest {
 		String firstName=registrationData.getFirstName();
 		String lastName=registrationData.getLastName();
 		String gender=registrationData.getGender();
+<<<<<<< HEAD
 		String dob=registrationData.getDateOfBirth();
 		Date dateOfBirth=new DateUtil().convertToDate1(dob);
+=======
+		//Date dateOfBirth=registrationData.getDateOfBirth();
+>>>>>>> 4b1b68f43c14676b69d0fb09c1d69eb1faa18499
 		String contactNo=registrationData.getContactNo();
 		String password=registrationData.getPassword();
 		String address=registrationData.getAddress();
@@ -50,7 +54,7 @@ public class RegistrationServiceTest {
 		obj.setFirstName(firstName);
 		obj.setLastName(lastName);
 		obj.setGender(gender);
-		obj.setDateOfBirth(dateOfBirth);
+		//obj.setDateOfBirth(dateOfBirth);
 		obj.setContactNo(contactNo);
 		obj.setPassword(password);
 		obj.setAddress(address);

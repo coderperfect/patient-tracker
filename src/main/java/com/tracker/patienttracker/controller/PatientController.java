@@ -3,6 +3,7 @@ package com.tracker.patienttracker.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,6 +17,7 @@ import com.tracker.patienttracker.service.PatientService;
 
 @RestController
 @RequestMapping("/patient")
+@CrossOrigin
 public class PatientController {
 
 	@Autowired
@@ -26,17 +28,20 @@ public class PatientController {
 	{
 		return patientService.getPatientDetails(patientId);
 	}
-	@PostMapping()
+  
+	@PostMapping
 	public void addPatient(@RequestBody Patient patient)
-	{ System.out.println("ijhvhvhghv");
+	{ 
 		patientService.addPatient(patient);
 	}
-	@GetMapping()
+	
+	@GetMapping("/getallpatients")
 	public List<Patient> getAllPatientList()
 	{
 		return patientService.getPatientList();
 	}
-	@PutMapping("/{patientId}")
+	
+	@PutMapping("/updatepatient/{patientId}")
 	public void updatePatient(@RequestBody Patient patient, @PathVariable int patientId)
 	{
 		patientService.updatePatient(patient, patientId);

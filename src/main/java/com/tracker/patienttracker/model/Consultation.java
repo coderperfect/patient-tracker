@@ -42,8 +42,4 @@ public class Consultation {
 	private Billing bill;
 	
 	private boolean paid;
-
-	
-	
-
 }

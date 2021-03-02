@@ -8,7 +8,10 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import java.util.ArrayList;
 
+import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
+import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestMethodOrder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -17,11 +20,13 @@ import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.tracker.patienttracker.dto.TestResultDTO;
 import com.tracker.patienttracker.model.TestReport;
-import com.tracker.patienttracker.service.PatientRecordService;
 import com.tracker.patienttracker.service.TestReportService;
 
-@WebMvcTest
+@WebMvcTest(TestReportController.class)
+@TestMethodOrder(OrderAnnotation.class)
 class TestReportControllerTest {
 	@Autowired
 	MockMvc mockMvc;
@@ -29,10 +34,8 @@ class TestReportControllerTest {
 	@MockBean
 	TestReportService testReportService;
 	
-	@MockBean
-	PatientRecordService patientRecordService;
-	
 	@Test
+	@Order(1)
 	@WithMockUser()
 	void testGetPendingUpdateTestReports() throws Exception {
 		when(testReportService.getPendingUpdateTestReports()).thenReturn(new ArrayList<TestReport>());
@@ -44,6 +47,7 @@ class TestReportControllerTest {
 	}
 	
 	@Test
+	@Order(2)
 	@WithMockUser()
 	void testUpdateTestResult() throws Exception {
 		TestReport testReportGenerated = new TestReport();
@@ -53,11 +57,19 @@ class TestReportControllerTest {
 		when(testReportService.modifyTestReport(21, "Sugar level normal")).thenReturn(testReportGenerated);
 		
 		ResultActions actions = mockMvc.perform(put("/testreport/21")
-				.content("Sugar level normal")
+				.content(asJsonString(new TestResultDTO("Sugar level normal")))
 				.contentType(MediaType.APPLICATION_JSON)
 			     .accept(MediaType.APPLICATION_JSON));
 		actions.andExpect(status().isOk());
 		
 		actions.andExpect(jsonPath("$").value("Updated"));
+	}
+	
+	public static String asJsonString(final Object obj) {
+	    try {
+	        return new ObjectMapper().writeValueAsString(obj);
+	    } catch (Exception e) {
+	        throw new RuntimeException(e);
+	    }
 	}
 }

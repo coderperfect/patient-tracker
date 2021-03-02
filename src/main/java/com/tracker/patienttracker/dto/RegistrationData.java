@@ -27,5 +27,6 @@ public class RegistrationData{
 	private String specialization;
 	private double consultationFee;
 	private String bloodGroup;	
+	private int doctorId;
 
 }
