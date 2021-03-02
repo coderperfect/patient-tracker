@@ -40,6 +40,6 @@ public class Treatment {
 	private String dietExcerciseDescription;
 
 	@ManyToOne
-	@JoinColumn(name="recordId",insertable = true , updatable = true)
+	@JoinColumn(name="recordId")
 	private PatientRecord patientRecord;
 }
