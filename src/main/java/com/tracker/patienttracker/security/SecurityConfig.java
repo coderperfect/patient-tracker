@@ -30,22 +30,22 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         auth.userDetailsService(userDetailsService);
     }
 	
-	/*
-	 * @Bean public PasswordEncoder passwordEncoder() {
-	 * LOGGER.info("Start and End of PasswordEncoder"); return new
-	 * BCryptPasswordEncoder(); 
-	 * }
-	 */
-	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		LOGGER.info("Start of Configure method in Security Config class");
+		
 		http.cors();
 		http.csrf().disable().httpBasic().and().authorizeRequests()
-		.antMatchers("/login").permitAll()
-		.antMatchers("/registration").permitAll()
-		.antMatchers("/help").hasAnyAuthority("ROLE_DOCTOR")
-		.antMatchers("/patientrecord/treatments/").hasAnyAuthority("ROLE_DOCTOR")
+		.antMatchers("/billing/**").hasAnyAuthority("ROLE_ADMIN","ROLE_CLERK")
+		.antMatchers("/inpatientrecord/**").hasAnyAuthority("ROLE_ADMIN","ROLE_CLERK")
+		.antMatchers("/testreport/**").hasAnyAuthority("ROLE_ADMIN")
+		.antMatchers("/patient/**").hasAnyAuthority("ROLE_ADMIN")
+		.antMatchers("/treatment/**").hasAnyAuthority("ROLE_ADMIN")
+		.antMatchers("/patient/details").hasAnyAuthority("ROLE_PATIENT","ROLE_CLERK")
+		.antMatchers("/patientrecord/**").hasAnyAuthority("ROLE_DOCTOR")
+		.antMatchers("/users/help").hasAnyAuthority("ROLE_ADMIN","ROLE_DOCTOR","ROLE_PATIENT","ROLE_CLERK")
+		.antMatchers("/users/login").permitAll()
+		.antMatchers("/users/registration").permitAll()
+		.antMatchers("/doctors/**").permitAll()
 		.anyRequest().authenticated();
 		
 		 http.addFilterBefore(authenticationTokenFilterBean(), UsernamePasswordAuthenticationFilter.class);

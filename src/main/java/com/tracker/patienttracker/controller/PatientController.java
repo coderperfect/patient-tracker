@@ -26,17 +26,20 @@ public class PatientController {
 	{
 		return patientService.getPatientDetails(patientId);
 	}
-	@PostMapping()
-	public void addPatient(@RequestBody Patient patient)
-	{ System.out.println("ijhvhvhghv");
-		patientService.addPatient(patient);
-	}
-	@GetMapping()
+	
+//	@PostMapping("/a")
+//	public void addPatient(@RequestBody Patient patient)
+//	{ 
+//		patientService.addPatient(patient);
+//	}
+	
+	@GetMapping("/getallpatients")
 	public List<Patient> getAllPatientList()
 	{
 		return patientService.getPatientList();
 	}
-	@PutMapping("/{patientId}")
+	
+	@PutMapping("/updatepatient/{patientId}")
 	public void updatePatient(@RequestBody Patient patient, @PathVariable int patientId)
 	{
 		patientService.updatePatient(patient, patientId);

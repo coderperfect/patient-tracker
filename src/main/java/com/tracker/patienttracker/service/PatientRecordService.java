@@ -233,7 +233,7 @@ public class PatientRecordService {
 	}
 	
 	@Transactional
-	public PatientRecord addPatientRecord(PatientRecord patientRecord, String token) {
+	public PatientRecord addPatientRecord(PatientRecord patientRecord) {
 //		AuthResponse response = userService.getValidity(token);
 //		if(!response.isValid)
 //			throw new InvalidTokenException("Token is not valid");

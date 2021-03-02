@@ -17,19 +17,21 @@ public class TreatmentController {
 	@Autowired
 	TreatmentService treatmentService;
 	
-	@GetMapping("/details/{treatmentId}")
-	public Treatment getTreatmentDetails(@PathVariable int treatmentId)
-	{
-		return treatmentService.getTreatmentDetails(treatmentId);
-	}
+//	@GetMapping("/details/{treatmentId}")
+//	public Treatment getTreatmentDetails(@PathVariable int treatmentId)
+//	{
+//		return treatmentService.getTreatmentDetails(treatmentId);
+//	}
+	
 	@GetMapping("/history/{patientId}")
 	public  Set<Treatment> getTreatmentHistory(@PathVariable int patientId)
 	{
 		return treatmentService.getTreatmentHistory(patientId);
 	}
-	@GetMapping("/diet/{treatmentId}")
-	public String getDietDetails(@PathVariable int treatmentId)
-	{
-		return treatmentService.getDietDetails(treatmentId);
-	}
+	
+//	@GetMapping("/diet/{treatmentId}")
+//	public String getDietDetails(@PathVariable int treatmentId)
+//	{
+//		return treatmentService.getDietDetails(treatmentId);
+//	}
 }
