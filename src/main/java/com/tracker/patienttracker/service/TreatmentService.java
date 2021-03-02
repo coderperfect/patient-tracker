@@ -34,6 +34,12 @@ public class TreatmentService {
 	{   
 		return treatmentRepository.findById(treatmentId).get();
 	}
+	
+	public String getDietDetails(int treatmentId)
+	{
+		return treatmentRepository.getDietDetails(treatmentId);
+    
+  }
   
 	public Set<Treatment> getTreatmentHistory(int patientId) //can be used as diet list also
 	{
@@ -52,5 +58,9 @@ public class TreatmentService {
 	
 		treatmentRepository.save(treatment);
 		
+	}
+	public Set<Treatment> getTreatmentHistory(int patientId) //can be used as diet list also
+	{
+		return patientRecordService.getPatientRecordForPatientId(patientId).getTreatments();
 	}
 }

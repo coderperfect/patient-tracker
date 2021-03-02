@@ -40,6 +40,7 @@ public class PatientRecord {
 	@JoinColumn(name = "doctorId")
 	private Doctor doctor;
 	
+
 	@JsonIgnore
 	@OneToMany(cascade = CascadeType.ALL)
 	@OrderBy("treatmentId DESC")

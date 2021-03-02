@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
+import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase.Replace;
@@ -55,5 +56,16 @@ public class PatientRepositoryTest {
 		Patient obj1=new Patient(userObj.getUserId(),"O+ve",userObj);
 		Patient obj2=patientRepository.save(obj1);
 		assertEquals(patientRepository.findById(userObj.getUserId()).get(),obj2);
+	}
+	@Test
+	@Rollback(true)
+	public void testPatientList()
+	{
+		PatientRepository patientRepository=Mockito.mock(PatientRepository.class);
+		PatientRepositoryTest obj=new PatientRepositoryTest();
+		User userObj=userRepository.save(obj.userMethod());
+		Patient obj1=new Patient(userObj.getUserId(),"O+ve",userObj);
+		Patient obj2=patientRepository.save(obj1);
+		assertEquals(patientRepository.findAll().size(),0);
 	}
 }

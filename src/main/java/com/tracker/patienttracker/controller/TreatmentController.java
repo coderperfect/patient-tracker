@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.tracker.patienttracker.model.Treatment;
 import com.tracker.patienttracker.service.TreatmentService;
-
+@CrossOrigin
 @RestController
 @CrossOrigin
 @RequestMapping("/treatment")

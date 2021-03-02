@@ -22,6 +22,13 @@ public class TestController {
 	@Autowired
 	private TestService testService;
 	
+	@GetMapping("/details/{patientId}")
+	public Set<Test> getTestList(@PathVariable int patientId)
+	{
+		return testService.getTestList(patientId);
+  }
+	
+	
 	@GetMapping("/{name}")
 	public ResponseEntity<Set<Test>> getTestByName(@PathVariable("name") String name) {
 		Set<Test> tests = testService.getTestListContainingName(name);
