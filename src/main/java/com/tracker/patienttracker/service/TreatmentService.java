@@ -3,10 +3,13 @@ package com.tracker.patienttracker.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import com.tracker.patienttracker.exception.TreatmentNotFoundException;
 import com.tracker.patienttracker.model.Treatment;
 import com.tracker.patienttracker.repository.PatientRecordRepository;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 import javax.transaction.Transactional;
@@ -19,7 +22,7 @@ public class TreatmentService {
 	@Autowired
 	TreatmentRepository treatmentRepository;
   
-  @Autowired
+	@Autowired
 	private PatientRecordService patientRecordService;
 	
 	@Transactional
@@ -31,17 +34,23 @@ public class TreatmentService {
 	{   
 		return treatmentRepository.findById(treatmentId).get();
 	}
-	
-  @Autowired
-	PatientRecordRepository  patientRecordRepository ;  //To add method in patientRecordService and use it here instead of repo directly
   
 	public Set<Treatment> getTreatmentHistory(int patientId) //can be used as diet list also
 	{
-		return patientRecordRepository.findById(patientId).get().getTreatments();
+		return patientRecordService.getPatientRecordForPatientId(patientId).getTreatments();
 	}
 	
-	public String getDietDetails(int treatmentId)
-	{
-		return treatmentRepository.getDietDetails(treatmentId);
+	@Transactional
+	public Treatment updateTreatment(Treatment treatment) {
+		Optional<Treatment> treatmentCheck = treatmentRepository.findById(treatment.getTreatmentId());
+		if(treatmentCheck == null)
+			throw new TreatmentNotFoundException();
+		return treatmentRepository.save(treatment);
+	}
+
+	public void saveTreatment(Treatment treatment) {
+	
+		treatmentRepository.save(treatment);
+		
 	}
 }

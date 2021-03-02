@@ -21,6 +21,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@JsonIgnoreProperties({"hibernateLazyInitializer","handler","patientRecord"})
 @Table(name = "treatment")
 @JsonIgnoreProperties({"hibernateLazyInitializer","handler","patientRecord"})
 public class Treatment {
@@ -38,7 +39,7 @@ public class Treatment {
 	
 	private String dietExcerciseDescription;
 	
-	@ManyToOne
+  @ManyToOne
 	@JoinColumn(name="recordId")
 	private PatientRecord patientRecord;
 }
