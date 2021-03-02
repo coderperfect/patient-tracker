@@ -41,9 +41,9 @@ public class PatientRecordController {
 		return ResponseEntity.ok(testreports);
 	}
 	
-	@GetMapping("/treatments/{patientId}/{doctorId}")
-	public ResponseEntity<Set<Treatment>> getTreatments(@PathVariable int patientId, @PathVariable int doctorId) {
-		Set<Treatment> treatments = patientRecordService.treatments(patientId, doctorId);
+	@GetMapping("/treatments/{recordId}/{doctorId}")
+	public ResponseEntity<Set<Treatment>> getTreatments(@PathVariable int recordId, @PathVariable int doctorId) {
+		Set<Treatment> treatments = patientRecordService.treatments(recordId, doctorId);
 		return ResponseEntity.ok(treatments);
 	}
 	
@@ -54,10 +54,34 @@ public class PatientRecordController {
 		return ResponseEntity.ok(response);
 	}
 	
+
+	@PostMapping("/updateprescription")
+	public ResponseEntity<String> updatePrescription(@RequestBody PatientRecordDTO dto) {
+		
+		String response= patientRecordService.updatePrescription(dto);
+		return ResponseEntity.ok(response);
+	}
+	
+	
 	@PostMapping("/addtreatment")
 	public ResponseEntity<String> addTreatment(@RequestBody PatientRecordDTO dto) {
 		
 		String response= patientRecordService.addTreatment(dto);
+		return ResponseEntity.ok(response);
+	}
+	
+	@PostMapping("/updatetreatment")
+	public ResponseEntity<String> updateTreatment(@RequestBody PatientRecordDTO dto) {
+		
+		System.out.println(dto.toString());
+		String response= patientRecordService.updateTreatment(dto);
+		return ResponseEntity.ok(response);
+	}
+	
+	@PostMapping("/addtestreport")
+	public ResponseEntity<String> addTestReports(@RequestBody PatientRecordDTO dto) {
+		
+		String response= patientRecordService.addTestReport(dto);
 		return ResponseEntity.ok(response);
 	}
 
@@ -72,4 +96,6 @@ public class PatientRecordController {
 		PatientRecord patientRecord = patientRecordService.getPatientRecordForPatientId(patientId);
 		return ResponseEntity.ok(patientRecord);
 	}
+	
+	
 }

@@ -47,4 +47,10 @@ public class TreatmentService {
 			throw new TreatmentNotFoundException();
 		return treatmentRepository.save(treatment);
 	}
+
+	public void saveTreatment(Treatment treatment) {
+	
+		treatmentRepository.save(treatment);
+		
+	}
 }

@@ -2,6 +2,7 @@ package com.tracker.patienttracker.model;
 
 import java.util.Set;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 
 import javax.persistence.GeneratedValue;
@@ -31,6 +32,7 @@ import lombok.ToString;
 @Setter
 @JsonIgnoreProperties({"hibernateLazyInitializer","handler","patientRecord"})
 @Table(name="testreport")
+@JsonIgnoreProperties({"hibernateLazyInitializer","handler","patientRecord","patient","doctor"})
 public class TestReport {
 
 	@Id
@@ -54,7 +56,6 @@ public class TestReport {
 
 	private boolean paid;
 
-	
 	private boolean billed;
 	
 	@ManyToOne

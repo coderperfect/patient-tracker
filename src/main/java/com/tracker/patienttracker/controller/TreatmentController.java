@@ -21,11 +21,6 @@ public class TreatmentController {
 	@Autowired
 	TreatmentService treatmentService;
 	
-	@GetMapping("/details/{treatmentId}")
-	public Treatment getTreatmentDetails(@PathVariable int treatmentId)
-	{
-		return treatmentService.getTreatmentDetails(treatmentId);
-	}
 	@GetMapping("/history/{patientId}")
 	public  Set<Treatment> getTreatmentHistory(@PathVariable int patientId)
 	{
@@ -36,4 +31,5 @@ public class TreatmentController {
 	public Treatment updateTreatment(@RequestBody Treatment treatment) {
 		return treatmentService.updateTreatment(treatment);
 	}
+
 }
