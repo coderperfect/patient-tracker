@@ -5,6 +5,7 @@ import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -38,6 +39,15 @@ public class RegistrationController {
 
 	@PostMapping("/registration")
 	public String registration(@RequestBody RegistrationData registrationData) {
+		String temp=registrationService.registration(registrationData);
+		System.out.println(temp);
+		if(!temp.contains("Thanks For Registiring"))
+			throw new RegistrationFailedException();
+		return temp;
+	}
+	
+	@PutMapping("/registration")
+	public String registration2(@RequestBody RegistrationData registrationData) {
 		String temp=registrationService.registration(registrationData);
 		System.out.println(temp);
 		if(!temp.contains("Thanks For Registiring"))

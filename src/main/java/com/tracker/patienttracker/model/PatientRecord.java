@@ -33,7 +33,6 @@ import lombok.NoArgsConstructor;
 public class PatientRecord {
 		
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)	
 	private int recordId;
 	
 	@ManyToOne
