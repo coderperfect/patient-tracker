@@ -32,7 +32,7 @@ public class CustomUserDetailsServiceImpl implements CustomUserDetailsService {
 	@Override
 	public UserDetails loadUserByUsername(String uid) {
 		Optional<com.tracker.patienttracker.model.User> userData = userdao.findById(Integer.parseInt(uid));
-		if (userData.isEmpty()) {
+		if (!userData.isPresent()) {
 			log.error("Unauthorized exception");
 			throw new UnauthorizedException("unauthorized");
 		}
