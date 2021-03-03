@@ -17,6 +17,7 @@ import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.Length;
+import org.springframework.stereotype.Component;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.tracker.patienttracker.validator.ValidPassword;
@@ -24,15 +25,12 @@ import com.tracker.patienttracker.validator.ValidPassword;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-/*
- * @author: Burre Chandu (883619)
- * 
- */
 @Entity
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "user")
+@Component
 public class User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
