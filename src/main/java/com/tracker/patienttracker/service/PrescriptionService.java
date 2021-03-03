@@ -35,34 +35,21 @@ public class PrescriptionService {
 	}
   
 	
-	@Transactional
+
+  @Transactional
 	public List<Prescription> getAllPrescriptionsForPatientForBilling(int patientId) throws Exception{
-//		AuthResponse response = userService.getValidity(token);
-//		if(!response.isValid)
-//			throw new InvalidTokenException("Token is not valid");
-		 
 		PatientRecord patientRecord = patientRecordService.getPatientRecordForPatientId(patientId);
 		List<Prescription> prescriptions = patientRecord.getPrescriptions().stream().filter((prescription) -> !prescription.isBilled()).collect(Collectors.toList());
-		
-//		Set<Prescription> prescriptions = prescriptionRepository.findByPatientRecordAndBilledFalse(patientRecord);
 		return prescriptions;
 	}
 	
 	@Transactional
 	public Prescription addPrescription(Prescription prescription) {
-//		AuthResponse response = userService.getValidity(token);
-//		if(!response.isValid)
-//			throw new InvalidTokenException("Token is not valid");
-		
 		return prescriptionRepository.save(prescription);
 	}
 	
 	@Transactional
 	public Prescription updatePrescription(Prescription prescription) {
-//		AuthResponse response = userService.getValidity(token);
-//		if(!response.isValid)
-//			throw new InvalidTokenException("Token is not valid");
-		
-		return prescriptionRepository.save(prescription);
+    return prescriptionRepository.save(prescription);
 	}
 }

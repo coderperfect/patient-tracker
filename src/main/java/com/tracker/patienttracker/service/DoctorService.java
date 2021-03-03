@@ -8,9 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.tracker.patienttracker.exception.DoctorNotFoundException;
-import com.tracker.patienttracker.exception.PatientNotFoundException;
 import com.tracker.patienttracker.model.Doctor;
-import com.tracker.patienttracker.model.Patient;
 import com.tracker.patienttracker.repository.DoctorRepository;
 
 @Service
@@ -24,8 +22,10 @@ public class DoctorService {
 		 if(!optional.isPresent()) {
 				throw new DoctorNotFoundException();
 			}
-		 Doctor doctor = optional.get();
-		 return doctor;
+		 Doctor doctor =optional.get();
+		 if(doctor.getUser().getApproved()==1)			 
+			 return doctor;
+		 else throw new DoctorNotFoundException();
 	}
 	
 	public List<Doctor> getAllDoctors() {

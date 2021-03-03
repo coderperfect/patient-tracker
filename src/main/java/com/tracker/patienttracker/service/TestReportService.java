@@ -2,10 +2,12 @@ package com.tracker.patienttracker.service;
 
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.tracker.patienttracker.exception.TestReportNotFoundException;
 import com.tracker.patienttracker.model.TestReport;
 import com.tracker.patienttracker.repository.TestReportRepository;
 
@@ -37,5 +39,14 @@ public class TestReportService {
 	
 	public List<TestReport> getPendingBillingTestReportsByPatientId(int patientId) {
 		return testReportRepository.getPendingBillingTestReportsByPatientId(patientId);
+	}
+	
+	public TestReport updateRequestedInTestReport(int testResultId) {
+		Optional<TestReport> optionalTestReport = testReportRepository.findById(testResultId);
+		if(!optionalTestReport.isPresent())
+			throw new TestReportNotFoundException();
+		TestReport testReport = optionalTestReport.get();
+		testReport.setRequested(true);
+		return testReportRepository.save(testReport);
 	}
 }

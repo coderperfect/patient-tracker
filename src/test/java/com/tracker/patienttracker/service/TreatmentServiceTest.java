@@ -18,6 +18,7 @@ import org.mockito.Mock;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import com.tracker.patienttracker.exception.TreatmentNotFoundException;
+import com.tracker.patienttracker.model.PatientRecord;
 import com.tracker.patienttracker.model.Treatment;
 import com.tracker.patienttracker.repository.TreatmentRepository;
 
@@ -74,6 +75,33 @@ public class TreatmentServiceTest {
 		treatment.setTreatmentId(1);
 		when(treatmentRepository.findById(treatment.getTreatmentId())).thenReturn(null);
 		assertThrows(TreatmentNotFoundException.class,() -> treatmentService.updateTreatment(treatment));
+	}
+	
+	@Test
+	public void saveTreatmentTest() {
+		Treatment treatment = new Treatment();
+		treatment.setTreatmentId(1);
+		when(treatmentRepository.save(treatment)).thenReturn(null);
+		treatmentService.saveTreatment(treatment);
+		verify(treatmentRepository, times(1)).save(treatment);
+	}
+	
+	@Test
+	public void getTreatmentHistoryTest() {
+		Treatment treatment1 = new Treatment();
+		treatment1.setTreatmentId(1);
+		Treatment treatment2 = new Treatment();
+		treatment1.setTreatmentId(2);
+		Set<Treatment> treatments = new HashSet<Treatment>();
+		treatments.add(treatment1);
+		treatments.add(treatment2);
+		
+		PatientRecord patientRecord = new PatientRecord();
+		patientRecord.setRecordId(1);
+		patientRecord.setTreatments(treatments);
+		
+		when(patientRecordService.getPatientRecordForPatientId(1)).thenReturn(patientRecord);
+		assertEquals(treatmentService.getTreatmentHistory(1), treatments);
 	}
 
 }
