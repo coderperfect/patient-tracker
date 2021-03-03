@@ -52,8 +52,6 @@ public class PrescriptionServiceTest {
 	
 	@Test
 	public void getAllPrescriptionsForPatientForBillingTest() throws Exception {
-//		AuthResponse response = new AuthResponse(1, "Ram", true, "ROLE_ADMIN");
-//		when(userService.getValidity("token")).thenReturn(response);
 		
 		PatientRecord patientRecord = new PatientRecord();
 		patientRecord.setRecordId(31);
@@ -64,9 +62,11 @@ public class PrescriptionServiceTest {
 		Set<Prescription> prescriptions = new HashSet<Prescription>();
 		prescriptions.add(prescription1);
 		prescriptions.add(prescription2);
+		patientRecord.setPrescriptions(prescriptions);
 		when(patientRecordService.getPatientRecordForPatientId(31)).thenReturn(patientRecord);
-		when(prescriptionRepository.findByPatientRecordAndBilledFalse(patientRecord)).thenReturn(prescriptions);
-		assertEquals(prescriptionService.getAllPrescriptionsForPatientForBilling(31), prescriptions);
+		List<Prescription> listPrescriptions = new ArrayList<Prescription>();
+		listPrescriptions.addAll(prescriptions);
+		assertEquals(prescriptionService.getAllPrescriptionsForPatientForBilling(31), listPrescriptions);
 	}
 	
 	@Test

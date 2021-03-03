@@ -38,7 +38,7 @@ public class BillingController {
 	}
 	
 	@GetMapping("/prescription/{patientId}")
-	public ResponseEntity<Set<Prescription>> getAllPrescriptionsForPatientForBilling(int patientId) throws Exception {
+	public ResponseEntity<List<Prescription>> getAllPrescriptionsForPatientForBilling(int patientId) throws Exception {
 		return ResponseEntity.ok(billingService.getAllPrescriptionsForPatientForBilling(patientId));
 	}
 	

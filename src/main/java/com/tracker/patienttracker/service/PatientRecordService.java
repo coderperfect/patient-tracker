@@ -231,8 +231,7 @@ public class PatientRecordService {
 	}
 	
 	@Transactional
-	public PatientRecord updatePatientRecord(PatientRecord patientRecord, String token) {
-		
+	public PatientRecord updatePatientRecord(PatientRecord patientRecord) {
 		return patientRecordRepository.save(patientRecord);
 	}
 }

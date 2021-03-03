@@ -57,7 +57,7 @@ public class BillingService {
 		return billingRepository.save(billing);
 	}
 	
-	public Set<Prescription> getAllPrescriptionsForPatientForBilling(int patientId) throws Exception {
+	public List<Prescription> getAllPrescriptionsForPatientForBilling(int patientId) throws Exception {
 		return prescriptionService.getAllPrescriptionsForPatientForBilling(patientId);
 	}
 	
