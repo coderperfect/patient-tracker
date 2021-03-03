@@ -49,4 +49,8 @@ public class TestReportService {
 		testReport.setRequested(true);
 		return testReportRepository.save(testReport);
 	}
+	
+	public TestReport updateTestReport(TestReport testReport) {
+		return testReportRepository.save(testReport);
+	}
 }

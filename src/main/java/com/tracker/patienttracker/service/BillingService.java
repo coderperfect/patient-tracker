@@ -3,6 +3,7 @@ package com.tracker.patienttracker.service;
 import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -58,15 +59,45 @@ public class BillingService {
 		return billing;
 	}
 	
-	public Billing saveBilling(Billing billing) {
-		Patient patient = patientService.getPatient(22);
+	public Billing saveBilling(int patientId, int userId, Billing billing) {
+		System.out.println(billing);
+		Patient patient = patientService.getPatient(patientId);
 		billing.setPatient(patient);
+		
 		billing.setTimestamp(LocalDateTime.now());
-		billing.setDueDate(LocalDateTime.now());
-		User user = userService.getUserByUserId(100);
+		billing.setDueDate(LocalDateTime.now().plusDays(30));
+		
+		User user = userService.getUserByUserId(userId);
 		billing.setUser(user);
 		
-		return billingRepository.save(billing);
+		if(billing.getPrescription() != null) {
+			prescriptionService.updatePrescription(billing.getPrescription());
+			
+			billing.setPrescription(null);
+		}
+		
+		Set<Consultation> cons = billing.getConsultations();
+		Set<TestReport> testRs = billing.getTestReports();
+		
+		billing.setConsultations(null);
+		billing.setTestReports(null);
+		
+		Billing billingRes = billingRepository.save(billing);
+		
+		if(cons != null) {
+			for(Consultation consultation: cons) {
+				consultation.setBill(billingRes);
+				consultationService.save(consultation);
+			}
+		}
+		
+		if(testRs != null) {
+			for(TestReport testReport: testRs) {
+				testReportService.updateTestReport(testReport);
+			}
+		}
+		
+		return billingRes;
 	}
 	
 	public List<Prescription> getAllPrescriptionsForPatientForBilling(int patientId) throws Exception {

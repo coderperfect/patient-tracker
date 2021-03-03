@@ -32,9 +32,9 @@ public class BillingController {
 		return ResponseEntity.ok(billingService.createEmptyBillByPatientId(patientId));
 	}
 	
-	@PostMapping
-	public ResponseEntity<Billing> saveBilling(@RequestBody Billing billing) {
-		return ResponseEntity.ok(billingService.saveBilling(billing));
+	@PostMapping("/{patientId}/{userId}")
+	public ResponseEntity<Billing> saveBilling(@PathVariable("patientId") int patientId, @PathVariable("userId") int userId, @RequestBody Billing billing) {
+		return ResponseEntity.ok(billingService.saveBilling(patientId, userId, billing));
 	}
 	
 	@GetMapping("/prescription/{patientId}")

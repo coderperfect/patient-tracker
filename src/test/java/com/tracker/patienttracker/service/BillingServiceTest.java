@@ -79,7 +79,7 @@ class BillingServiceTest {
 		
 		billingService.setBillingRepository(billingRepository);
 		
-		Billing billingResult = billingService.saveBilling(billing);
+		Billing billingResult = billingService.saveBilling(1002, 100, billing);
 				
 		assertNotNull(billingResult);
 	}

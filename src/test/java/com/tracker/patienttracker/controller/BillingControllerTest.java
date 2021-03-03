@@ -60,7 +60,7 @@ class BillingControllerTest {
 	void testSaveBilling() throws Exception {
 		Billing billing = new Billing();
 		
-		when(billingService.saveBilling(billing)).thenReturn(billing);
+		when(billingService.saveBilling(1002, 100, billing)).thenReturn(billing);
 		
 		ResultActions actions = mockMvc.perform(post("/billing")
 				.content(asJsonString(billing))
