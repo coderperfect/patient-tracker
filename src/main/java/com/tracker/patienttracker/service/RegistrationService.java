@@ -5,8 +5,10 @@ import java.util.Date;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
 import org.springframework.stereotype.Service;
 
 import com.tracker.patienttracker.dto.RegistrationData;
@@ -25,6 +27,10 @@ import com.tracker.patienttracker.repository.UserRepository;
 import com.tracker.patienttracker.util.DateUtil;
 import com.tracker.patienttracker.validator.ConstraintValidation;
 
+import lombok.Getter;
+import lombok.Setter;
+@Getter
+@Setter
 @Service
 public class RegistrationService {
 
@@ -44,7 +50,18 @@ public class RegistrationService {
 	ConstraintValidation constraintValidation;
 	@Autowired
 	PatientRecordService prService;
-	
+	@Autowired
+	User obj;
+	@Autowired
+	Doctor obj1;
+	@Autowired
+	Patient obj2;
+	@Autowired
+	Clerk obj3;
+	@Autowired
+	Admin obj4;
+	@Autowired
+	PatientRecord patientRecord;
 	@Autowired
 	ConsultationService consultationService;
 	
@@ -58,13 +75,11 @@ public class RegistrationService {
 		String gender=registrationData.getGender();
 		String dob=registrationData.getDateOfBirth();
 		Date dateOfBirth=new DateUtil().convertToDate1(dob);
-		//Date dateOfBirth=registrationData.getDateOfBirth();
 		String contactNo=registrationData.getContactNo();
 		String password=registrationData.getPassword();
 		String address=registrationData.getAddress();
 		String role=registrationData.getRole();
 		int doctorId = registrationData.getDoctorId();
-		User obj= new User();
 		obj.setFirstName(firstName);
 		obj.setLastName(lastName);
 		obj.setGender(gender);
@@ -77,6 +92,7 @@ public class RegistrationService {
 			obj.setUserId(registrationData.getUserId());
 		
 		String errors=constraintValidation.validationCheck(obj);
+		System.out.println(errors);
 		if(!errors.equals(""))
 			return errors; 
 		
@@ -87,8 +103,10 @@ public class RegistrationService {
 		User userObj=userRepository.save(obj);
 		if(role.equals("ROLE_DOCTOR")) {		
 			userId=userObj.getUserId();
-			Doctor obj1=new Doctor(userId,registrationData.getQualification(),
-				registrationData.getSpecialization(),registrationData.getConsultationFee(),userObj);
+			obj1.setDoctorId(userId);
+			obj1.setQualification(registrationData.getQualification());
+			obj1.setSpecialization(registrationData.getSpecialization());
+			obj1.setConsultationFee(registrationData.getConsultationFee());
 			errors=constraintValidation.validationCheck(obj1);
 			if(!errors.equals(""))
 				return errors; 
@@ -96,15 +114,18 @@ public class RegistrationService {
 			}
 		else if(role.equals("ROLE_PATIENT")) {
 			userId=userObj.getUserId();
-			Patient obj1=new Patient(userId, registrationData.getBloodGroup(),userObj);
-			errors=constraintValidation.validationCheck(obj1);
+			obj2.setPatientId(userId);
+			obj2.setBloodGroup(registrationData.getBloodGroup());
+			obj2.setUser(userObj);			
+			errors=constraintValidation.validationCheck(obj2);
 			if(!errors.equals(""))
 				return errors; 
-			patientRepository.save(obj1);
-			PatientRecord patientRecord = new PatientRecord();
-			patientRecord.setPatient(obj1);
-			patientRecord.setRecordId(obj1.getPatientId());
+			patientRepository.save(obj2);
+			patientRecord.setPatient(obj2);
+			patientRecord.setRecordId(obj2.getPatientId());
 			patientRecord.setDate(new Date());
+			obj1 = docService.getDoctor(doctorId);
+			patientRecord.setDoctor(obj1);
 			
 			Doctor doctor = docService.getDoctor(doctorId);
 			patientRecord.setDoctor(doctor);
@@ -118,13 +139,15 @@ public class RegistrationService {
 		}
 		else if(role.equals("ROLE_CLERK")){
 			userId=userObj.getUserId();
-			Clerk obj1=new Clerk(userId,userObj);
-			clerkRepository.save(obj1);			
+			obj3.setClerkId(userId);
+			obj3.setUser(userObj);
+			clerkRepository.save(obj3);			
 		}
 		else if(role.equals("ROLE_ADMIN")){
 			userId=userObj.getUserId();
-			Admin obj1=new Admin(userId,userObj);
-			adminRepository.save(obj1);
+			obj4.setAdminId(1);
+			obj4.setUser(userObj);
+			adminRepository.save(obj4);
 			return "Thanks For Registiring Your UserID is "+userId;
 		}
 		return "Thanks For Registiring Please wait for the Approval Your UserId is "+userId;

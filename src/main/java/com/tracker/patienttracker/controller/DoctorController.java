@@ -15,6 +15,7 @@ import com.tracker.patienttracker.service.DoctorService;
 @RestController
 @CrossOrigin
 @RequestMapping("/doctors")
+@CrossOrigin
 public class DoctorController {
 
 	@Autowired
