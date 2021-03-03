@@ -234,19 +234,11 @@ public class PatientRecordService {
 	
 	@Transactional
 	public PatientRecord addPatientRecord(PatientRecord patientRecord) {
-//		AuthResponse response = userService.getValidity(token);
-//		if(!response.isValid)
-//			throw new InvalidTokenException("Token is not valid");
-		
 		return patientRecordRepository.save(patientRecord);
 	}
 	
 	@Transactional
 	public PatientRecord updatePatientRecord(PatientRecord patientRecord, String token) {
-//		AuthResponse response = userService.getValidity(token);
-//		if(!response.isValid)
-//			throw new InvalidTokenException("Token is not valid");
-		
 		return patientRecordRepository.save(patientRecord);
 	}
 }
