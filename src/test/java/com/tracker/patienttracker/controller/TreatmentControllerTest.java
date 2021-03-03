@@ -71,5 +71,4 @@ public class TreatmentControllerTest {
 						.content(json)
 		).andExpect(MockMvcResultMatchers.status().isOk());
 	}
-
 }

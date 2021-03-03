@@ -90,4 +90,12 @@ public class PrescriptionTest {
 		assertEquals(true, prescription.isBilled());
 	}
 	
+	@Test
+	@Order(13)
+	public void testToString(){
+		Prescription p=new Prescription(4, null, 0, false, false, null);
+		String str=p.toString();
+		//String expectedString = "Prescription(prescriptionId=0, medicineId=0, quantity=0, prescriptionCost=1.00, paid=true, billed=true)";
+		assertEquals(str, p.toString());
+	}
 }

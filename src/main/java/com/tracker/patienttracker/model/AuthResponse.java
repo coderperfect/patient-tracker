@@ -16,4 +16,5 @@ public class AuthResponse {
 	private String name;
 	private boolean isValid;
 	private String role;
+
 }

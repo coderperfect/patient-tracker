@@ -30,4 +30,5 @@ public interface CustomUserDetailsService extends UserDetailsService {
 	public AuthResponse getValidity(@RequestHeader("Authorization") final String token);
 
 	
+
 }

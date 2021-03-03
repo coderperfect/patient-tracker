@@ -18,4 +18,5 @@ public class UserData {
 	private String authToken;
 	private String role;
 
+
 }
