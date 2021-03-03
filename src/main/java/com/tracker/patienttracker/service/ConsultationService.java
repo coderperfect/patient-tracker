@@ -25,4 +25,8 @@ public class ConsultationService {
 	public List<Consultation> getConsultationsPendingBillingByPatientId(int patientId) {
 		return consultationRepository.getConsultationsPendingBillingByPatientId(patientId);
 	}
+
+	public void save(Consultation consult) {
+		consultationRepository.save(consult);
+	}
 }

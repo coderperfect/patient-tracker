@@ -128,15 +128,8 @@ public class PatientRecordService {
 		}
 		
 		PatientRecord patientRecord=optional.get();
+		
 		prescription.setPrescriptionCost(prescriptionCost);
-		/*
-		Set<Prescription> prescriptions = patientRecord.getPrescriptions();
-		patientRecord.setPrescriptions((Set<Prescription>) prescriptions.stream()
-					 .filter(object -> object.getPrescriptionId()!=prescription.getPrescriptionId())
-					 .collect(Collectors.toList()));
-		//patientRecord.setPrescriptions(prescriptions);
-		PatientRecord record = patientRecordRepository.save(patientRecord);
-		*/
 		prescriptionService.addPrescription(prescription);
 		return "Updated Successfully";
 		
@@ -234,18 +227,11 @@ public class PatientRecordService {
 	
 	@Transactional
 	public PatientRecord addPatientRecord(PatientRecord patientRecord) {
-//		AuthResponse response = userService.getValidity(token);
-//		if(!response.isValid)
-//			throw new InvalidTokenException("Token is not valid");
-		
 		return patientRecordRepository.save(patientRecord);
 	}
 	
 	@Transactional
 	public PatientRecord updatePatientRecord(PatientRecord patientRecord, String token) {
-//		AuthResponse response = userService.getValidity(token);
-//		if(!response.isValid)
-//			throw new InvalidTokenException("Token is not valid");
 		
 		return patientRecordRepository.save(patientRecord);
 	}
