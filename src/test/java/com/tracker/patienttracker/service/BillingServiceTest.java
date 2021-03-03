@@ -90,11 +90,11 @@ class BillingServiceTest {
 	void testGetAllPrescriptionsForPatientForBilling() throws Exception {
 		BillingService billingService = new BillingService();
 		
-		when(prescriptionService.getAllPrescriptionsForPatientForBilling(21)).thenReturn(new HashSet<Prescription>());
+		when(prescriptionService.getAllPrescriptionsForPatientForBilling(21)).thenReturn(new ArrayList<Prescription>());
 		
 		billingService.setPrescriptionService(prescriptionService);
 		
-		Set<Prescription> prescriptions = billingService.getAllPrescriptionsForPatientForBilling(21);
+		List<Prescription> prescriptions = billingService.getAllPrescriptionsForPatientForBilling(21);
 				
 		assertNotNull(prescriptions);
 	}

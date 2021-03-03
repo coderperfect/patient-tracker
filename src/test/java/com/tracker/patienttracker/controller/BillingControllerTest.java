@@ -6,7 +6,6 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 
 import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
 import org.junit.jupiter.api.Order;
@@ -74,7 +73,7 @@ class BillingControllerTest {
 	@Order(3)
 	@WithMockUser(authorities = "ROLE_ADMIN")
 	void testGetAllPrescriptionsForPatientForBilling() throws Exception {
-		when(billingService.getAllPrescriptionsForPatientForBilling(21)).thenReturn(new HashSet<Prescription>());
+		when(billingService.getAllPrescriptionsForPatientForBilling(21)).thenReturn(new ArrayList<Prescription>());
 		
 		ResultActions actions = mockMvc.perform(get("/billing/prescription/21"));
 		actions.andExpect(status().isOk());
