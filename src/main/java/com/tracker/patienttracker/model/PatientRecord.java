@@ -19,6 +19,8 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.PastOrPresent;
 
+import org.springframework.stereotype.Component;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.AllArgsConstructor;
@@ -30,10 +32,10 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "patientrecord")
+@Component
 public class PatientRecord {
 		
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)	
 	private int recordId;
 	
 	@ManyToOne

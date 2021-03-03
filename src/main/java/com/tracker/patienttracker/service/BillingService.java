@@ -1,7 +1,8 @@
 package com.tracker.patienttracker.service;
 
+import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
-import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,6 +13,7 @@ import com.tracker.patienttracker.model.InPatientRecord;
 import com.tracker.patienttracker.model.Patient;
 import com.tracker.patienttracker.model.Prescription;
 import com.tracker.patienttracker.model.TestReport;
+import com.tracker.patienttracker.model.User;
 import com.tracker.patienttracker.repository.BillingRepository;
 
 import lombok.AllArgsConstructor;
@@ -41,6 +43,9 @@ public class BillingService {
 	InPatientRecordService inPatientRecordService;
 	
 	@Autowired
+	UserService userService;
+	
+	@Autowired
 	TestReportService testReportService;
 	
 	public Billing createEmptyBillByPatientId(int patientId) {
@@ -54,10 +59,17 @@ public class BillingService {
 	}
 	
 	public Billing saveBilling(Billing billing) {
+		Patient patient = patientService.getPatient(22);
+		billing.setPatient(patient);
+		billing.setTimestamp(LocalDateTime.now());
+		billing.setDueDate(LocalDateTime.now());
+		User user = userService.getUserByUserId(100);
+		billing.setUser(user);
+		
 		return billingRepository.save(billing);
 	}
 	
-	public Set<Prescription> getAllPrescriptionsForPatientForBilling(int patientId) throws Exception {
+	public List<Prescription> getAllPrescriptionsForPatientForBilling(int patientId) throws Exception {
 		return prescriptionService.getAllPrescriptionsForPatientForBilling(patientId);
 	}
 	

@@ -22,11 +22,12 @@ public class RegistrationData{
 	private String password;
 	private String address;
 	private String role;
-	
 	private String qualification;
 	private String specialization;
 	private double consultationFee;
 	private String bloodGroup;	
 	private int doctorId;
+	private int patientId;
+	private int userId;
 
 }

@@ -42,5 +42,8 @@ public class TestReportController {
 		return ResponseEntity.ok(responseString);
 	}
 	
-	
+	@PutMapping("/requested/{testResultId}")
+	public ResponseEntity<TestReport> updateRequestedInTestReport(@PathVariable("testResultId") int testResultId){
+		return ResponseEntity.ok(testReportService.updateRequestedInTestReport(testResultId));
+	}
 }

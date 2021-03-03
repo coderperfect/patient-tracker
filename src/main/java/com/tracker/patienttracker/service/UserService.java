@@ -33,4 +33,8 @@ public class UserService {
 	{
 		return userRepository.userApprovalPendingList();
 	}
+	
+	public User getUserByUserId(int userId) {
+		return userRepository.findById(userId).get();
+	}
 }

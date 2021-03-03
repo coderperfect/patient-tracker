@@ -98,5 +98,4 @@ public class PrescriptionTest {
 		//String expectedString = "Prescription(prescriptionId=0, medicineId=0, quantity=0, prescriptionCost=1.00, paid=true, billed=true)";
 		assertEquals(str, p.toString());
 	}
-	
 }

@@ -2,6 +2,8 @@ package com.tracker.patienttracker.repository;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.util.Optional;
+
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,5 +55,17 @@ public class UserRepositoryTest {
 		User userObj=userRepository.save(obj1);		
 		assertEquals(userRepository.findById(userObj.getUserId()).get(), obj1);		
 	}
+	
+	@Test
+    @Rollback(true)
+	public void testfindByUserIdAndRoleAndPassword() {
+		UserRepositoryTest obj=new UserRepositoryTest();
+		User obj1=obj.userMethod();
+		User userObj=userRepository.save(obj1);
+		Optional<User> User= userRepository.findByUserIdAndRoleAndPassword(userObj.getUserId(), userObj.getRole(), 
+				userObj.getPassword());
+		assertEquals(User.get(), userObj);
+	}
+	
 		
 }

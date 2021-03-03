@@ -7,11 +7,9 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
-import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import com.tracker.patienttracker.service.CustomUserDetailsService;
@@ -38,9 +36,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		.antMatchers("/billing/**").hasAnyAuthority("ROLE_ADMIN","ROLE_CLERK")
 		.antMatchers("/inpatientrecord/**").hasAnyAuthority("ROLE_ADMIN")
 		.antMatchers("/testreport/**").hasAnyAuthority("ROLE_ADMIN")
-		.antMatchers("/patient/**").hasAnyAuthority("ROLE_ADMIN")
-		.antMatchers("/treatment/**").hasAnyAuthority("ROLE_ADMIN","ROLE_DOCTOR")
+		.antMatchers("/patient/getallpatients").hasAnyAuthority("ROLE_ADMIN")
+		.antMatchers("/patient/updatepatient").hasAnyAuthority("ROLE_ADMIN")
+		.antMatchers("/treatment/update").hasAnyAuthority("ROLE_ADMIN","ROLE_DOCTOR","ROLE_PATIENT")
 		.antMatchers("/patient/details").hasAnyAuthority("ROLE_PATIENT","ROLE_CLERK")
+		.antMatchers("patient/patientrecord/**").hasAnyAuthority("ROLE_PATIENT")
 		.antMatchers("/patientrecord/**").hasAnyAuthority("ROLE_DOCTOR")
 		.antMatchers("/users/help").hasAnyAuthority("ROLE_ADMIN","ROLE_DOCTOR","ROLE_PATIENT","ROLE_CLERK")
 		.antMatchers("/users/login").permitAll()

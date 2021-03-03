@@ -67,6 +67,9 @@ public class PatientRecordServiceTest {
 	@Mock
 	private TreatmentService treatmentService;
 	
+	@Mock
+	private PrescriptionService prescriptionService;
+	
 	@Test
 	public void testgetPrescriptions() {
 		User user = new User();
@@ -164,6 +167,74 @@ public class PatientRecordServiceTest {
 		assertEquals(resp,"Updated Successfully");
 		when(patientRecordRepository.findByrecordIdAndDoctor(1, doctor)).thenReturn(Optional.empty());
 		assertThrows(PatientNotFoundException.class, ()->recordService.updateTreatment(dto));
+	}
+	
+	@Test
+	public void updatePrescription() {
+		User user = new User();
+		user.setUserId(2);
+		
+		User user1 = new User();
+		user1.setUserId(1);
+		
+		Patient patient = new Patient();
+		patient.setBloodGroup("O+ve");
+		patient.setPatientId(1);
+		patient.setUser(user1);
+		
+		Doctor doctor = new Doctor();
+		doctor.setDoctorId(2);
+		doctor.setUser(user);
+		PatientRecordDTO dto = new PatientRecordDTO();
+		dto.setDoctorId(2);
+		dto.setRecordId(1);
+		Set<MedicineQuantity> medicineQuantities = new HashSet<>();
+		//first medicine
+		MedicineQuantity medicineQuantity = new MedicineQuantity();
+		Medicine medicine = new Medicine();
+		medicineQuantity.setMedicine(medicine);
+		medicineQuantity.setQuantity(10);
+		medicineQuantity.setNoOfDays(10);
+		medicineQuantities.add(medicineQuantity);
+		//second medicine
+		MedicineQuantity medicineQuantity2 = new MedicineQuantity();
+		medicine =  new Medicine();
+		medicineQuantity2.setMedicine(medicine);
+		medicineQuantity2.setQuantity(20);
+		medicineQuantity2.setNoOfDays(40);
+		medicineQuantities.add(medicineQuantity2);
+		//set of prescriptions
+		Set<Prescription> prescriptions = new HashSet<>();
+		//add prescription 1
+		Prescription prescription = new Prescription();
+		prescription.setMedicineQuantities(medicineQuantities);
+		prescription.setPrescriptionCost(1000);
+		prescription.setPaid(false);
+		prescription.setBilled(false);
+		PatientRecord record = new PatientRecord();
+		prescription.setPatientRecord(record);
+		prescriptions.add(prescription);
+		//add prescription 2
+		prescription = new Prescription();
+		medicineQuantity2.setQuantity(14);
+		medicineQuantities.add(medicineQuantity2);
+		prescription.setMedicineQuantities(medicineQuantities);
+		prescription.setPrescriptionCost(1000);
+		prescription.setPaid(false);
+		prescription.setBilled(false);
+		prescription.setPatientRecord(record);
+		prescriptions.add(prescription);
+		when(doctorService.getDoctor(2)).thenReturn(doctor);
+		record.setPatient(patient);
+		prescriptions.add(prescription);
+		record.setPrescriptions(prescriptions);
+		when(patientRecordRepository.findByrecordIdAndDoctor(1, doctor)).thenReturn(Optional.of(record));
+		when(prescriptionService.addPrescription(prescription)).thenReturn(prescription);
+		dto.setPrescription(prescription);
+		String resp = recordService.updatePrescription(dto);
+		assertEquals(resp,"Updated Successfully");
+		when(patientRecordRepository.findByrecordIdAndDoctor(1, doctor)).thenReturn(Optional.empty());
+		assertThrows(PatientNotFoundException.class, ()->recordService.updatePrescription(dto));
 	}
 	
 	@Test
@@ -303,6 +374,71 @@ public class PatientRecordServiceTest {
 		
 		when(patientRecordRepository.findByrecordIdAndDoctor(1, doctor)).thenReturn(Optional.empty());
 		assertThrows(PatientNotFoundException.class, ()->recordService.addTestReport(dto));
+	}
+	
+	@Test
+	public void getAllPatientsForDoctor() {
+		User user1 = new User();
+		user1.setUserId(1);
+		User user2 = new User();
+		user1.setUserId(2);
+		Patient patient1 = new Patient(1,"O+ve",user1);
+		Patient patient2 = new Patient(2,"B+ve",user2);
+		Set<Patient> patients = new HashSet<Patient>();
+		patients.add(patient1);
+		patients.add(patient2);
+		
+		Set<Integer> patientIds = new HashSet<Integer>();
+		patientIds.add(1);
+		patientIds.add(2);
+		
+		when(patientRecordRepository.findPatientByDoctor(1)).thenReturn(patientIds);
+		when(patientService.getPatient(1)).thenReturn(patient1);
+		when(patientService.getPatient(2)).thenReturn(patient2);
+		assertEquals(recordService.getAllPatientsForDoctor(1), patients);
+	}
+	
+	@Test
+	public void getPatientRecordForPatientIdTest() {
+		User user = new User();
+		user.setUserId(1);
+		Patient patient = new Patient(1,"O+ve",user);
+		PatientRecord patientRecord = new PatientRecord();
+		patientRecord.setRecordId(1);
+		patientRecord.setPatient(patient);
+		
+		when(patientService.getPatient(1)).thenReturn(patient);
+		when(patientRecordRepository.findByPatient(patient)).thenReturn(Optional.of(patientRecord));
+		assertEquals(recordService.getPatientRecordForPatientId(1), patientRecord);
+		
+		when(patientRecordRepository.findByPatient(patient)).thenReturn(Optional.empty());
+		assertThrows(PatientNotFoundException.class, () -> recordService.getPatientRecordForPatientId(1));
+	}
+	
+	@Test
+	public void addPatientRecordTest() {
+		User user = new User();
+		user.setUserId(1);
+		Patient patient = new Patient(1,"O+ve",user);
+		PatientRecord patientRecord = new PatientRecord();
+		patientRecord.setRecordId(1);
+		patientRecord.setPatient(patient);
+		
+		when(patientRecordRepository.save(patientRecord)).thenReturn(patientRecord);
+		assertEquals(recordService.addPatientRecord(patientRecord), patientRecord);
+	}
+	
+	@Test
+	public void updatePatientRecordTest() {
+		User user = new User();
+		user.setUserId(1);
+		Patient patient = new Patient(1,"O+ve",user);
+		PatientRecord patientRecord = new PatientRecord();
+		patientRecord.setRecordId(1);
+		patientRecord.setPatient(patient);
+		
+		when(patientRecordRepository.save(patientRecord)).thenReturn(patientRecord);
+		assertEquals(recordService.updatePatientRecord(patientRecord), patientRecord);
 	}
 	
 }

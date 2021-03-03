@@ -7,10 +7,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-
-import javax.validation.Valid;
-import javax.validation.constraints.AssertFalse;
-
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
@@ -21,6 +17,7 @@ import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.Length;
+import org.springframework.stereotype.Component;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.tracker.patienttracker.validator.ValidPassword;
@@ -28,15 +25,12 @@ import com.tracker.patienttracker.validator.ValidPassword;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-/*
- * @author: Burre Chandu (883619)
- * 
- */
 @Entity
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "user")
+@Component
 public class User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -83,7 +77,7 @@ public class User {
 	private String role;
 
 	@Min(value=-1)
-	@Max(value=1)
+  	@Max(value=1)
 	private int approved;
 }
 

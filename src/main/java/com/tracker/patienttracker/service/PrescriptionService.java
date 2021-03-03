@@ -2,6 +2,8 @@ package com.tracker.patienttracker.service;
 
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 import javax.transaction.Transactional;
 
@@ -33,32 +35,21 @@ public class PrescriptionService {
 	}
   
 	
-	@Transactional
-	public Set<Prescription> getAllPrescriptionsForPatientForBilling(int patientId) throws Exception{
-//		AuthResponse response = userService.getValidity(token);
-//		if(!response.isValid)
-//			throw new InvalidTokenException("Token is not valid");
-		 
+
+  @Transactional
+	public List<Prescription> getAllPrescriptionsForPatientForBilling(int patientId) throws Exception{
 		PatientRecord patientRecord = patientRecordService.getPatientRecordForPatientId(patientId);
-		Set<Prescription> prescriptions = prescriptionRepository.findByPatientRecordAndBilledFalse(patientRecord);
+		List<Prescription> prescriptions = patientRecord.getPrescriptions().stream().filter((prescription) -> !prescription.isBilled()).collect(Collectors.toList());
 		return prescriptions;
 	}
 	
 	@Transactional
 	public Prescription addPrescription(Prescription prescription) {
-//		AuthResponse response = userService.getValidity(token);
-//		if(!response.isValid)
-//			throw new InvalidTokenException("Token is not valid");
-		
 		return prescriptionRepository.save(prescription);
 	}
 	
 	@Transactional
 	public Prescription updatePrescription(Prescription prescription) {
-//		AuthResponse response = userService.getValidity(token);
-//		if(!response.isValid)
-//			throw new InvalidTokenException("Token is not valid");
-		
-		return prescriptionRepository.save(prescription);
+    return prescriptionRepository.save(prescription);
 	}
 }

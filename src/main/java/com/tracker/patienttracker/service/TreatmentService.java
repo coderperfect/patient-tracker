@@ -35,12 +35,6 @@ public class TreatmentService {
 		return treatmentRepository.findById(treatmentId).get();
 	}
 	
-	public String getDietDetails(int treatmentId)
-	{
-		return treatmentRepository.getDietDetails(treatmentId);
-    
-  }
-	
 	@Transactional
 	public Treatment updateTreatment(Treatment treatment) {
 		Optional<Treatment> treatmentCheck = treatmentRepository.findById(treatment.getTreatmentId());

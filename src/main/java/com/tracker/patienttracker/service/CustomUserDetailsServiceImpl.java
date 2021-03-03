@@ -5,10 +5,12 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.InvalidDataAccessApiUsageException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import com.tracker.patienttracker.error.UnauthorizedException;
@@ -30,7 +32,7 @@ public class CustomUserDetailsServiceImpl implements CustomUserDetailsService {
 	@Override
 	public UserDetails loadUserByUsername(String uid) {
 		Optional<com.tracker.patienttracker.model.User> userData = userdao.findById(Integer.parseInt(uid));
-		if (userData.isEmpty()) {
+		if (!userData.isPresent()) {
 			log.error("Unauthorized exception");
 			throw new UnauthorizedException("unauthorized");
 		}
@@ -48,6 +50,15 @@ public class CustomUserDetailsServiceImpl implements CustomUserDetailsService {
 		String generateToken = "";
 		if (userdetails.getPassword().equals(userlogincredentials.getPassword())) {
 			uid = userlogincredentials.getUserId();
+			Optional<com.tracker.patienttracker.model.User> opuser = userdao.findById(uid);
+			if(!opuser.isPresent())
+			{
+				throw new UsernameNotFoundException("Not Approved");
+			}
+			com.tracker.patienttracker.model.User user = opuser.get();
+			if(user.getApproved()<1) {
+				throw new InvalidDataAccessApiUsageException("Invalid User");
+			}
 			String role = userdetails.getAuthorities().toArray()[0].toString();
 			generateToken = jwtutil.generateToken(userdetails,role);
 			return new UserData(uid, null, generateToken, role);
