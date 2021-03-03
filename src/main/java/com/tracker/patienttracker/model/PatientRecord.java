@@ -44,13 +44,12 @@ public class PatientRecord {
 	private Doctor doctor;
 	
 
-	@JsonIgnore
 	@OneToMany(cascade = CascadeType.ALL)
 	@OrderBy("treatmentId DESC")
 	private Set<Treatment> treatments;
 	
 	@OneToMany(targetEntity = TestReport.class, cascade = CascadeType.ALL)
-  @OrderBy("testReportId DESC")
+    @OrderBy("testResultId DESC")
 	private Set<TestReport> testreports;
 	
 	@NotNull
@@ -59,7 +58,7 @@ public class PatientRecord {
 	private Patient patient;
 	
 	@OneToMany(targetEntity = Prescription.class, cascade = CascadeType.ALL)
-  @OrderBy("prescriptionId DESC")
+    @OrderBy("prescriptionId DESC")
 	private Set<Prescription> prescriptions;
 	
 	@PastOrPresent
