@@ -305,4 +305,69 @@ public class PatientRecordServiceTest {
 		assertThrows(PatientNotFoundException.class, ()->recordService.addTestReport(dto));
 	}
 	
+	@Test
+	public void getAllPatientsForDoctor() {
+		User user1 = new User();
+		user1.setUserId(1);
+		User user2 = new User();
+		user1.setUserId(2);
+		Patient patient1 = new Patient(1,"O+ve",user1);
+		Patient patient2 = new Patient(2,"B+ve",user2);
+		Set<Patient> patients = new HashSet<Patient>();
+		patients.add(patient1);
+		patients.add(patient2);
+		
+		Set<Integer> patientIds = new HashSet<Integer>();
+		patientIds.add(1);
+		patientIds.add(2);
+		
+		when(patientRecordRepository.findPatientByDoctor(1)).thenReturn(patientIds);
+		when(patientService.getPatient(1)).thenReturn(patient1);
+		when(patientService.getPatient(2)).thenReturn(patient2);
+		assertEquals(recordService.getAllPatientsForDoctor(1), patients);
+	}
+	
+	@Test
+	public void getPatientRecordForPatientIdTest() {
+		User user = new User();
+		user.setUserId(1);
+		Patient patient = new Patient(1,"O+ve",user);
+		PatientRecord patientRecord = new PatientRecord();
+		patientRecord.setRecordId(1);
+		patientRecord.setPatient(patient);
+		
+		when(patientService.getPatient(1)).thenReturn(patient);
+		when(patientRecordRepository.findByPatient(patient)).thenReturn(Optional.of(patientRecord));
+		assertEquals(recordService.getPatientRecordForPatientId(1), patientRecord);
+		
+		when(patientRecordRepository.findByPatient(patient)).thenReturn(Optional.empty());
+		assertThrows(PatientNotFoundException.class, () -> recordService.getPatientRecordForPatientId(1));
+	}
+	
+	@Test
+	public void addPatientRecordTest() {
+		User user = new User();
+		user.setUserId(1);
+		Patient patient = new Patient(1,"O+ve",user);
+		PatientRecord patientRecord = new PatientRecord();
+		patientRecord.setRecordId(1);
+		patientRecord.setPatient(patient);
+		
+		when(patientRecordRepository.save(patientRecord)).thenReturn(patientRecord);
+		assertEquals(recordService.addPatientRecord(patientRecord), patientRecord);
+	}
+	
+	@Test
+	public void updatePatientRecordTest() {
+		User user = new User();
+		user.setUserId(1);
+		Patient patient = new Patient(1,"O+ve",user);
+		PatientRecord patientRecord = new PatientRecord();
+		patientRecord.setRecordId(1);
+		patientRecord.setPatient(patient);
+		
+		when(patientRecordRepository.save(patientRecord)).thenReturn(patientRecord);
+		assertEquals(recordService.updatePatientRecord(patientRecord), patientRecord);
+	}
+	
 }
