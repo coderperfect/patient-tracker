@@ -1,9 +1,11 @@
 package com.tracker.patienttracker.service;
 
-
+import java.util.List;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -14,6 +16,7 @@ import org.springframework.stereotype.Service;
 
 import com.tracker.patienttracker.dto.PatientRecordDTO;
 import com.tracker.patienttracker.exception.PatientNotFoundException;
+import com.tracker.patienttracker.exception.TreatmentNotFoundException;
 import com.tracker.patienttracker.model.Doctor;
 import com.tracker.patienttracker.model.MedicineQuantity;
 import com.tracker.patienttracker.model.Patient;
@@ -34,18 +37,20 @@ public class PatientRecordService {
 	
 	@Autowired
 	private DoctorService doctorService;
+	
+	@Autowired
+	private TreatmentService treatmentService;
+	
+	@Autowired
+	private PrescriptionService prescriptionService;
 
 	@Autowired
 	private PatientRecordRepository patientRecordRepository;
 	
-	@Transactional
-	public Set<Prescription> prescriptions(int patientId, int doctorId) {
+	public Set<Prescription> prescriptions(int patientRecordId, int doctorId) {
 		Doctor doctor = doctorService.getDoctor(doctorId);
-		
-		Patient patient = patientService.getPatient(patientId);
-		//getpatientRecord
-
-		Optional<PatientRecord> optional = patientRecordRepository.findByPatientAndDoctor(patient, doctor);
+		//Patient patient = patientService.getPatient(patientId);
+		Optional<PatientRecord> optional = patientRecordRepository.findByrecordIdAndDoctor(patientRecordId, doctor);
 
 		if(!optional.isPresent()) {
 			throw new PatientNotFoundException();
@@ -54,11 +59,11 @@ public class PatientRecordService {
 		return patientRecord.getPrescriptions();
 	}
 	
-	public Set<TestReport> testReports(int patientId, int doctorId) {
+	public Set<TestReport> testReports(int patientRecordId, int doctorId) {
 		Doctor doctor = doctorService.getDoctor(doctorId);
-		Patient patient = patientService.getPatient(patientId);
+		
 		//getpatientRecord
-		Optional<PatientRecord> optional = patientRecordRepository.findByPatientAndDoctor(patient, doctor);
+		Optional<PatientRecord> optional = patientRecordRepository.findByrecordIdAndDoctor(patientRecordId, doctor);
 		
 		if(!optional.isPresent()) {
 			throw new PatientNotFoundException();
@@ -78,6 +83,8 @@ public class PatientRecordService {
 		PatientRecord patientRecord=optional.get();
 		return patientRecord.getTreatments();
 	}
+	
+	
 	
 	public String addPrescription(PatientRecordDTO dto) {
 		int patientRecordId = dto.getRecordId();
@@ -103,6 +110,37 @@ public class PatientRecordService {
 		return "Added Successfully";
 		
 	}
+	
+	public String updatePrescription(PatientRecordDTO dto) {
+		int patientRecordId = dto.getRecordId();
+		int doctorId = dto.getDoctorId();
+		Doctor doctor =  doctorService.getDoctor(doctorId);
+		
+		Optional<PatientRecord> optional = patientRecordRepository.findByrecordIdAndDoctor(patientRecordId, doctor);
+		if(!optional.isPresent()) {
+			throw new PatientNotFoundException();
+		}
+		
+		Prescription prescription = dto.getPrescription();
+		double prescriptionCost = 0;
+		for(MedicineQuantity mq : prescription.getMedicineQuantities()) {
+			prescriptionCost = prescriptionCost + mq.getQuantity()*mq.getMedicine().getMedicineCost();
+		}
+		
+		PatientRecord patientRecord=optional.get();
+		prescription.setPrescriptionCost(prescriptionCost);
+		/*
+		Set<Prescription> prescriptions = patientRecord.getPrescriptions();
+		patientRecord.setPrescriptions((Set<Prescription>) prescriptions.stream()
+					 .filter(object -> object.getPrescriptionId()!=prescription.getPrescriptionId())
+					 .collect(Collectors.toList()));
+		//patientRecord.setPrescriptions(prescriptions);
+		PatientRecord record = patientRecordRepository.save(patientRecord);
+		*/
+		prescriptionService.addPrescription(prescription);
+		return "Updated Successfully";
+		
+	}
 
 	public String addTreatment(PatientRecordDTO dto) {
 		int patientRecordId = dto.getRecordId();
@@ -116,15 +154,62 @@ public class PatientRecordService {
 		
 		Treatment treatment = dto.getTreatment();
 		PatientRecord patientRecord=optional.get();
-		treatment.setPatientRecord(patientRecord);
-		patientRecord.getTreatments().add(treatment);
 		
+		Set<Treatment> treatments = patientRecord.getTreatments();
+		treatments.add(treatment);
+		patientRecord.setTreatments(treatments);
 		PatientRecord record = patientRecordRepository.save(patientRecord);
 		
 		return "Added Successfully";
 	}
 	
-	
+	public String updateTreatment(PatientRecordDTO dto) {
+		int patientRecordId = dto.getRecordId();
+		int doctorId = dto.getDoctorId();
+		Doctor doctor =  doctorService.getDoctor(doctorId);
+		
+		Optional<PatientRecord> optional = patientRecordRepository.findByrecordIdAndDoctor(patientRecordId, doctor);
+		if(!optional.isPresent()) {
+			throw new PatientNotFoundException();
+		}
+		
+		Treatment treatment = dto.getTreatment();
+		PatientRecord patientRecord=optional.get();
+		
+		Set<Treatment> treatments = patientRecord.getTreatments();
+		if(treatments==null || treatments.isEmpty())
+			throw new TreatmentNotFoundException();
+		List<Treatment> filtered = treatments.stream()
+				  .filter(item -> (item.getTreatmentId() == treatment.getTreatmentId()))
+				  .collect(Collectors.toList());
+		if(filtered.isEmpty())
+			throw new TreatmentNotFoundException();
+		else {
+			treatmentService.saveTreatment(treatment);
+		}
+		return "Updated Successfully";
+	}
+
+	public String addTestReport(PatientRecordDTO dto) {
+		int patientRecordId = dto.getRecordId();
+		int doctorId = dto.getDoctorId();
+		Doctor doctor =  doctorService.getDoctor(doctorId);
+		
+		Optional<PatientRecord> optional = patientRecordRepository.findByrecordIdAndDoctor(patientRecordId, doctor);
+		if(!optional.isPresent()) {
+			throw new PatientNotFoundException();
+		}
+		
+		PatientRecord patientRecord=optional.get();
+		TestReport testReport = dto.getTestReport();
+		testReport.setDoctor(doctor);
+		testReport.setPatient(patientRecord.getPatient());
+		patientRecord.getTestreports().add(testReport);
+		PatientRecord record = patientRecordRepository.save(patientRecord);
+		
+		return "Added Successfully";
+		
+	}
 	
 	@Transactional
 	public Set<Patient> getAllPatientsForDoctor(int doctorId){
@@ -148,7 +233,7 @@ public class PatientRecordService {
 	}
 	
 	@Transactional
-	public PatientRecord addPatientRecord(PatientRecord patientRecord, String token) {
+	public PatientRecord addPatientRecord(PatientRecord patientRecord) {
 //		AuthResponse response = userService.getValidity(token);
 //		if(!response.isValid)
 //			throw new InvalidTokenException("Token is not valid");

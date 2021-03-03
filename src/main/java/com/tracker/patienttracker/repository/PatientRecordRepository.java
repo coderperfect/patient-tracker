@@ -32,5 +32,4 @@ public interface PatientRecordRepository extends JpaRepository<PatientRecord, In
 	
 	@Query("select pr from PatientRecord pr where pr.recordId= ?1 and pr.doctor = ?2")
 	Optional<PatientRecord> findByrecordIdAndDoctor(int recordId, Doctor doctor);
-
 }

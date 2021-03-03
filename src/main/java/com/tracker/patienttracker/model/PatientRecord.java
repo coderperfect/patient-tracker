@@ -14,9 +14,12 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.OrderBy;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.PastOrPresent;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -37,10 +40,13 @@ public class PatientRecord {
 	@JoinColumn(name = "doctorId")
 	private Doctor doctor;
 	
-	@OneToMany(targetEntity = Treatment.class, cascade = CascadeType.ALL)	
+
+	@OneToMany(cascade = CascadeType.ALL)
+	@OrderBy("treatmentId DESC")
 	private Set<Treatment> treatments;
 	
 	@OneToMany(targetEntity = TestReport.class, cascade = CascadeType.ALL)
+    @OrderBy("testResultId DESC")
 	private Set<TestReport> testreports;
 	
 	@NotNull
@@ -49,6 +55,7 @@ public class PatientRecord {
 	private Patient patient;
 	
 	@OneToMany(targetEntity = Prescription.class, cascade = CascadeType.ALL)
+    @OrderBy("prescriptionId DESC")
 	private Set<Prescription> prescriptions;
 	
 	@PastOrPresent

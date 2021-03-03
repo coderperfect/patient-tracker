@@ -1,6 +1,8 @@
 package com.tracker.patienttracker.service;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,5 +26,14 @@ public class DoctorService {
 			}
 		 Doctor doctor = optional.get();
 		 return doctor;
+	}
+	
+	public List<Doctor> getAllDoctors() {
+		
+		List<Doctor> doctors =  doctorRepository.findAll();
+		
+		return doctors.stream()
+					  .filter(object -> object.getUser().getApproved()==1)
+					  .collect(Collectors.toList());
 	}
 }

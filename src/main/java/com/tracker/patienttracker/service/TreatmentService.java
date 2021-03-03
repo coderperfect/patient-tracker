@@ -3,10 +3,13 @@ package com.tracker.patienttracker.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import com.tracker.patienttracker.exception.TreatmentNotFoundException;
 import com.tracker.patienttracker.model.Treatment;
 import com.tracker.patienttracker.repository.PatientRecordRepository;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 import javax.transaction.Transactional;
@@ -19,7 +22,7 @@ public class TreatmentService {
 	@Autowired
 	TreatmentRepository treatmentRepository;
   
-  @Autowired
+	@Autowired
 	private PatientRecordService patientRecordService;
 	
 	@Transactional
@@ -35,6 +38,21 @@ public class TreatmentService {
 	public String getDietDetails(int treatmentId)
 	{
 		return treatmentRepository.getDietDetails(treatmentId);
+    
+  }
+	
+	@Transactional
+	public Treatment updateTreatment(Treatment treatment) {
+		Optional<Treatment> treatmentCheck = treatmentRepository.findById(treatment.getTreatmentId());
+		if(treatmentCheck == null)
+			throw new TreatmentNotFoundException();
+		return treatmentRepository.save(treatment);
+	}
+
+	public void saveTreatment(Treatment treatment) {
+	
+		treatmentRepository.save(treatment);
+		
 	}
 	public Set<Treatment> getTreatmentHistory(int patientId) //can be used as diet list also
 	{

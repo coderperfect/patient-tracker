@@ -24,7 +24,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "doctor")
-public class Doctor{
+public class Doctor {
 	@Id
 	@NotNull(message = "Doctor Id is required")
 	@Min(value = 1, message = "Doctor Id has to be greater than or equal to 1")

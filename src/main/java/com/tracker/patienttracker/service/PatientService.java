@@ -39,10 +39,10 @@ public class PatientService {
 		 return patient;
 	}
 	
-	public Patient getPatientDetails(int patientId)
-	{
+	public Patient getPatientDetails(int patientId){
 		return patientRepository.findById(patientId).get();
 	}
+	
 	@Transactional
 	public void addPatient(Patient patient)
 	{

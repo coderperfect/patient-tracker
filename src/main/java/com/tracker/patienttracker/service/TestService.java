@@ -23,6 +23,7 @@ public class TestService {
 	{
 		return testRepository.findById(testId).get();
 	}
+	
 	public Set<Test> getTestList(int patientId)
 	{	 Set<Test> test=new HashSet<Test>();
 		Set<TestReport> t=patientRecordRepository.findById(patientId).get().getTestreports();
@@ -31,6 +32,10 @@ public class TestService {
 			test.add(a.getTest());
 		}
 		return test;
+	}
+	
+	public Set<Test> getTestListContainingName(String testName) {
+		return testRepository.findByTestNameContaining(testName);
 	}
 	
 }

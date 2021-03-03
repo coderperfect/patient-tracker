@@ -1,7 +1,5 @@
 package com.tracker.patienttracker.dto;
 
-import java.sql.Date;
-
 import org.springframework.stereotype.Component;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -19,7 +17,7 @@ public class RegistrationData{
 	private String lastName;
 	private String gender;
 	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd")
-	private Date dateOfBirth;
+	private String dateOfBirth;
 	private String contactNo;
 	private String password;
 	private String address;

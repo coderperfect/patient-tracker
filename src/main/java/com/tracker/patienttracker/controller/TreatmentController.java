@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -18,19 +20,15 @@ public class TreatmentController {
 	@Autowired
 	TreatmentService treatmentService;
 	
-	@GetMapping("/details/{treatmentId}")
-	public Treatment getTreatmentDetails(@PathVariable int treatmentId)
-	{
-		return treatmentService.getTreatmentDetails(treatmentId);
-	}
 	@GetMapping("/history/{patientId}")
 	public  Set<Treatment> getTreatmentHistory(@PathVariable int patientId)
 	{
 		return treatmentService.getTreatmentHistory(patientId);
 	}
-	@GetMapping("/diet/{treatmentId}")
-	public String getDietDetails(@PathVariable int treatmentId)
-	{
-		return treatmentService.getDietDetails(treatmentId);
+	
+	@PutMapping("/update")
+	public Treatment updateTreatment(@RequestBody Treatment treatment) {
+		return treatmentService.updateTreatment(treatment);
 	}
+
 }
