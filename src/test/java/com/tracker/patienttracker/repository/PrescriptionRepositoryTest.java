@@ -47,7 +47,6 @@ public class PrescriptionRepositoryTest {
 	
 	@Test
 	@Order(1)
-    @Rollback(false)
 	public void testSavePrescription() {
 		Prescription prescription = new Prescription();
 		Set<MedicineQuantity> medicineQuantities = new HashSet<>();
@@ -86,7 +85,6 @@ public class PrescriptionRepositoryTest {
 	}
 	
 	@Test
-	@Rollback(false)
 	public void testgetAllPrescriptionsForPatientForBilling() {
 		Set<Prescription> prescriptions1 = new HashSet<Prescription>();
 		//Prescription 1

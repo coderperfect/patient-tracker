@@ -2,11 +2,6 @@ package com.tracker.patienttracker.controller;
 
 import static org.mockito.Mockito.when;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-
 import java.util.HashSet;
 import java.util.Set;
 
@@ -17,22 +12,18 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
-
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.tracker.patienttracker.dto.PatientRecordDTO;
 import com.tracker.patienttracker.model.Patient;
 import com.tracker.patienttracker.model.PatientRecord;
-
-import com.tracker.patienttracker.model.User;
 import com.tracker.patienttracker.model.Prescription;
 import com.tracker.patienttracker.model.TestReport;
 import com.tracker.patienttracker.model.Treatment;
-
+import com.tracker.patienttracker.model.User;
 import com.tracker.patienttracker.security.JwtUtil;
 import com.tracker.patienttracker.service.CustomUserDetailsService;
 import com.tracker.patienttracker.service.PatientRecordService;
@@ -187,12 +178,8 @@ public class PatientRecordControllerTest {
 		
 		mockMvc.perform(MockMvcRequestBuilders
 						.get("/patientrecord/patientids/1")
-            .contentType(MediaType.APPLICATION_JSON)
-						.content(json)
-		).andExpect(MockMvcResultMatchers.status().isOk());
+						).andExpect(MockMvcResultMatchers.status().isOk());
 	}
-  
-	
 	
 	@Test
 	@WithMockUser(authorities = {"ROLE_DOCTOR"})

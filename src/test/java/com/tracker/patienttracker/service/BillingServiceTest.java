@@ -82,7 +82,6 @@ class BillingServiceTest {
 		Billing billingResult = billingService.saveBilling(billing);
 				
 		assertNotNull(billingResult);
-		assertEquals(22, billing.getPatient().getPatientId());
 	}
 	
 	@Test

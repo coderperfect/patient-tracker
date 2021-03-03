@@ -58,7 +58,7 @@ public class RegistrationServiceTest {
 	@Test
 	public void registrationTestForDoctor() {
 		RegistrationData registrationData=new RegistrationData("abc", "abc", "male", "1998-07-22", "1234567890", 
-				"aaaas@123", "123sas", "ROLE_DOCTOR", "MS", "HEART", 123.4, "O+ve", 1);
+				"aaaas@123", "123sas", "ROLE_DOCTOR", "MS", "HEART", 123.4, "O+ve", 1, 1, 2);
 		Date dateOfBirth=new DateUtil().convertToDate1("1998-07-22");
 		User obj=new User(1, "abc", "abc", "male", dateOfBirth, "1234567890", 
 				"aaaas@123", "123sas", "ROLE_DOCTOR", 1);
@@ -76,7 +76,7 @@ public class RegistrationServiceTest {
 	@Test
 	public void registrationTestForPatient() {
 		RegistrationData registrationData=new RegistrationData("abc", "abc", "male", "1998-07-22", "1234567890", 
-				"aaaas@123", "123sas", "ROLE_PATIENT", "MS", "HEART", 123.4, "O+ve", 1);
+				"aaaas@123", "123sas", "ROLE_PATIENT", "MS", "HEART", 123.4, "O+ve", 1, 1, 2);
 		Date dateOfBirth=new DateUtil().convertToDate1("1998-07-22");
 		User obj=new User(1, "abc", "abc", "male", dateOfBirth, "1234567890", 
 				"aaaas@123", "123sas", "ROLE_DOCTOR", 1);
@@ -103,7 +103,7 @@ public class RegistrationServiceTest {
 	@Test
 	public void registrationTestForClerk() {
 		RegistrationData registrationData=new RegistrationData("abc", "abc", "male", "1998-07-22", "1234567890", 
-				"aaaas@123", "123sas", "ROLE_CLERK", "MS", "HEART", 123.4, "O+ve", 1);
+				"aaaas@123", "123sas", "ROLE_CLERK", "MS", "HEART", 123.4, "O+ve", 1, 1, 2);
 		Date dateOfBirth=new DateUtil().convertToDate1("1998-07-22");
 		User obj=new User(1, "abc", "abc", "male", dateOfBirth, "1234567890", 
 				"aaaas@123", "123sas", "ROLE_CLERK", 1);
@@ -120,7 +120,7 @@ public class RegistrationServiceTest {
 	@Test
 	public void registrationTestForAdmin() {
 		RegistrationData registrationData=new RegistrationData("abc", "abc", "male", "1998-07-22", "1234567890", 
-				"aaaas@123", "123sas", "ROLE_ADMIN", "MS", "HEART", 123.4, "O+ve", 1);
+				"aaaas@123", "123sas", "ROLE_ADMIN", "MS", "HEART", 123.4, "O+ve", 1, 1, 2);
 		Date dateOfBirth=new DateUtil().convertToDate1("1998-07-22");
 		User obj=new User(1, "abc", "abc", "male", dateOfBirth, "1234567890", 
 				"aaaas@123", "123sas", "ROLE_ADMIN", 1);
