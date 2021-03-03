@@ -5,11 +5,16 @@ import java.util.Date;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+
+import org.springframework.data.repository.CrudRepository;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
 import org.springframework.stereotype.Service;
 
 import com.tracker.patienttracker.dto.RegistrationData;
 import com.tracker.patienttracker.model.Admin;
 import com.tracker.patienttracker.model.Clerk;
+import com.tracker.patienttracker.model.Consultation;
 import com.tracker.patienttracker.model.Doctor;
 import com.tracker.patienttracker.model.Patient;
 import com.tracker.patienttracker.model.PatientRecord;
@@ -58,6 +63,9 @@ public class RegistrationService {
 	@Autowired
 	PatientRecord patientRecord;
 	@Autowired
+	ConsultationService consultationService;
+	
+	@Autowired
 	DoctorService docService;
 	
 	@Transactional
@@ -80,6 +88,8 @@ public class RegistrationService {
 		obj.setPassword(password);
 		obj.setAddress(address);
 		obj.setRole(role);	
+		if(registrationData.getUserId()!=0)
+			obj.setUserId(registrationData.getUserId());
 		
 		String errors=constraintValidation.validationCheck(obj);
 		System.out.println(errors);
@@ -116,6 +126,15 @@ public class RegistrationService {
 			patientRecord.setDate(new Date());
 			obj1 = docService.getDoctor(doctorId);
 			patientRecord.setDoctor(obj1);
+			
+			Doctor doctor = docService.getDoctor(doctorId);
+			patientRecord.setDoctor(doctor);
+			Consultation consult = new Consultation();
+			consult.setPatientId(patientRecord.getPatient());
+			consult.setDoctorId(doctor);
+			consult.setDate(new Date());
+			
+			consultationService.save(consult);
 			prService.addPatientRecord(patientRecord);
 		}
 		else if(role.equals("ROLE_CLERK")){

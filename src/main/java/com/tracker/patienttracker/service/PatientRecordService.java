@@ -128,15 +128,8 @@ public class PatientRecordService {
 		}
 		
 		PatientRecord patientRecord=optional.get();
+		
 		prescription.setPrescriptionCost(prescriptionCost);
-		/*
-		Set<Prescription> prescriptions = patientRecord.getPrescriptions();
-		patientRecord.setPrescriptions((Set<Prescription>) prescriptions.stream()
-					 .filter(object -> object.getPrescriptionId()!=prescription.getPrescriptionId())
-					 .collect(Collectors.toList()));
-		//patientRecord.setPrescriptions(prescriptions);
-		PatientRecord record = patientRecordRepository.save(patientRecord);
-		*/
 		prescriptionService.addPrescription(prescription);
 		return "Updated Successfully";
 		
@@ -238,7 +231,7 @@ public class PatientRecordService {
 	}
 	
 	@Transactional
-	public PatientRecord updatePatientRecord(PatientRecord patientRecord, String token) {
+	public PatientRecord updatePatientRecord(PatientRecord patientRecord) {
 		return patientRecordRepository.save(patientRecord);
 	}
 }

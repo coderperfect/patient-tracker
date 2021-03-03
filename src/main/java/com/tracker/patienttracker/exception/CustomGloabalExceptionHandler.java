@@ -53,17 +53,17 @@ public class CustomGloabalExceptionHandler extends ResponseEntityExceptionHandle
 	
 	@ExceptionHandler(PatientNotFoundException.class)
 	public void patientNotFound(HttpServletResponse response) throws IOException{
-		response.sendError(HttpStatus.BAD_REQUEST.value(), "Patient Not Found"); 
+		response.sendError(HttpStatus.NOT_FOUND.value(), "Patient Not Found"); 
 	}
 	
 	@ExceptionHandler(UserNotFoundException.class)
 	public void userNotFound(HttpServletResponse response) throws IOException{
-		response.sendError(HttpStatus.BAD_REQUEST.value(), "User Not Found"); 
+		response.sendError(HttpStatus.NOT_FOUND.value(), "User Not Found"); 
 	}
 	
 	@ExceptionHandler(DoctorNotFoundException.class)
 	public void doctorNotFound(HttpServletResponse response) throws IOException{
-		response.sendError(HttpStatus.BAD_REQUEST.value(), "Doctor Not Found"); 
+		response.sendError(HttpStatus.NOT_FOUND.value(), "Doctor Not Found"); 
 	}
 	
 	@ExceptionHandler(RegistrationFailedException.class)
@@ -73,18 +73,22 @@ public class CustomGloabalExceptionHandler extends ResponseEntityExceptionHandle
 	
 	@ExceptionHandler(TreatmentNotFoundException.class)
 	public void treatmentNotFound(HttpServletResponse response) throws IOException{
-		response.sendError(HttpStatus.BAD_REQUEST.value(), "Treatment Not Found"); 
+		response.sendError(HttpStatus.NOT_FOUND.value(), "Treatment Not Found"); 
 	}
 
 	@ExceptionHandler(MedicineNotFoundException.class)
 	public void medicineNotFound(HttpServletResponse response) throws IOException{
-		response.sendError(HttpStatus.BAD_REQUEST.value(), "Medicine Not Found"); 
+		response.sendError(HttpStatus.NOT_FOUND.value(), "Medicine Not Found"); 
+	}
+	
+	@ExceptionHandler(TestReportNotFoundException.class)
+	public void testReportNotFound(HttpServletResponse response) throws IOException{
+		response.sendError(HttpStatus.NOT_FOUND.value(), "Test Report Not Found"); 
 	}
 
 	@ExceptionHandler(Exception.class)
 	public void handleAnyException(HttpServletResponse response, Exception ex) throws IOException{
 		response.sendError(HttpStatus.BAD_REQUEST.value(), "Exception arised "+ex.getMessage()); 
 	}
-	
 
 }

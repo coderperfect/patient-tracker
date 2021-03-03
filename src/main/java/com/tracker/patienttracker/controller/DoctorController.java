@@ -13,6 +13,7 @@ import com.tracker.patienttracker.model.Doctor;
 import com.tracker.patienttracker.service.DoctorService;
 
 @RestController
+@CrossOrigin
 @RequestMapping("/doctors")
 @CrossOrigin
 public class DoctorController {
