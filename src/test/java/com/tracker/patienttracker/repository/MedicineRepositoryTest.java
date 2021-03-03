@@ -26,7 +26,6 @@ public class MedicineRepositoryTest {
 	
 	@Test
 	@Order(1)
-	@Rollback(false)
 	public void testFindByMedicineName() {
 		Medicine medicine1 = new Medicine();
 		medicine1.setMedicineName("Combiflame");

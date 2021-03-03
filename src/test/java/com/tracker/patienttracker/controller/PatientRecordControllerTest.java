@@ -187,20 +187,6 @@ public class PatientRecordControllerTest {
 		
 		mockMvc.perform(MockMvcRequestBuilders
 						.get("/patientrecord/patientids/1")
-            .contentType(MediaType.APPLICATION_JSON)
-						.content(json)
-		).andExpect(MockMvcResultMatchers.status().isOk());
-	}
-  
-	void updateTreatmentTest() throws Exception {
-		PatientRecordDTO dto = new PatientRecordDTO();
-		when(patientRecordService.updateTreatment(dto)).thenReturn("Updateed Successfully");
-		ObjectMapper mapper = new ObjectMapper();
-        String json = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(dto);
-		mockMvc.perform(MockMvcRequestBuilders
-						.post("/patientrecord/updatetreatment")
-						.contentType(MediaType.APPLICATION_JSON)
-						.content(json)
 		).andExpect(MockMvcResultMatchers.status().isOk());
 	}
 	

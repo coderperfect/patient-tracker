@@ -46,7 +46,7 @@ class RegistrationControllerTest {
 	@Test
 	void registrationTestPass() throws Exception {
 		RegistrationData registrationData=new RegistrationData("abc", "abc", "male", "1998-07-22", "1234567890", 
-				"aaaas@123", "123sas", "ROLE_DOCTOR", "MS", "HEART", 123.4, "O+ve", 1);
+				"aaaas@123", "123sas", "ROLE_DOCTOR", "MS", "HEART", 123.4, "O+ve", 1, 1 , 2);
 		ObjectMapper mapper = new ObjectMapper();
         String json = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(registrationData);
 		when(registrationService.registration(registrationData)).thenReturn("Thanks For Registiring Please wait for the Approval Your UserId is 1");		
@@ -55,10 +55,11 @@ class RegistrationControllerTest {
         String content=mvcResult.getResponse().getContentAsString();
         assertEquals(content, "Thanks For Registiring Please wait for the Approval Your UserId is 1");
 	}
+	
 	@Test
 	void registrationTestFailed() throws Exception {
 		RegistrationData registrationData=new RegistrationData("abc", "abc", "male", "1998-07-22", "1234567890", 
-				"aaaas", "123sas", "ROLE_DOCTOR", "MS", "HEART", 123.4, "O+ve", 1);
+				"aaaas", "123sas", "ROLE_DOCTOR", "MS", "HEART", 123.4, "O+ve", 1, 1 , 2);
 		ObjectMapper mapper = new ObjectMapper();
         String json = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(registrationData);
 		when(registrationService.registration(registrationData)).thenReturn("");		

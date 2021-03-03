@@ -58,7 +58,6 @@ public class PatientRecordRepositoryTest {
 	
 	@Test
 	@Order(1)
-    @Rollback(false)
 	public void testaddPrescriptionToPatientRecord() {
 		//get patient
 		Optional<PatientRecord> optional2 = patientRecordRepository.findById(1);
@@ -113,7 +112,6 @@ public class PatientRecordRepositoryTest {
 
 	@Test
 	@Order(2)
-    @Rollback(false)
 	public void testaddTestToPatientRecord() {
 		
 		//get patient
@@ -150,7 +148,6 @@ public class PatientRecordRepositoryTest {
 	
 	@Test
 	@Order(3)
-    @Rollback(false)
 	public void testaddTreatmentToPatientRecord() {
 		
 		//get patient
@@ -182,7 +179,6 @@ public class PatientRecordRepositoryTest {
 	
 	@Test
 	@Order(4)
-    @Rollback(false)
 	public void testFetchPrescriptions() {
 		//get patient record
 		Optional<PatientRecord> optional2 = patientRecordRepository.findById(1);
@@ -193,7 +189,6 @@ public class PatientRecordRepositoryTest {
 	}
 	
 	@Test
-	@Rollback(false)
 	public void savePatientRecord() {
 		PatientRecord patientRecord = new PatientRecord();
 		patientRecord.setDate(DateUtil.convertToDate("01/01/2000"));
@@ -206,7 +201,6 @@ public class PatientRecordRepositoryTest {
 	}
 	
 	@Test
-	@Rollback(false)
 	public void testFetchPatientRecordByPatient() {
 		PatientRecord patientRecord1 = new PatientRecord();
 		patientRecord1.setRecordId(31);
