@@ -60,9 +60,9 @@ public class BillingService {
 	}
 	
 	public Billing saveBilling(int patientId, int userId, Billing billing) {
-		System.out.println(billing);
 		Patient patient = patientService.getPatient(patientId);
 		billing.setPatient(patient);
+		System.out.println(patient);
 		
 		billing.setTimestamp(LocalDateTime.now());
 		billing.setDueDate(LocalDateTime.now().plusDays(30));
@@ -79,6 +79,13 @@ public class BillingService {
 		Set<Consultation> cons = billing.getConsultations();
 		Set<TestReport> testRs = billing.getTestReports();
 		
+		if(billing.getInPatientRecord() != null) {
+			if(billing.getInPatientRecord().isRoomChargesBilled() || billing.getInPatientRecord().isNursingChargesBilled()) {
+				InPatientRecord inPatientRecord =  inPatientRecordService.updateInPatientRecordBilling(billing.getInPatientRecord());
+			}
+		}
+		
+		billing.setInPatientRecord(null);
 		billing.setConsultations(null);
 		billing.setTestReports(null);
 		

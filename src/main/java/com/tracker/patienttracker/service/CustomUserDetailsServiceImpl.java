@@ -56,8 +56,11 @@ public class CustomUserDetailsServiceImpl implements CustomUserDetailsService {
 				throw new UsernameNotFoundException("Not Approved");
 			}
 			com.tracker.patienttracker.model.User user = opuser.get();
-			if(user.getApproved()<1) {
+			if(user.getApproved()==0) {
 				throw new InvalidDataAccessApiUsageException("Invalid User");
+			}
+			else if (user.getApproved()==-1){
+				throw new InvalidDataAccessApiUsageException("Rejected User");
 			}
 			String role = userdetails.getAuthorities().toArray()[0].toString();
 			generateToken = jwtutil.generateToken(userdetails,role);
