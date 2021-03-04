@@ -47,6 +47,13 @@ public class TestReportTest {
 		assertEquals(testReport.isPaid(),true);
 	}
 	
+	@Test
+	void toStringTest()
+	{
+		TestReport testReport=new TestReport();
+		String str=testReport.toString();
+		assertEquals(str,testReport.toString());
+	}
 	// Validation Tests
 	private static Validator validator;
 		static {

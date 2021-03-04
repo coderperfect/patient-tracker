@@ -34,4 +34,12 @@ public class ClerkTests {
         assertEquals("Getter passed",clerk.getClerkId(), 123);
         //assertEquals("Getter failed",clerk.getClerkId(), 124);
 	}
+	@Test
+	void testUser()
+	{
+		Clerk clerk=new Clerk();
+		User user=new User();
+		clerk.setUser(user);
+		assertEquals(clerk.getUser(),user);
+	}
 }

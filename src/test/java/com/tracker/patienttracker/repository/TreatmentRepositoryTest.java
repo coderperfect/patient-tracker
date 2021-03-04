@@ -61,5 +61,12 @@ public class TreatmentRepositoryTest {
 		Treatment treatment = opTreatment.get();
 		assertNotNull(treatment.getDietExcerciseDescription());
 	}
+	@Test
+	@Order(4)
+	public void testDietDetailsFromRepository() {
+		String diet = treatmentRepository.getDietDetails(41);
+		assertNotNull(diet);
+	}
+	
 	
 }

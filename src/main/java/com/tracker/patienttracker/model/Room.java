@@ -8,9 +8,13 @@ import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
-
-@Data
+import lombok.Setter;
+import lombok.ToString;
+@ToString
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
