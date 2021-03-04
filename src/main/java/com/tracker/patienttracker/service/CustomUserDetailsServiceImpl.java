@@ -13,7 +13,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import com.tracker.patienttracker.error.UnauthorizedException;
+import com.tracker.patienttracker.exception.UnauthorizedException;
 import com.tracker.patienttracker.model.AuthResponse;
 import com.tracker.patienttracker.model.UserData;
 import com.tracker.patienttracker.repository.UserRepository;
