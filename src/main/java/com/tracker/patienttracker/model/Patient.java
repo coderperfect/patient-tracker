@@ -13,9 +13,7 @@ import org.springframework.stereotype.Component;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-/*
- * @author: Burre Chandu (883619)
- */
+
 @Entity
 @Data
 @NoArgsConstructor

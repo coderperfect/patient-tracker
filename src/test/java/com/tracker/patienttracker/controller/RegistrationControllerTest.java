@@ -22,7 +22,6 @@ import com.tracker.patienttracker.model.UserData;
 import com.tracker.patienttracker.security.JwtUtil;
 import com.tracker.patienttracker.service.CustomUserDetailsService;
 import com.tracker.patienttracker.service.HelpService;
-import com.tracker.patienttracker.service.LoginService;
 import com.tracker.patienttracker.service.RegistrationService;
 
 @ExtendWith(SpringExtension.class)
@@ -36,8 +35,6 @@ class RegistrationControllerTest {
 	private MockMvc mvc;
 	@MockBean
 	private RegistrationService registrationService;
-	@MockBean
-	LoginService loginService;
 	@MockBean
 	HelpService helpService;
 	@MockBean
