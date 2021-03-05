@@ -3,11 +3,8 @@ package com.tracker.patienttracker.security;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.stream.Collectors;
 
-import org.springframework.boot.autoconfigure.neo4j.Neo4jProperties.Authentication;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -70,7 +67,21 @@ public class JwtUtil {
 		String compact = Jwts.builder().setSubject(userDetails.getUsername())
 				.setIssuedAt(new Date(System.currentTimeMillis()))
 				.claim("role", authorities)
-				.setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 650))// token for 15 min
+				.setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60))// token for 60 min
+				.signWith(SignatureAlgorithm.HS256, secretkey).compact();
+		return compact;
+	}
+	
+	public String generateTokenForReset(UserDetails userDetails,String role) {
+//		Map<String, Object> claims = new HashMap<>();
+//		claims.put("role",userDetails.getAuthorities());
+		final String authorities = userDetails.getAuthorities().stream()
+                .map(GrantedAuthority::getAuthority)
+                .collect(Collectors.joining(","));
+		String compact = Jwts.builder().setSubject(userDetails.getUsername())
+				.setIssuedAt(new Date(System.currentTimeMillis()))
+				.claim("role", authorities)
+				.setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 3))// token for 3 min
 				.signWith(SignatureAlgorithm.HS256, secretkey).compact();
 		return compact;
 	}

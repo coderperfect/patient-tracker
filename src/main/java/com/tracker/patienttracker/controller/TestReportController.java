@@ -46,5 +46,4 @@ public class TestReportController {
 	public ResponseEntity<TestReport> updateRequestedInTestReport(@PathVariable("testResultId") int testResultId){
 		return ResponseEntity.ok(testReportService.updateRequestedInTestReport(testResultId));
 	}
-	
 }

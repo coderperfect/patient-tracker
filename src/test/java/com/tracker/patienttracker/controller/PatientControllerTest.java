@@ -31,6 +31,16 @@ import com.tracker.patienttracker.security.JwtUtil;
 import com.tracker.patienttracker.service.CustomUserDetailsService;
 import com.tracker.patienttracker.service.PatientService;
 
+import java.util.ArrayList;
+import static org.assertj.core.api.Assertions.assertThat;
+import org.junit.jupiter.api.Test;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.http.ResponseEntity;
+import com.tracker.patienttracker.model.Patient;
+import com.tracker.patienttracker.service.PatientService;
+
 @WebMvcTest(PatientController.class)
 public class PatientControllerTest {
 
@@ -73,4 +83,5 @@ public class PatientControllerTest {
 				.contentType(MediaType.APPLICATION_JSON))
 				.andExpect(MockMvcResultMatchers.status().isOk());
 	}
+
 }

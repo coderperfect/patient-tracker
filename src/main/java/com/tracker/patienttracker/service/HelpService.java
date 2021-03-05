@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 
 import com.tracker.patienttracker.model.Help;
 import com.tracker.patienttracker.repository.HelpRepository;
-import com.tracker.patienttracker.validator.ConstraintValidation;
 
 @Service
 public class HelpService {

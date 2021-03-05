@@ -32,28 +32,28 @@ public class BillingController {
 		return ResponseEntity.ok(billingService.createEmptyBillByPatientId(patientId));
 	}
 	
-	@PostMapping
-	public ResponseEntity<Billing> saveBilling(@RequestBody Billing billing) {
-		return ResponseEntity.ok(billingService.saveBilling(billing));
+	@PostMapping("/{patientId}/{userId}")
+	public ResponseEntity<Billing> saveBilling(@PathVariable("patientId") int patientId, @PathVariable("userId") int userId, @RequestBody Billing billing) {
+		return ResponseEntity.ok(billingService.saveBilling(patientId, userId, billing));
 	}
 	
 	@GetMapping("/prescription/{patientId}")
-	public ResponseEntity<List<Prescription>> getAllPrescriptionsForPatientForBilling(int patientId) throws Exception {
+	public ResponseEntity<List<Prescription>> getAllPrescriptionsForPatientForBilling(@PathVariable("patientId") int patientId) throws Exception {
 		return ResponseEntity.ok(billingService.getAllPrescriptionsForPatientForBilling(patientId));
 	}
 	
 	@GetMapping("/consultation/{patientId}")
-	public ResponseEntity<List<Consultation>> getConsultationsPendingBillingByPatientId(int patientId) {
+	public ResponseEntity<List<Consultation>> getConsultationsPendingBillingByPatientId(@PathVariable("patientId") int patientId) {
 		return ResponseEntity.ok(billingService.getConsultationsPendingBillingByPatientId(patientId));
 	}
 	
 	@GetMapping("/inpatientrecord/{patientId}")
-	public ResponseEntity<List<InPatientRecord>> getInPatientRecordByPatientId(int patientId) {
+	public ResponseEntity<List<InPatientRecord>> getInPatientRecordByPatientId(@PathVariable("patientId") int patientId) {
 		return ResponseEntity.ok(billingService.getInPatientRecordByPatientId(patientId));
 	}
 	
 	@GetMapping("/testreport/{patientId}")
-	public ResponseEntity<List<TestReport>> getPendingBillingTestReportsByPatientId(int patientId) {
+	public ResponseEntity<List<TestReport>> getPendingBillingTestReportsByPatientId(@PathVariable("patientId") int patientId) {
 		return ResponseEntity.ok(billingService.getPendingBillingTestReportsByPatientId(patientId));
 	}
 }

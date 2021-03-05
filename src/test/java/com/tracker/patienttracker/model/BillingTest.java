@@ -55,7 +55,13 @@ public class BillingTest {
 		billing.setPaid(true);
 		assertEquals(billing.isPaid(),true);
 	}
-
+	@Test
+	void allArgsConstructorTest()
+	{
+		Billing billing =new Billing(1, null, null, null, 0, null, null, false, null, null, null);
+		String str=billing.toString();
+		assertEquals(billing.toString(),str);
+	}
 	// Validation Tests
 	
 	private static Validator validator;
@@ -90,5 +96,3 @@ public class BillingTest {
 }
 
 }
-
-

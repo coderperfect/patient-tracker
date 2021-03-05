@@ -34,7 +34,6 @@ public class TreatmentRepositoryTest {
 	
 	@Test
 	@Order(1)
-    @Rollback(false)
 	public void testUpdateTreatments() {
 		
 		Optional<Treatment> opTreatment = treatmentRepository.findById(42);
@@ -49,7 +48,6 @@ public class TreatmentRepositoryTest {
 
 	@Test
 	@Order(2)
-    @Rollback(false)
 	public void testTreatmentsDetails() {
 		Optional<Treatment> opTreatment = treatmentRepository.findById(42);
 		Treatment treatment = opTreatment.get();
@@ -58,7 +56,6 @@ public class TreatmentRepositoryTest {
 
 	@Test
 	@Order(3)
-    @Rollback(false)
 	public void testDietDetails() {
 		Optional<Treatment> opTreatment = treatmentRepository.findById(41);
 		Treatment treatment = opTreatment.get();

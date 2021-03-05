@@ -68,4 +68,9 @@ public class InPatientRecordService {
 	public List<InPatientRecord> getInPatientRecordByPatientId(int patientId) {
 		return inPatientRecordRepository.getInPatientRecordsByPatientId(patientId);
 	}
+	
+	@Transactional
+	public InPatientRecord updateInPatientRecordBilling(InPatientRecord inPatientRecord) {
+		return inPatientRecordRepository.save(inPatientRecord);
+	}
 }
