@@ -30,6 +30,7 @@ import lombok.extern.slf4j.Slf4j;
 public class CustomUserDetailsServiceImpl implements CustomUserDetailsService {
 	@Autowired
 	private UserRepository userdao;
+	
 	@Autowired
 	private JwtUtil jwtutil;
 

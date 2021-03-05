@@ -41,6 +41,7 @@ class BillingControllerTest {
 	//Security Beans
 	@MockBean
 	CustomUserDetailsService customUserDetailsService;
+	
 	@MockBean
 	JwtUtil jwtUtil;
 	
