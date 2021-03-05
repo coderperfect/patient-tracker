@@ -35,7 +35,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		http.csrf().disable().httpBasic().and().authorizeRequests()
 		.antMatchers("/billing/**").hasAnyAuthority("ROLE_ADMIN","ROLE_CLERK")
 		.antMatchers("/inpatientrecord/**").hasAnyAuthority("ROLE_ADMIN")
-		.antMatchers("/testreport/**").hasAnyAuthority("ROLE_ADMIN")
+		.antMatchers("/testreport/").hasAnyAuthority("ROLE_ADMIN")
+		.antMatchers("/testreport/requested").hasAnyAuthority("ROLE_ADMIN")
 		.antMatchers("/patient/getallpatients").hasAnyAuthority("ROLE_ADMIN","ROLE_CLERK")
 		.antMatchers("/patient/updatepatient").hasAnyAuthority("ROLE_ADMIN","ROLE_CLERK")
 		.antMatchers("/treatment/update").hasAnyAuthority("ROLE_ADMIN","ROLE_DOCTOR","ROLE_PATIENT")
@@ -46,6 +47,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		.antMatchers("/users/login").permitAll()
 		.antMatchers("/users/registration").permitAll()
 		.antMatchers("/doctors/**").permitAll()
+		.antMatchers("/auth/forgotpassword").permitAll()
+		.antMatchers("/auth/forgotuserid").permitAll()
+		.antMatchers("/auth/resetpassword").hasAnyAuthority("ROLE_ADMIN","ROLE_DOCTOR","ROLE_PATIENT","ROLE_CLERK")
 		.anyRequest().authenticated();
 		
 		 http.addFilterBefore(authenticationTokenFilterBean(), UsernamePasswordAuthenticationFilter.class);
