@@ -27,7 +27,7 @@ public class PatientController {
 	PatientService patientService;
 	
 	@Autowired
-	private PatientRecordService patientRecordService;
+	PatientRecordService patientRecordService;
 	
 	@GetMapping("/details/{patientId}")
 	public Patient getPatientDetails(@PathVariable int patientId) 
@@ -35,11 +35,6 @@ public class PatientController {
 		return patientService.getPatientDetails(patientId);
 	}
   
-	@PostMapping
-	public void addPatient(@RequestBody Patient patient)
-	{ 
-		patientService.addPatient(patient);
-	}
 	
 	@GetMapping("/getallpatients")
 	public List<Patient> getAllPatientList()
@@ -47,11 +42,7 @@ public class PatientController {
 		return patientService.getPatientList();
 	}
 	
-	@PutMapping("/updatepatient/{patientId}")
-	public void updatePatient(@RequestBody Patient patient, @PathVariable int patientId)
-	{
-		patientService.updatePatient(patient, patientId);
-	}
+	
 	
 	@GetMapping(value = "/patientrecord/{patientId}")
 	public ResponseEntity<PatientRecord> getPatientRecordForPatientId(@PathVariable(value = "patientId") int patientId){

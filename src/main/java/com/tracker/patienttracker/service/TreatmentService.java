@@ -30,7 +30,7 @@ public class TreatmentService {
 		List<Treatment> updatedTreatments = treatmentRepository.saveAll(treatments);
 	}
 
-	public Treatment getTreatmentDetails( int treatmentId)
+	public Treatment getTreatmentDetails( int treatmentId) throws TreatmentNotFoundException
 	{   
 		return treatmentRepository.findById(treatmentId).get();
 	}
@@ -48,7 +48,7 @@ public class TreatmentService {
 		treatmentRepository.save(treatment);
 		
 	}
-	public Set<Treatment> getTreatmentHistory(int patientId) //can be used as diet list also
+	public Set<Treatment> getTreatmentHistory(int patientId) 
 	{
 		return patientRecordService.getPatientRecordForPatientId(patientId).getTreatments();
 	}

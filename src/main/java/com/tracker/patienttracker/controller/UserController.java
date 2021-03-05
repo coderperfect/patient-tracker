@@ -3,6 +3,8 @@ package com.tracker.patienttracker.controller;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -22,14 +24,16 @@ public class UserController {
 	UserService userService;
 	
 	@PatchMapping("/approval/{userId}")
-	public void userApproval(@PathVariable("userId") int userId)
+	public ResponseEntity<?> userApproval(@PathVariable("userId") int userId)
 	{	System.out.println("In the user App");
-		userService.userApproval(userId);
+		//userService.userApproval(userId);
+		return new ResponseEntity<>(userService.userApproval(userId),HttpStatus.OK);
 	}
 	@PatchMapping("/denial/{userId}")
-	public void userDenial(@PathVariable("userId") int userId)
+	public ResponseEntity<?> userDenial(@PathVariable("userId") int userId)
 	{
-		userService.userDenial(userId);
+		//userService.userDenial(userId);
+		return new ResponseEntity<>(userService.userDenial(userId),HttpStatus.OK);
 	}
 	@GetMapping()
 	public Set<User> userApprovalPendingList()

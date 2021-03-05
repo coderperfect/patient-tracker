@@ -7,12 +7,16 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import com.tracker.patienttracker.model.Billing;
 import com.tracker.patienttracker.security.JwtUtil;
@@ -29,14 +33,27 @@ public class UserControllerTest {
 		JwtUtil jwtUtil;
 		@MockBean
 		UserService userService;
-//		
-//	@Test
-//	@Order(1)
-//	@WithMockUser(authorities = "ROLE_ADMIN")
-//	void testGetApproval() throws Exception {
-//		when(userService.userApproval(1002)).thenReturn(true);
-//		
-//		ResultActions actions = mockMvc.perform(patch("/user/approval/1002"));
-//		actions.andExpect(status().isOk());
-//	}
+		
+	@Test
+	@Order(1)
+	@WithMockUser(authorities = "ROLE_ADMIN")
+	void testGetApproval() throws Exception {
+		Mockito.when(userService.userApproval(1002)).thenReturn("good");
+		mockMvc.perform(MockMvcRequestBuilders.patch("/user/approval/{userId}",1002)
+				.param("isComplete", "true")
+				.contentType(MediaType.APPLICATION_JSON))
+				.andExpect(MockMvcResultMatchers.status().isOk());
 }
+	@Test
+	@Order(2)
+	@WithMockUser(authorities = "ROLE_ADMIN")
+	void testGetDenial() throws Exception {
+		Mockito.when(userService.userDenial(1002)).thenReturn("good");
+		mockMvc.perform(MockMvcRequestBuilders.patch("/user/denial/{userId}",1002)
+				.param("isComplete", "true")
+				.contentType(MediaType.APPLICATION_JSON))
+				.andExpect(MockMvcResultMatchers.status().isOk());
+}
+}
+
+

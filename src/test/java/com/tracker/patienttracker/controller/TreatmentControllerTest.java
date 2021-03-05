@@ -41,7 +41,7 @@ public class TreatmentControllerTest {
 	JwtUtil jwtUtil;
 	
 	@Test
-	@WithMockUser(authorities = {"ROLE_DOCTOR"})
+	@WithMockUser(authorities = {"ROLE_DOCTOR,ROLE_PATIENT"})
 	public void getTreatmentHistoryTest() throws Exception {
 		Treatment treatment1 = new Treatment(1,"Description",12.50,"DietDescription",new PatientRecord());
 		Treatment treatment2 = new Treatment(2,"Description",12.50,"DietDescription",new PatientRecord());

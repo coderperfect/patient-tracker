@@ -16,18 +16,20 @@ public class UserService {
 	UserRepository userRepository;
 	
 	@Transactional
-	public void userApproval(int userId)
+	public String userApproval(int userId)
 	{
 		User u=userRepository.findById(userId).get();
 		u.setApproved(1);
 		userRepository.save(u);
+		return("Sucessfully Approved");
 	}
 	@Transactional
-	public void userDenial(int userId)
+	public String userDenial(int userId)
 	{
 		User u=userRepository.findById(userId).get();
 		u.setApproved(-1);
 		userRepository.save(u);
+		return("Sucessfully Denied");
 	}
 	public Set<User> userApprovalPendingList()
 	{

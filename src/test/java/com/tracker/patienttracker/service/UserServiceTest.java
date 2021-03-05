@@ -25,16 +25,16 @@ public class UserServiceTest {
 	@Test
 	@Order(2)
 	void testGetApproval()
-	{
-		userService.userApproval(1);
-		assertEquals(1,1);
+	{	
+		String str=userService.userApproval(1);
+		assertEquals(str,"Sucessfully Approved");
 	}
 	@Test
 	@Order(3)
 	void testGetDenial()
 	{
-		userService.userDenial(1);
-		assertEquals(1,1);
+		String str=userService.userDenial(1);
+		assertEquals(str,"Sucessfully Denied");
 	}
 	@Test
 	@Order(4)

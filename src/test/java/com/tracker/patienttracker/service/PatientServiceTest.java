@@ -45,16 +45,6 @@ public class PatientServiceTest {
 		assertEquals(patientService.getPatientDetails(200).getPatientId(),patient.getPatientId());
 	}
 	@Test
-	void testUpdatePatient()
-	{  
-		Patient patient =new Patient();
-		patient.setPatientId(200);
-		Optional<Patient> optionalPatient = Optional.of(patient);
-		//patientService.updatePatient(patient, 200);
-		when(patientRepository.findById(patient.getPatientId())).thenReturn(optionalPatient);
-		when(patientRepository.save(patient)).thenReturn(patient);		
-	}
-	@Test
 	void testGetPatientList()
 	{  
 		List<Patient> p=patientRepository.findAll();
