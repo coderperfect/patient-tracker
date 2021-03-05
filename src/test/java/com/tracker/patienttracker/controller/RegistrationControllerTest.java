@@ -22,7 +22,6 @@ import com.tracker.patienttracker.model.UserData;
 import com.tracker.patienttracker.security.JwtUtil;
 import com.tracker.patienttracker.service.CustomUserDetailsService;
 import com.tracker.patienttracker.service.HelpService;
-import com.tracker.patienttracker.service.LoginService;
 import com.tracker.patienttracker.service.RegistrationService;
 
 @ExtendWith(SpringExtension.class)
@@ -36,8 +35,6 @@ class RegistrationControllerTest {
 	private MockMvc mvc;
 	@MockBean
 	private RegistrationService registrationService;
-	@MockBean
-	LoginService loginService;
 	@MockBean
 	HelpService helpService;
 	@MockBean
@@ -64,6 +61,32 @@ class RegistrationControllerTest {
         String json = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(registrationData);
 		when(registrationService.registration(registrationData)).thenReturn("");		
         MvcResult mvcResult=mvc.perform(MockMvcRequestBuilders.post("/users/registration")
+                .contentType(MediaType.APPLICATION_JSON).content(json)).andReturn();
+        int result=mvcResult.getResponse().getStatus();        
+		assertEquals(400,result);
+	}
+	
+	@Test
+	void registration2TestPass() throws Exception {
+		RegistrationData registrationData=new RegistrationData("abc", "abc", "male", "1998-07-22", "1234567890", 
+				"aaaas@123", "123sas", "ROLE_DOCTOR", "MS", "HEART", 123.4, "O+ve", 1, 1 , 2);
+		ObjectMapper mapper = new ObjectMapper();
+        String json = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(registrationData);
+		when(registrationService.registration(registrationData)).thenReturn("Thanks For Registiring Please wait for the Approval Your UserId is 1");		
+        MvcResult mvcResult=mvc.perform(MockMvcRequestBuilders.put("/users/registration")
+                .contentType(MediaType.APPLICATION_JSON).content(json)).andReturn();
+        String content=mvcResult.getResponse().getContentAsString();
+        assertEquals(content, "Thanks For Registiring Please wait for the Approval Your UserId is 1");
+	}
+	
+	@Test
+	void registration2TestFailed() throws Exception {
+		RegistrationData registrationData=new RegistrationData("abc", "abc", "male", "1998-07-22", "1234567890", 
+				"aaaas", "123sas", "ROLE_DOCTOR", "MS", "HEART", 123.4, "O+ve", 1, 1 , 2);
+		ObjectMapper mapper = new ObjectMapper();
+        String json = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(registrationData);
+		when(registrationService.registration(registrationData)).thenReturn("");		
+        MvcResult mvcResult=mvc.perform(MockMvcRequestBuilders.put("/users/registration")
                 .contentType(MediaType.APPLICATION_JSON).content(json)).andReturn();
         int result=mvcResult.getResponse().getStatus();        
 		assertEquals(400,result);

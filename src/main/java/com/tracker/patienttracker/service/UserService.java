@@ -1,5 +1,6 @@
 package com.tracker.patienttracker.service;
 
+import java.util.Date;
 import java.util.Set;
 
 import javax.transaction.Transactional;
@@ -14,6 +15,15 @@ import com.tracker.patienttracker.repository.UserRepository;
 public class UserService {
 	@Autowired
 	UserRepository userRepository;
+	
+	public User getUserByContactAndDateOfBirth(String contactNo,Date dob) {
+		
+		return userRepository.findByContactNoAndDateOfBirth(contactNo, dob);
+	}
+	
+	public void saveUser(User user) {
+		userRepository.save(user);
+	}
 	
 	@Transactional
 	public String userApproval(int userId)

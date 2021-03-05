@@ -67,7 +67,21 @@ public class JwtUtil {
 		String compact = Jwts.builder().setSubject(userDetails.getUsername())
 				.setIssuedAt(new Date(System.currentTimeMillis()))
 				.claim("role", authorities)
-				.setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 650))// token for 15 min
+				.setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60))// token for 60 min
+				.signWith(SignatureAlgorithm.HS256, secretkey).compact();
+		return compact;
+	}
+	
+	public String generateTokenForReset(UserDetails userDetails,String role) {
+//		Map<String, Object> claims = new HashMap<>();
+//		claims.put("role",userDetails.getAuthorities());
+		final String authorities = userDetails.getAuthorities().stream()
+                .map(GrantedAuthority::getAuthority)
+                .collect(Collectors.joining(","));
+		String compact = Jwts.builder().setSubject(userDetails.getUsername())
+				.setIssuedAt(new Date(System.currentTimeMillis()))
+				.claim("role", authorities)
+				.setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 3))// token for 3 min
 				.signWith(SignatureAlgorithm.HS256, secretkey).compact();
 		return compact;
 	}

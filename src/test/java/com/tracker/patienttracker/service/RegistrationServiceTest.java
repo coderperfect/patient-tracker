@@ -16,6 +16,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import com.tracker.patienttracker.dto.RegistrationData;
 import com.tracker.patienttracker.model.Admin;
 import com.tracker.patienttracker.model.Clerk;
+import com.tracker.patienttracker.model.Consultation;
 import com.tracker.patienttracker.model.Doctor;
 import com.tracker.patienttracker.model.Patient;
 import com.tracker.patienttracker.model.PatientRecord;
@@ -54,11 +55,17 @@ public class RegistrationServiceTest {
 	DoctorService docService;
 	@Mock
 	PatientRecordService prService;
+	@Mock
+	PatientRecord patientRecord;
+	@Mock
+	Consultation consult;
+	@Mock
+	ConsultationService consultationService;
 	
 	@Test
 	public void registrationTestForDoctor() {
 		RegistrationData registrationData=new RegistrationData("abc", "abc", "male", "1998-07-22", "1234567890", 
-				"aaaas@123", "123sas", "ROLE_DOCTOR", "MS", "HEART", 123.4, "O+ve", 1, 1, 2);
+				"aaaas@123", "123sas", "ROLE_DOCTOR", "MS", "HEART", 123.4, "O+ve", 1, 1, 1);
 		Date dateOfBirth=new DateUtil().convertToDate1("1998-07-22");
 		User obj=new User(1, "abc", "abc", "male", dateOfBirth, "1234567890", 
 				"aaaas@123", "123sas", "ROLE_DOCTOR", 1);
@@ -76,11 +83,11 @@ public class RegistrationServiceTest {
 	@Test
 	public void registrationTestForPatient() {
 		RegistrationData registrationData=new RegistrationData("abc", "abc", "male", "1998-07-22", "1234567890", 
-				"aaaas@123", "123sas", "ROLE_PATIENT", "MS", "HEART", 123.4, "O+ve", 1, 1, 2);
+				"aaaas@123", "123sas", "ROLE_PATIENT", "MS", "HEART", 123.4, "O+ve", 1, 1, 1);
 		Date dateOfBirth=new DateUtil().convertToDate1("1998-07-22");
 		User obj=new User(1, "abc", "abc", "male", dateOfBirth, "1234567890", 
 				"aaaas@123", "123sas", "ROLE_DOCTOR", 1);
-		Doctor obj2=new Doctor(1,"MS", "HEART",123.4,obj);
+		
 		registrationService.setObj(obj);
 		when(constraintValidation.validationCheck(obj)).thenReturn("");		
 		when(userRepository.save(obj)).thenReturn(obj);		
@@ -88,13 +95,16 @@ public class RegistrationServiceTest {
 		registrationService.setObj2(obj1);
 		when(constraintValidation.validationCheck(obj1)).thenReturn("");
 		when(patientRepository.save(obj1)).thenReturn(obj1);
-		when(docService.getDoctor(1)).thenReturn(obj2);
-		PatientRecord patientRecord=new PatientRecord();
-		patientRecord.setPatient(obj1);
-		patientRecord.setRecordId(1);
-		patientRecord.setDate(new Date());
-		patientRecord.setDoctor(obj2);
 		registrationService.setPatientRecord(patientRecord);
+		Doctor obj2=new Doctor(1,"MS", "HEART",123.4,obj);
+		when(docService.getDoctor(1)).thenReturn(obj2);		
+		//registrationService.setConsult(consult);
+		when(patientRecord.getPatient()).thenReturn(obj1);
+		registrationService.setConsultationService(consultationService);
+		consult.setPatientId(obj1);
+		consult.setDoctorId(obj2);
+		consult.setDate(new Date());
+		//when(consultationService.save(consult))
 		when(prService.addPatientRecord(patientRecord)).thenReturn(patientRecord);
 		assertEquals("Thanks For Registiring Please wait for the Approval Your UserId is 1", 
 				registrationService.registration(registrationData));
@@ -103,7 +113,7 @@ public class RegistrationServiceTest {
 	@Test
 	public void registrationTestForClerk() {
 		RegistrationData registrationData=new RegistrationData("abc", "abc", "male", "1998-07-22", "1234567890", 
-				"aaaas@123", "123sas", "ROLE_CLERK", "MS", "HEART", 123.4, "O+ve", 1, 1, 2);
+				"aaaas@123", "123sas", "ROLE_CLERK", "MS", "HEART", 123.4, "O+ve", 1, 1, 1);
 		Date dateOfBirth=new DateUtil().convertToDate1("1998-07-22");
 		User obj=new User(1, "abc", "abc", "male", dateOfBirth, "1234567890", 
 				"aaaas@123", "123sas", "ROLE_CLERK", 1);
@@ -120,7 +130,7 @@ public class RegistrationServiceTest {
 	@Test
 	public void registrationTestForAdmin() {
 		RegistrationData registrationData=new RegistrationData("abc", "abc", "male", "1998-07-22", "1234567890", 
-				"aaaas@123", "123sas", "ROLE_ADMIN", "MS", "HEART", 123.4, "O+ve", 1, 1, 2);
+				"aaaas@123", "123sas", "ROLE_ADMIN", "MS", "HEART", 123.4, "O+ve", 1, 1, 1);
 		Date dateOfBirth=new DateUtil().convertToDate1("1998-07-22");
 		User obj=new User(1, "abc", "abc", "male", dateOfBirth, "1234567890", 
 				"aaaas@123", "123sas", "ROLE_ADMIN", 1);
@@ -137,4 +147,3 @@ public class RegistrationServiceTest {
 	
 	
 }
-

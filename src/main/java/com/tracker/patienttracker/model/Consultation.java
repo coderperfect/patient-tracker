@@ -21,11 +21,11 @@ import lombok.Setter;
 import lombok.ToString;
 
 @Entity
+@ToString
+@NoArgsConstructor
 @Getter
 @Setter
 @AllArgsConstructor
-@ToString
-@NoArgsConstructor
 @Table(name = "consultation")
 public class Consultation {
 	@Id

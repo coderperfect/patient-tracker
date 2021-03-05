@@ -1,5 +1,6 @@
 package com.tracker.patienttracker.repository;
 
+import java.util.Date;
 import java.util.Optional;
 import java.util.Set;
 
@@ -16,5 +17,7 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 	public  Set<User> userApprovalPendingList();
 	
 	public Optional<User> findByUserIdAndRoleAndPassword(int id, String role, String password);
+
+	public User findByContactNoAndDateOfBirth(String contactNo, Date dob);
 	
 }

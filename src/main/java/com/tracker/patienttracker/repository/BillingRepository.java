@@ -12,4 +12,6 @@ public interface BillingRepository extends JpaRepository<Billing, Integer> {
 	//Select * from Billing where patientId = patientId
 	@Query(value = "Select b From Billing b left join b.patient p where p.patientId=:patientId")
 	public Billing getBillingByPatientId(int patientId);
+	
+	
 }

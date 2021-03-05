@@ -88,9 +88,10 @@ public class RegistrationService {
 		obj.setPassword(password);
 		obj.setAddress(address);
 		obj.setRole(role);	
-		if(registrationData.getUserId()!=0)
+		if(registrationData.getUserId()!=-1)
 			obj.setUserId(registrationData.getUserId());
 		
+		System.out.println(registrationData);
 		String errors=constraintValidation.validationCheck(obj);
 		System.out.println(errors);
 		if(!errors.equals(""))

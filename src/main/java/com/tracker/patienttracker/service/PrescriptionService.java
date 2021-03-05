@@ -52,4 +52,8 @@ public class PrescriptionService {
 	public Prescription updatePrescription(Prescription prescription) {
     return prescriptionRepository.save(prescription);
 	}
+	
+	public Prescription getPrescriptionById(int prescriptionId) {
+		return prescriptionRepository.findById(prescriptionId).get();
+	}
 }

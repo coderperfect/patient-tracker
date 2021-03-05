@@ -13,6 +13,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.FutureOrPresent;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.PastOrPresent;
@@ -54,7 +55,7 @@ public class Billing {
 	@NotNull(message="Please provide TimeStamp")
 	private LocalDateTime timestamp;
 
-	@PastOrPresent
+	@FutureOrPresent
 	@NotNull(message="Please provide Due Date")
 	private LocalDateTime dueDate;
 
@@ -65,7 +66,7 @@ public class Billing {
 	@JoinColumn(name = "userId")
 	private User user;          //Creator of the bill
 
-	@OneToMany(cascade = CascadeType.ALL)
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "bill")
 	private Set<Consultation> consultations;
 	
 	@OneToMany(cascade = CascadeType.ALL)

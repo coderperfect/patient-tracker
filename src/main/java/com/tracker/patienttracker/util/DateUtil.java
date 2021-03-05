@@ -5,6 +5,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import javax.xml.bind.DatatypeConverter;
+
 public class DateUtil {
 
 	public static Date convertToDate(String date) {
@@ -28,5 +30,9 @@ public class DateUtil {
 			e.printStackTrace();
 		}
 		return convertedDate;
+	}
+	
+	public static Date convertIsoStringToDate(String isoDate) {
+		return DatatypeConverter.parseDateTime(isoDate).getTime();
 	}
 }
